@@ -9,6 +9,11 @@
     padding: 10px 20px;
     margin-left: 50px;
     width: max-content;
+    border: 1px solid var(--textColor);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
   }
   
   .editor {
@@ -16,6 +21,8 @@
     gap: 20px;
     height: 700px;
     position: relative;
+    background-color: var(--softBg);
+    color: var(--textColor);
   }
   
   .button,
@@ -46,11 +53,12 @@
   }
   
   .input{
-    padding: 50px;
+    padding: 30px;
+    margin-bottom: 20px;
     font-size: 64px;
     border: none;
     outline: none;
-    background-color: transparent;
+    background-color: var(--softBg);
     color: var(--textColor);
   }
   

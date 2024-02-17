@@ -1,78 +1,55 @@
-import React from "react";
+"use client"
+import React, { useState, useEffect } from "react";
 import styles from "./categoryList.module.css";
 import Link from "next/link";
 import Image from "next/image";
 
 const CategoryList = () => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch("http://localhost:3000/api/categories", {
+          cache: "no-store",
+        });
+
+        if (!res.ok) {
+          throw new Error("Failed to fetch data");
+        }
+
+        const jsonData = await res.json();
+        setData(jsonData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Popular Categories</h1>
       <div className={styles.categories}>
+        {data.map((item) => (
           <Link
-            href="/blog?cat=style"
-            className={`${styles.category} ${styles.style}`}
-            >
+            href={`/blog?cat=${item.slug}`}
+            className={`${styles.category} ${styles[item.slug]}`}
+            key={item._id}
+          >
+            {item.img && (
               <Image
-                src="/style.png"
+                src={item.img}
                 alt=""
                 width={32}
                 height={32}
                 className={styles.image}
               />
-              Lifestyle
+            )}
+            {item.title}
           </Link>
-          <Link
-            href="/blog?cat=style"
-            className={`${styles.category} ${styles.travel}`}
-            >
-              <Image
-                src="/travel.png"
-                alt=""
-                width={32}
-                height={32}
-                className={styles.image}
-              />
-              Travel
-          </Link>
-          <Link
-            href="/blog?cat=style"
-            className={`${styles.category} ${styles.culture}`}
-            >
-              <Image
-                src="/culture.png"
-                alt=""
-                width={32}
-                height={32}
-                className={styles.image}
-              />
-              Culture
-          </Link>
-          <Link
-            href="/blog?cat=style"
-            className={`${styles.category} ${styles.coding}`}
-            >
-              <Image
-                src="/coding.png"
-                alt=""
-                width={32}
-                height={32}
-                className={styles.image}
-              />
-              Coding
-          </Link>
-          <Link
-            href="/blog?cat=style"
-            className={`${styles.category} ${styles.style}`}
-            >
-              <Image
-                src="/style.png"
-                alt=""
-                width={32}
-                height={32}
-                className={styles.image}
-              />
-              Tech
-          </Link>
+        ))}
       </div>
     </div>
   );

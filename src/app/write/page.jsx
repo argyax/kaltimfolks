@@ -1,5 +1,4 @@
 "use client";
-
 import Image from "next/image";
 import styles from "./writePage.module.css";
 import { useEffect, useState } from "react";
@@ -85,7 +84,7 @@ const WritePage = () => {
         desc: value,
         img: media,
         slug: slugify(title),
-        catSlug: catSlug || "style", //If not selected, choose the general category
+        catSlug: catSlug //If not selected, choose the general category
       }),
     });
 
@@ -103,13 +102,16 @@ const WritePage = () => {
         className={styles.input}
         onChange={(e) => setTitle(e.target.value)}
       />
+      
       <select className={styles.select} onChange={(e) => setCatSlug(e.target.value)}>
-        <option value="style">style</option>
-        <option value="fashion">fashion</option>
-        <option value="food">food</option>
-        <option value="culture">culture</option>
-        <option value="travel">travel</option>
-        <option value="coding">coding</option>
+        <option value="culture">Culture</option>
+        <option value="lifestyle">Lifestyle</option>
+        <option value="movies">Movies</option>
+        <option value="sports">Sports</option>
+        <option value="technology">Technology</option>
+        <option value="music">Music</option>
+        <option value="ikn">IKN</option>
+        <option value="politics">Politics</option>
       </select>
       <div className={styles.editor}>
         <button className={styles.button} onClick={() => setOpen(!open)}>

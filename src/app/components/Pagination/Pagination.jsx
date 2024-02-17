@@ -7,19 +7,94 @@ import { useRouter } from "next/navigation";
 const Pagination = ({ page, hasPrev, hasNext }) => {
   const router = useRouter();
 
+  const goToPage = (pageNum) => {
+    router.push(`?page=${pageNum}`);
+  };
+
+  const renderPageNumbers = () => {
+    const pageNumbers = [];
+    const totalPages = 10; // Total number of pages to display
+    const visiblePages = 5; // Number of pages visible at a time
+
+    if (totalPages <= visiblePages) {
+      // If total pages are less than or equal to visible pages, display all pages
+      for (let i = 1; i <= totalPages; i++) {
+        pageNumbers.push(
+          <span
+            key={i}
+            className={`${styles.pageNumber} ${
+              page === i ? styles.activePage : ""
+            }`}
+            onClick={() => goToPage(i)}
+          >
+            {i}
+          </span>
+        );
+      }
+    } else {
+      // If total pages are more than visible pages, add ellipsis in between
+      const leftEllipsis = page > 2;
+      const rightEllipsis = page < totalPages - 1;
+
+      let startPage, endPage;
+      if (page <= Math.ceil(visiblePages / 2)) {
+        startPage = 1;
+        endPage = visiblePages;
+      } else if (page >= totalPages - Math.floor(visiblePages / 2)) {
+        startPage = totalPages - visiblePages + 1;
+        endPage = totalPages;
+      } else {
+        startPage = page - Math.floor(visiblePages / 2);
+        endPage = page + Math.floor(visiblePages / 2);
+      }
+
+      for (let i = startPage; i <= endPage; i++) {
+        pageNumbers.push(
+          <span
+            key={i}
+            className={`${styles.pageNumber} ${
+              page === i ? styles.activePage : ""
+            }`}
+            onClick={() => goToPage(i)}
+          >
+            {i}
+          </span>
+        );
+      }
+
+      if (leftEllipsis) {
+        pageNumbers.unshift(
+          <span key="left-ellipsis" className={styles.ellipsis}>
+            ...
+          </span>
+        );
+      }
+      if (rightEllipsis) {
+        pageNumbers.push(
+          <span key="right-ellipsis" className={styles.ellipsis}>
+            ...
+          </span>
+        );
+      }
+    }
+
+    return pageNumbers;
+  };
+
   return (
     <div className={styles.container}>
       <button
         className={styles.button}
         disabled={!hasPrev}
-        onClick={() => router.push(`?page=${page - 1}`)}
+        onClick={() => goToPage(page - 1)}
       >
         Previous
       </button>
+      {renderPageNumbers()}
       <button
         disabled={!hasNext}
         className={styles.button}
-        onClick={() => router.push(`?page=${page + 1}`)}
+        onClick={() => goToPage(page + 1)}
       >
         Next
       </button>

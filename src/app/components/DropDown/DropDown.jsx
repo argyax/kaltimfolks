@@ -1,12 +1,22 @@
 "use client"
-import Link from "next/link";
 import React from "react";
 import { useState, useEffect } from "react";
-import styles from "./menuCategories.module.css";
+import styles from "./dropdown.module.css";
+import { Dropdown, DropdownToggle, DropdownItem, DropdownMenu } from "react-bootstrap";
+import Link from "next/link";
 
-const MenuCategories = () => {
+const CustomDropdown = () => {
+  const [open, setOpen] = useState(false);
 
   const [data, setData] = useState([]);
+
+  const handleMouseEnter = () => {
+    setOpen(true);
+  };
+
+  const handleMouseLeave = () => {
+    setOpen(false);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,8 +38,14 @@ const MenuCategories = () => {
 
     fetchData();
   }, [])
+
   return (
-    <div className={styles.categoryList}>
+    <Dropdown className={styles.dropdown} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+      <DropdownToggle variant="success" id="dropdown-basic" className={styles.button}>
+        Categories
+      </DropdownToggle>
+      <DropdownMenu aria-label="News Categories" className={styles.menu}>
+        <DropdownItem>
           {data.map((item) => (
             <Link
               href={`/blog?cat=${item.slug}`}
@@ -39,8 +55,10 @@ const MenuCategories = () => {
               {item.title}
             </Link>
           ))}
-    </div>
+        </DropdownItem>
+      </DropdownMenu>
+    </Dropdown>
   );
 };
 
-export default MenuCategories;
+export default CustomDropdown;

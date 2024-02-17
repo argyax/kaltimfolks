@@ -42,7 +42,7 @@
   }
   
 
-  .socialButton:nth-child(5) {
+  .socialButton:nth-child(6) {
     color: white;
     background-color: black;
   }
@@ -55,11 +55,11 @@
     align-items: center;
   }
 
-  .socialButton:nth-child(7) {
+  .socialButton:nth-child(8) {
     background-color: #ff5555;
   }
   
-  .socialButton:nth-child(8) {
+  .socialButton:nth-child(9) {
     background-color: #087bea;
   }
 

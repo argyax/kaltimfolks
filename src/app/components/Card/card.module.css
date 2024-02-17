@@ -30,6 +30,7 @@
     color: crimson;
     font-weight: 500;
     z-index: 300;
+    text-transform: uppercase;
   }
   
   .desc {

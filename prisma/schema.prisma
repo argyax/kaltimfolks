@@ -7,7 +7,7 @@ generator client {
 
 datasource db {
   provider = "mongodb"
-  url      = env("mongodb+srv://root:randompassword@cluster0.ab1cd.mongodb.net/mydb?retryWrites=true&w=majority")
+  url      = env("DATABASE_URL")
 }
 
 model Account {
@@ -61,7 +61,6 @@ model Category {
   id    String  @id @default(cuid()) @map("_id")
   slug  String  @unique
   title String
-  img   String?
   Posts Post[]
 }
 

@@ -1,6 +1,6 @@
 "use client";
 import { signIn, useSession } from "next-auth/react";
-import styles from "./loginPage.module.css";
+import styles from "./signupPage.module.css";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Image from "next/image";
@@ -10,6 +10,7 @@ const LoginPage = () => {
   const { status } = useSession();
   const router = useRouter();
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSignInWithEmail = async () => {
@@ -45,6 +46,13 @@ const LoginPage = () => {
           className={styles.input}
         />
         <input
+          type="text"
+          placeholder="Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className={styles.input}
+        />
+        <input
           type="password"
           placeholder="Password"
           value={password}
@@ -52,14 +60,14 @@ const LoginPage = () => {
           className={styles.input}/>
 
         <button className={styles.socialButton} onClick={handleSignInWithEmail}>
-          Log In
+          Sign Up
         </button>
         <h4 className={styles.altlog}>or</h4>
         <button className={styles.socialButton} onClick={() => signIn("google")}>
-          Log in with Google
+          Sign Up with Google
         </button>
         <button className={styles.socialButton} onClick={() => signIn("facebook")}>
-          Log in with Facebook
+          Sign Up with Facebook
         </button>
       </div>
     </div>

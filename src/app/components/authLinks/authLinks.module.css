@@ -1,5 +1,6 @@
 .link {
     cursor: pointer;
+    font-size: 20px;
   }
   
   .burger {
@@ -10,7 +11,25 @@
     cursor: pointer;
     display: none;
   }
-  
+
+  .button1 {
+    padding: 10px 20px;
+    border: none;
+    background-color: var(--softBg);
+    color: var(--textColor);
+    cursor: pointer;
+    border-radius: 10px;
+  }
+
+  .button2 {
+    padding: 10px 20px;
+    border: none;
+    background-color: var(--textColor);
+    color:  var(--bg);
+    cursor: pointer;
+    border-radius: 10px;
+  }
+
   .line {
     width: 100%;
     height: 2px;
@@ -21,11 +40,13 @@
     display: none;
   }
   
-  @media screen and (max-width: 640px) {
+  @media screen and (max-width: 1024px) {
     .burger {
       display: flex;
     }
-  
+    .button1, .button2 {
+      display: none;
+    }
     .link{
       display: none;
     }
