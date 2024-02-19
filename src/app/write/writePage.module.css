@@ -36,10 +36,11 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    color: var(--textColor);
   }
   
   .addButton {
-    border-color: #1a8917;
+    border: 1px solid var(--textColor);
   }
   
   .add {

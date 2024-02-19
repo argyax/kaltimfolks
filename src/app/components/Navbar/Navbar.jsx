@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./navbar.module.css";
-import Image from "next/image";
+import { FaInstagram, FaTiktok} from 'react-icons/fa';
+import {FaXTwitter} from 'react-icons/fa6'
 import Link from "next/link";
 import AuthLinks from "../authLinks/AuthLinks";
 import ThemeToggle from "../themeToggle/ThemeToggle";
@@ -10,16 +11,16 @@ const Navbar = () => {
   return (
     <div className={styles.container}>
       <div className={styles.social}>
-        <Image src="/instagram.png" alt="instagram" width={24} height={24} />
-        <Image src="/tiktok.png" alt="tiktok" width={24} height={24} />
-        <Image src="/youtube.png" alt="youtube" width={24} height={24} />
+        <Link href="https://www.instagram.com/kaltimfolks/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><FaInstagram  size={24} /></Link>
+        <Link href="https://x.com/kaltimfolks" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><FaXTwitter size={24} /></Link>
+        <Link href="https://www.tiktok.com/@kaltimfolks" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><FaTiktok size={24} /></Link>
       </div>
       <div className={styles.links}>
-      <Link href="/" className={styles.logo}>KALTIMFOLKS.</Link>
-      <div className={styles.toggle}><ThemeToggle /></div>
-        <div className={styles.cat}><DropDown /></div>
-        <Link href="/blog" className={styles.link}>About Us</Link>
-        <Link href="/" className={styles.link}>Our Content</Link>
+          <Link href="/" className={styles.logo}>KALTIMFOLKS.</Link>
+          <div className={styles.toggle}><ThemeToggle /></div>
+          <div className={styles.cat}><DropDown /></div>
+          <Link href="/blog" className={styles.link}>About Us</Link>
+          <Link href="/" className={styles.link}>Our Content</Link>
       </div>
       <div className={styles.auth}>
           <AuthLinks />

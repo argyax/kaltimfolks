@@ -26,14 +26,14 @@ const Menu = async ({ page, cat}) => {
   const POST_PER_PAGE = 3;
   return (
     <div className={styles.container}>
+      <h2 className={styles.subtitle}>Discover by topic</h2>
+      <h1 className={styles.title}>Categories</h1>
+      <MenuCategories />
       <h2 className={styles.subtitle}>{"What's hot"}</h2>
       <h1 className={styles.title}>Recent Articles</h1>
       {posts?.map((item) => (
           <MenuPosts withImage={true} item={item} key={item._id}/>
         ))}
-      <h2 className={styles.subtitle}>Discover by topic</h2>
-      <h1 className={styles.title}>Categories</h1>
-      <MenuCategories />
     </div>
   );
 };

@@ -5,7 +5,7 @@ import Comments from "../../components/comments/Comments.jsx";
 
 const getData = async (slug) => {
   const res = await fetch(`http://localhost:3000/api/posts/${slug}`, {
-    cache: "reload",
+    cache: "no-store",
   });
 
   if (!res.ok) {
@@ -15,8 +15,10 @@ const getData = async (slug) => {
   return res.json();
 };
 
-const SinglePage = async ({ params }) => {
+const SinglePage = async ({ searchParams, params }) => {
   const { slug } = params;
+
+  const page = parseInt(searchParams.page) || 1;
 
   const data = await getData(slug);
 
@@ -53,7 +55,7 @@ const SinglePage = async ({ params }) => {
             <Comments postSlug={slug}/>
           </div>
         </div>
-        <Menu />
+        <Menu page={page}/>
       </div>
     </div>
   );
