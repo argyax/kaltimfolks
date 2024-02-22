@@ -1,6 +1,6 @@
 "use client";
 import { signIn, useSession } from "next-auth/react";
-import styles from "./loginPage.module.css";
+import styles from "./isadminPage.module.css";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Image from "next/image";
@@ -13,7 +13,7 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
 
   const handleSignInWithEmail = async () => {
-    const result = await signIn("credentials", { email, password, redirect: true });
+    const result = await signIn("email", { email, password, redirect: false });
     if (result?.error) {
       // Handle sign-in error
       console.error("Sign in error:", result.error);
@@ -37,6 +37,7 @@ const LoginPage = () => {
       <div className={styles.wrapper}>
       <Link href="/" className={styles.logo}>KALTIMFOLKS.</Link>
       <p className={styles.desc}>A place for you to explore the creative culture of East Kalimantan and Indonesians</p>
+      <span className={styles.logo}>ADMIN</span>
         <input
           type="email"
           placeholder="Email"

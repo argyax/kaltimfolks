@@ -8,7 +8,11 @@ const nextConfig = {
     },
     compiler:{
         removeConsole: true,
-    }
+        paths: {
+            "@/*": ["./src/*"]
+          }
+    },
+
 }
 
-module.exports = withContentlayer({ ...nextConfig });
+module.exports = nextConfig;

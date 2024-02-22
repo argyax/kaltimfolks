@@ -1,5 +1,4 @@
 "use client";
-
 import Image from "next/image";
 import styles from "./themeToggle.module.css";
 import { useContext } from "react";
