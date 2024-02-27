@@ -8,10 +8,10 @@ const nextConfig = {
     },
     compiler:{
         removeConsole: true,
-        paths: {
-            "@/*": ["./src/*"]
-          }
     },
+    experimental: {
+        serverActions: true,
+      },
 
 }
 

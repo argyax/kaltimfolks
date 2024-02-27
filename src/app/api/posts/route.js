@@ -1,5 +1,5 @@
-import { getAuthSession } from "@/utils/auth";
-import prisma from "@/utils/connect";
+import { authOptions } from "/Users/max/Projects/kaltimfolks/src/app/api/auth/[...nextauth]/route.ts";
+import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
 export const GET = async (req) => {
@@ -50,7 +50,7 @@ export const GET = async (req) => {
 
 // CREATE A POST
 export const POST = async (req) => {
-  const session = await getAuthSession();
+  const session = await authOptions();
 
   if (!session) {
     return new NextResponse(

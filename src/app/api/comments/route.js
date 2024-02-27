@@ -1,5 +1,5 @@
-import { getAuthSession } from "@/utils/auth";
-import prisma from "@/utils/connect";
+import { authOptions } from "@/auth/[...nextauth]/route";
+import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
 // GET ALL COMMENTS OF A POST
@@ -27,7 +27,7 @@ export const GET = async (req) => {
 
 // CREATE A COMMENT
 export const POST = async (req) => {
-  const session = await getAuthSession();
+  const session = await authOptions();
 
   if (!session) {
     return new NextResponse(

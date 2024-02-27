@@ -1,4 +1,4 @@
-import prisma from "@/utils/connect";
+import prisma from "@/src/lib/prisma";
 import { NextResponse } from "next/server";
 
 // GET SINGLE POST
