@@ -11,7 +11,7 @@ const LoginButton = () => {
     <div className={styles.position}>
       {session && session.user ? (
         <>
-          <Link href={"/"}>{`${session.user.firstName} ${session.user.lastName}`}</Link>
+          <Link href={"/"}>{`${session.user.name}`}</Link>
           <Link
             className="tex-sky-500 hover:text-sky-600 transition-colors"
             href={"/api/auth/signout"}

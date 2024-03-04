@@ -17,19 +17,14 @@ import { passwordStrength } from "check-password-strength";
 import PasswordStrength from "./PasswordStrength";
 import { registerUser } from "@/lib/actions/authActions";
 import { toast } from "react-toastify";
+import styles from "./authComponents.module.css";
 
 const FormSchema = z
   .object({
-    firstName: z
+    name: z
       .string()
-      .min(2, "First name must be atleast 2 characters")
-      .max(45, "First name must be less than 45 characters")
-      .regex(new RegExp("^[a-zA-Z]+$"), "No special character allowed!"),
-    lastName: z
-      .string()
-      .min(2, "Last name must be atleast 2 characters")
-      .max(45, "Last name must be less than 45 characters")
-      .regex(new RegExp("^[a-zA-Z]+$"), "No special character allowed!"),
+      .min(2, "Name must be atleast 2 characters")
+      .max(120, "Name must be less than 120 characters"),
     email: z.string().email("Please enter a valid email address"),
     phone: z
       .string()
@@ -43,11 +38,11 @@ const FormSchema = z
       .min(6, "Password must be at least 6 characters ")
       .max(50, "Password must be less than 50 characters"),
     accepted: z.literal(true, {
-      errorMap: () => ({
-        message: "Please accept all terms",
+        errorMap: () => ({
+          message: "Please accept all terms",
+        }),
       }),
-    }),
-  })
+    })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Password and confirm password doesn't match!",
     path: ["confirmPassword"],
@@ -71,12 +66,16 @@ const SignUpForm = () => {
 
   useEffect(() => {
     setPassStrength(passwordStrength(watch().password).id);
-  }, [watch().password]);
+  }, [watch]);
   const toggleVisblePass = () => setIsVisiblePass((prev) => !prev);
 
   const saveUser: SubmitHandler<InputType> = async (data) => {
     const { accepted, confirmPassword, ...user } = data;
+  
+    // Ensure that all required properties are present
+  
     try {
+      // Call the registerUser function with the user data
       const result = await registerUser(user);
       toast.success("The User Registered Successfully.");
     } catch (error) {
@@ -87,59 +86,147 @@ const SignUpForm = () => {
   return (
     <form
       onSubmit={handleSubmit(saveUser)}
-      className="grid grid-cols-2 gap-3 p-2 place-self-stretch shadow border rounded-md"
+      className={styles.form}
     >
       <Input
-        errorMessage={errors.firstName?.message}
-        isInvalid={!!errors.firstName}
-        {...register("firstName")}
-        label="First Name"
-        startContent={<UserIcon className="w-4" />}
-      />
-      <Input
-        errorMessage={errors.lastName?.message}
-        isInvalid={!!errors.lastName}
-        {...register("lastName")}
-        label="Last Name"
-        startContent={<UserIcon className="w-4" />}
+        errorMessage={errors.name?.message}
+        isInvalid={!!errors.name}
+        {...register("name")}
+        placeholder="Name"
+        startContent=
+        {<UserIcon
+          style={{
+            position: 'absolute',
+            width: '20px',
+            border: 'none',
+            marginTop: '13px',
+            transform: 'translate(-125%)',
+            cursor: 'pointer',
+            color: 'grey',
+            backgroundColor: 'transparent'
+          }} />}
+        style={{
+          width: '100%',
+          padding: '0.95rem',
+          border: 'none',
+          borderRadius: '7px',
+          boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.1)',
+          outline: 'none'
+        }}
       />
       <Input
         errorMessage={errors.email?.message}
         isInvalid={!!errors.email}
         {...register("email")}
         className="col-span-2"
-        label="Email"
-        startContent={<EnvelopeIcon className="w-4" />}
+        placeholder="Email"
+        startContent=
+        {<EnvelopeIcon
+          style={{
+            position: 'absolute',
+            width: '20px',
+            border: 'none',
+            marginTop: '13px',
+            transform: 'translate(-125%)',
+            cursor: 'pointer',
+            color: 'grey',
+            backgroundColor: 'transparent'
+          }} />}
+        style={{
+          width: '100%',
+          padding: '0.95rem',
+          border: 'none',
+          borderRadius: '7px',
+          boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.1)',
+          outline: 'none'
+        }}
       />{" "}
       <Input
-        errorMessage={errors.phone?.message}
+        errorMessage={errors.phone?.message as string ?? ""}
         isInvalid={!!errors.phone}
         {...register("phone")}
         className="col-span-2"
-        label="Phone"
-        startContent={<PhoneIcon className="w-4" />}
+        placeholder="Phone"
+        startContent=
+        {<PhoneIcon style={{
+          position: 'absolute',
+          width: '20px',
+          border: 'none',
+          marginTop: '13px',
+          transform: 'translate(-125%)',
+          cursor: 'pointer',
+          color: 'grey',
+          backgroundColor: 'transparent'
+        }}/>}
+        style={{
+          width: '100%',
+          padding: '0.95rem',
+          border: 'none',
+          borderRadius: '7px',
+          boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.1)',
+          outline: 'none'
+        }}
       />{" "}
       <Input
         errorMessage={errors.password?.message}
         isInvalid={!!errors.password}
         {...register("password")}
         className="col-span-2"
-        label="Password"
+        placeholder="Password"
         type={isVisiblePass ? "text" : "password"}
-        startContent={<KeyIcon className="w-4" />}
+        startContent=
+        {<KeyIcon 
+          style={{
+            position: 'absolute',
+            width: '20px',
+            border: 'none',
+            marginTop: '15px',
+            transform: 'translate(-125%)',
+            cursor: 'pointer',
+            color: 'grey',
+            backgroundColor: 'transparent'
+          }} />}
         endContent={
           isVisiblePass ? (
             <EyeSlashIcon
-              className="w-4 cursor-pointer"
+              className={styles.eye}
               onClick={toggleVisblePass}
+              style={{
+                position: 'absolute',
+                width: '20px',
+                border: 'none',
+                marginTop: '13px',
+                transform: 'translate(-125%)',
+                cursor: 'pointer',
+                color: 'grey',
+                backgroundColor: 'transparent'
+              }}
             />
           ) : (
             <EyeIcon
-              className="w-4 cursor-pointer"
+              className={styles.eye}
               onClick={toggleVisblePass}
+              style={{
+                position: 'absolute',
+                width: '20px',
+                border: 'none',
+                marginTop: '13px',
+                transform: 'translate(-125%)',
+                cursor: 'pointer',
+                color: 'grey',
+                backgroundColor: 'transparent'
+              }}
             />
           )
         }
+        style={{
+          width: '100%',
+          padding: '0.95rem',
+          border: 'none',
+          borderRadius: '7px',
+          boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.1)',
+          outline: 'none'
+        }}
       />
       <PasswordStrength passStrength={passStrength} />
       <Input
@@ -147,31 +234,94 @@ const SignUpForm = () => {
         isInvalid={!!errors.confirmPassword}
         {...register("confirmPassword")}
         className="col-span-2"
-        label="Confirm Password"
+        placeholder="Confirm Password"
         type={isVisiblePass ? "text" : "password"}
-        startContent={<KeyIcon className="w-4" />}
+        startContent=
+        {<KeyIcon
+          style={{
+            position: 'absolute',
+            width: '20px',
+            border: 'none',
+            marginTop: '13px',
+            transform: 'translate(-125%)',
+            cursor: 'pointer',
+            color: 'grey',
+            backgroundColor: 'transparent'
+          }}/>}
+          endContent={
+            isVisiblePass ? (
+              <EyeSlashIcon
+                className={styles.eye}
+                onClick={toggleVisblePass}
+                style={{
+                  position: 'absolute',
+                  width: '20px',
+                  border: 'none',
+                  marginTop: '13px',
+                  transform: 'translate(-125%)',
+                  cursor: 'pointer',
+                  color: 'grey',
+                  backgroundColor: 'transparent'
+                }}
+              />
+            ) : (
+              <EyeIcon
+                className={styles.eye}
+                onClick={toggleVisblePass}
+                style={{
+                  position: 'absolute',
+                  width: '20px',
+                  border: 'none',
+                  marginTop: '13px',
+                  transform: 'translate(-125%)',
+                  cursor: 'pointer',
+                  color: 'grey',
+                  backgroundColor: 'transparent'
+                }}
+              />
+            )
+          }
+        style={{
+          width: '100%',
+          padding: '0.95rem',
+          border: 'none',
+          borderRadius: '7px',
+          boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.1)',
+          outline: 'none'
+        }}
       />
       <Controller
         control={control}
         name="accepted"
         render={({ field }) => (
-          <Checkbox
-            onChange={field.onChange}
-            onBlur={field.onBlur}
-            className="col-span-2"
-          >
-            I Accept The <Link href="/terms">Terms</Link>
-          </Checkbox>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <Checkbox
+              onChange={e => field.onChange(e.target.checked)}
+              onBlur={field.onBlur}
+              style={{
+                position: 'relative',
+                width: '1rem',
+                border: 'none',
+                cursor: 'pointer',
+                color: 'grey',
+                marginRight: '1rem',
+                backgroundColor: 'var(--textColor)'
+              }}
+            />
+            <span>
+              I Accept The <Link href="/terms">Terms</Link>
+            </span>
+          </div>
         )}
-      />
+        />
+
       {!!errors.accepted && (
         <p className="text-red-500">{errors.accepted.message}</p>
       )}
-      <div className="flex justify-center col-span-2">
-        <Button className="w-48" color="primary" type="submit">
-          Submit
+
+        <Button className={styles.socialButton1} type="submit">
+          Sign Up
         </Button>
-      </div>
     </form>
   );
 };

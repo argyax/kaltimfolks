@@ -39,8 +39,7 @@ model Session {
 
 model User {
   id            String    @id @default(cuid()) @map("_id")
-  firstName     String
-  lastName      String
+  name          String
   password      String
   email         String    @unique
   emailVerified DateTime?
@@ -48,12 +47,10 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
-  posts         Post[]    // Change 'Post' to 'posts' to follow conventions
+  posts         Post[] // Change 'Post' to 'posts' to follow conventions
   comments      Comment[] // Change 'Comment' to 'comments' to follow conventions
-  isAdmin       Boolean   @default(false) // Add isAdmin field
-  profilePicture String    @default("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png") // Add profilePicture field
   createdAt     DateTime  @default(now()) // Add createdAt field
-  updatedAt     DateTime  @updatedAt   // Add updatedAt field
+  updatedAt     DateTime  @updatedAt // Add updatedAt field
 
   @@map("users") // Map to 'users' collection in MongoDB to follow conventions
 }
@@ -67,8 +64,8 @@ model VerificationToken {
 }
 
 model Category {
-  id    String  @id @default(cuid()) @map("_id")
-  slug  String  @unique
+  id    String @id @default(cuid()) @map("_id")
+  slug  String @unique
   title String
   posts Post[] // Change 'Post' to 'posts' to follow conventions
 }

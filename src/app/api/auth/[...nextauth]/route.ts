@@ -1,16 +1,19 @@
 import prisma from "@/lib/prisma";
 import { AuthOptions } from "next-auth";
+import { getServerSession } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import * as bcrypt from "bcrypt";
 import NextAuth from "next-auth/next";
+import { PrismaAdapter } from "@auth/prisma-adapter";
 
 import { use } from "react";
 import { User } from "@prisma/client";
 
 export const authOptions: AuthOptions = {
+  adapter: PrismaAdapter(prisma),
   pages: {
-    signIn: "/auth/signin",
+    signIn: "/auth/login",
   },
   session: {
     strategy: "jwt",
@@ -21,7 +24,7 @@ export const authOptions: AuthOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID ?? "",
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
+      clientSecret: process.env.GOOGLE_SECRET ?? "",
       idToken: true,
 
       authorization: {
@@ -58,7 +61,7 @@ export const authOptions: AuthOptions = {
         if (!credentials?.password) throw new Error("Please Provide Your Password");
         const isPassowrdCorrect = await bcrypt.compare(credentials.password, user.password);
 
-        if (!isPassowrdCorrect) throw new Error("User name or password is not correct");
+        if (!isPassowrdCorrect) throw new Error("Username or password is not correct");
 
         if (!user.emailVerified) throw new Error("Please verify your email first!");
 

@@ -1,6 +1,9 @@
 import { Button } from "@nextui-org/react";
 import styles from "./authComponents.module.css";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
+import Link from "next/link";
+
+import { useRouter } from "next/navigation";
 
 const NextAuthProviders = () => {
   const googleSignIn = async () => {
@@ -9,13 +12,14 @@ const NextAuthProviders = () => {
     });
     console.log({ result });
   };
+
   return (
-    <div className="flex justify-center items-center p-4 border-t m-3">
+    <>
       <Button className={styles.socialButton2} onClick={googleSignIn}>Log in with Google</Button>
       <Button className={styles.socialButton3} onClick={() => signIn("facebook")}>
           Log in with Facebook
       </Button>
-    </div>
+    </>
   );
 };
 

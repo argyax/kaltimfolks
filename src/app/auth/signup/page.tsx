@@ -1,15 +1,35 @@
+"use client"
 import SignUpForm from "@/app/components/AuthComponents/SignUpForm";
 import { Image, Link } from "@nextui-org/react";
+import styles from "./signupPage.module.css";
+import NextAuthProviders from "@/app/components/AuthComponents/NextAuthProviders";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 const SignupPage = () => {
+  const { status } = useSession();
+
+  const router = useRouter();
+
+  if (status === "loading") {
+    return <div className={styles.loading}>Loading...</div>;
+  }
+
+  if (status === "authenticated") {
+    router.push("/")
+  }
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 place-items-center items-center gap-3">
-      <div className="md:col-span-2 flex justify-center items-center">
-        <p className="text-center p-2">Already Signed up?</p>
-        <Link href={"/auth/signin"}>Sign In</Link>
+    <div className={styles.container}>
+      <div className={styles.wrapper}>
+        <Link href="/" className={styles.logo}>KALTIMFOLKS.</Link>
+          <p className={styles.desc}>A place for you to explore the creative culture of East Kalimantan and Indonesians</p>
+        <div className={styles.log}>
+          <p>Already have an account? </p>
+          <Link href={"/auth/login"}>Log In</Link>
+        </div>
+        <SignUpForm />
+        <NextAuthProviders />
       </div>
-      <SignUpForm />
-      <Image src="/login.png" alt="Login Form" width={500} height={500} />
     </div>
   );
 };

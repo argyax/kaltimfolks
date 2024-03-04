@@ -7,6 +7,8 @@ import Image from "next/image";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { z } from "zod";
+import styles from "./forgotPassword.module.css"
+import Link from "next/link";
 
 const FormSchema = z.object({
   email: z.string().email("Please enter a valid email!"),
@@ -35,34 +37,53 @@ const ForgotPasswordPage = () => {
     }
   };
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 items-center">
-      <form
-        className="flex flex-col gap-2 p-2 border m-2 rounded-md shadow"
-        onSubmit={handleSubmit(submitRequest)}
-      >
-        <div className="text-center p-2">Enter Your Email</div>
-        <Input
-          label="Email"
-          {...register("email")}
-          startContent={<EnvelopeIcon className="w-4" />}
-          errorMessage={errors.email?.message}
-        />
-        <Button
-          isLoading={isSubmitting}
-          type="submit"
-          disabled={isSubmitting}
-          color="primary"
-        >
-          {isSubmitting ? "Please Wait..." : "Submit"}
-        </Button>
-      </form>
-      <Image
-        src={"/forgotPass.png"}
-        alt="Forgot Password"
-        width={500}
-        height={500}
-        className="col-span-2 place-self-center"
-      />
+    <div className={styles.container}>
+      <div className={styles.wrapper}>
+      <Link href="/" className={styles.logo}>KALTIMFOLKS.</Link>
+      <p className={styles.desc}>Enter your email so we can recover your password</p>
+        <form
+          className={styles.form}
+          onSubmit={handleSubmit(submitRequest)}>
+          <div className={styles.inputContainer}>
+            <Input
+              placeholder="Email"
+              {...register("email")}
+              startContent=
+              {<EnvelopeIcon 
+                style={{
+                  position: 'absolute',
+                  width: '20px',
+                  border: 'none',
+                  marginTop: '13px',
+                  transform: 'translate(-125%)',
+                  cursor: 'pointer',
+                  color: 'grey',
+                  backgroundColor: 'transparent'
+                }}
+                />}
+              errorMessage={errors.email?.message}
+              style={{
+                width: '100%',
+                padding: '0.95rem',
+                border: 'none',
+                borderRadius: '7px',
+                boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.1)',
+                outline: 'none'
+              }}
+            />
+          </div>
+          <Button
+            isLoading={isSubmitting}
+            type="submit"
+            disabled={isSubmitting}
+            color="primary"
+            className={styles.socialButton}
+          >
+            {isSubmitting ? "Please Wait..." : "Submit"}
+          </Button>
+
+        </form>
+      </div>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { authOptions } from "@/auth/[...nextauth]/route";
+import { authOptions } from "/Users/max/Projects/kaltimfolks/src/app/api/auth/[...nextauth]/route.ts";
 import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 

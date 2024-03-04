@@ -10,7 +10,6 @@ import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { z } from "zod";
-import NextAuthProviders from "./NextAuthProviders";
 
 interface Props {
   callbackUrl?: string;
@@ -46,45 +45,66 @@ const LoginForm = (props: Props) => {
       toast.error(result?.error);
       return;
     }
-    toast.success("Welcome To KALTIMFOLS");
+    toast.success("Welcome To KALTIMFOLKS");
     router.push(props.callbackUrl ? props.callbackUrl : "/");
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.wrapper}>
         <form
-          onSubmit={handleSubmit(onSubmit)}
-          className={styles.input}>
-          <Link href="/" className={styles.logo}>KALTIMFOLKS.</Link>
-          <p className={styles.desc}>A place for you to explore the creative culture of East Kalimantan and Indonesians</p>
-          <div className="p-2 flex flex-col gap-2">
-            <Input label="Email" {...register("email")} errorMessage={errors.email?.message} className={styles.input}/>
+          onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+          <div className={styles.inputContainer}>
             <Input
-              placeholder="Password"
-              {...register("password")}
-              type={visiblePass ? "text" : "password"}
-              errorMessage={errors.password?.message}
-              endContent={
-                <button type="button" onClick={() => setVisiblePass((prev) => !prev)}>
-                  {visiblePass ? <EyeSlashIcon className="w-4" /> : <EyeIcon className="w-4" />}
-                </button>
-              }
-              className={styles.input}
-            />
-            <div className="flex items-center justify-center gap-2">
+                placeholder="Email"
+                {...register("email")}
+                errorMessage={errors.email?.message}
+                style={{
+                  width: '100%',
+                  padding: '0.95rem',
+                  border: 'none',
+                  borderRadius: '7px',
+                  boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.1)',
+                  outline: 'none'
+                }}
+              />
+
+              <Input
+                placeholder="Password"
+                {...register("password")}
+                type={visiblePass ? "text" : "password"}
+                errorMessage={errors.password?.message}
+                endContent={
+                  <Button
+                    className={styles.eye}
+                    onClick={() => setVisiblePass((prev) => !prev)}
+                    style={{
+                      position: 'absolute',
+                      width: '20px',
+                      border: 'none',
+                      marginTop: '13px',
+                      transform: 'translate(-125%)',
+                      cursor: 'pointer',
+                      color: 'grey',
+                      backgroundColor: 'transparent'
+                    }}
+                  >
+                    {visiblePass ? <EyeSlashIcon /> : <EyeIcon />}
+                  </Button>
+                }
+                style={{
+                  width: '100%',
+                  padding: '0.95rem',
+                  border: 'none',
+                  borderRadius: '7px',
+                  boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.1)',
+                  outline: 'none'
+                }}
+              />
+          </div>
+
               <Button className={styles.socialButton1} color="primary" type="submit" disabled={isSubmitting} isLoading={isSubmitting}>
                 {isSubmitting ? "Signing In..." : "Log In"}
               </Button>
-              <Button className={styles.socialButton} as={Link} href="/auth/signup">
-                Sign Up
-              </Button>
-            </div>
-          </div>
-          <NextAuthProviders />
         </form>
-      </div>
-    </div>
   );
 };
 
