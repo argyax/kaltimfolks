@@ -1,9 +1,6 @@
 import { Button } from "@nextui-org/react";
 import styles from "./authComponents.module.css";
 import { signIn, useSession } from "next-auth/react";
-import Link from "next/link";
-
-import { useRouter } from "next/navigation";
 
 const NextAuthProviders = () => {
   const googleSignIn = async () => {

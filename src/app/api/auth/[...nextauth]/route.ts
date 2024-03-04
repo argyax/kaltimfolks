@@ -11,7 +11,6 @@ import { use } from "react";
 import { User } from "@prisma/client";
 
 export const authOptions: AuthOptions = {
-  adapter: PrismaAdapter(prisma),
   pages: {
     signIn: "/auth/login",
   },
@@ -23,7 +22,7 @@ export const authOptions: AuthOptions = {
   },
   providers: [
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID ?? "",
+      clientId: process.env.GOOGLE_ID ?? "",
       clientSecret: process.env.GOOGLE_SECRET ?? "",
       idToken: true,
 
