@@ -1,5 +1,6 @@
 import { activateUser } from "@/lib/actions/authActions";
 import { verifyJwt } from "@/lib/jwt";
+import styles from "./activationPage.module.css";
 
 interface Props {
   params: {
@@ -10,17 +11,17 @@ interface Props {
 const ActivationPage = async ({ params }: Props) => {
   const result = await activateUser(params.jwt);
   return (
-    <div className="h-screen flex flex-col items-center justify-center">
+    <div className={styles.container}>
       {result === "userNotExist" ? (
-        <p className="text-red-500 text-2xl">The user does not exist</p>
+        <h1 className={styles.logo}>This user does not exist</h1>
       ) : result === "alreadyActivated" ? (
-        <p className="text-red-500 text-2xl">The user is already activated</p>
+        <h1 className={styles.logo}>This user is already activated</h1>
       ) : result === "success" ? (
-        <p className="text-green-500 text-2xl">
+        <h1 className={styles.logo}>
           Success! The user is now activated
-        </p>
+        </h1>
       ) : (
-        <p className="text-yellow-500 text-2xl">Oops! Something went wrong!</p>
+        <h1 className={styles.logo}>Oops! Something went wrong!</h1>
       )}
     </div>
   );

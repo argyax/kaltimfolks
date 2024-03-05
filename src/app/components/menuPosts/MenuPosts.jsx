@@ -3,9 +3,9 @@ import Link from "next/link";
 import React from "react";
 import styles from "./menuPosts.module.css"
 
-const MenuPosts = ({ withImage, key, item }) => {
+const MenuPosts = ({ withImage, postId, item }) => {
   return (
-    <div className={styles.items} key={key}>
+    <div className={styles.items} key={postId}>
       <Link href={`/posts/${item.slug}`} className={styles.item}>
           {item.img && (
             <div className={styles.imageContainer}>

@@ -31,9 +31,9 @@ const Menu = async ({ page, cat}) => {
       <MenuCategories />
       <h2 className={styles.subtitle}>{"What's hot"}</h2>
       <h1 className={styles.title}>Recent Articles</h1>
-      {posts?.map((item) => (
-          <MenuPosts withImage={true} item={item} key={item._id}/>
-        ))}
+      {posts?.map((item, index) => (
+        <MenuPosts withImage={true} postId={item._id} item={item} key={index}/>
+      ))}
     </div>
   );
 };
