@@ -12,14 +12,13 @@ export async function sendMail({
   subject: string;
   body: string;
 }) {
-  const { SMPT_EMAIL, SMTP_GMAIL_PASS, SMTP_USER, SMTP_PASS } = process.env;
+  const { SMTP_EMAIL, SMTP_GMAIL_PASS, SMTP_USER, SMTP_PASS } = process.env;
   //
-  var transport = nodemailer.createTransport({
-    host: "sandbox.smtp.mailtrap.io",
-    port: 2525,
+  const transport = nodemailer.createTransport({
+    service:"gmail",
     auth: {
-      user: SMTP_USER,
-      pass: SMTP_PASS,
+      user: SMTP_EMAIL,
+      pass: SMTP_GMAIL_PASS,
     },
   });
 
@@ -31,7 +30,7 @@ export async function sendMail({
   }
   try {
     const sendResult = await transport.sendMail({
-      from: SMPT_EMAIL,
+      from: SMTP_EMAIL,
       to,
       subject,
       html: body,

@@ -9,7 +9,6 @@ const HeroCover = ({ key, item }) => {
                 <Image
                     key={key}
                     src={item.img}
-                    placeholder='blur'
                     alt=""
                     fill
                     className='w-full h-full object-center object-cover rounded-3xl -z-10'

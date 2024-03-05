@@ -5,7 +5,7 @@ import Comments from "../../components/comments/Comments.jsx";
 
 const getData = async (slug) => {
   const res = await fetch(`http://localhost:3000/api/posts/${slug}`, {
-    cache: "no-store",
+    cache: "no-cache",
   });
 
   if (!res.ok) {
@@ -15,7 +15,7 @@ const getData = async (slug) => {
   return res.json();
 };
 
-const SinglePage = async ({ searchParams, params }) => {
+const SinglePage = async ({ searchParams, params, item}) => {
   const { slug } = params;
 
   const page = parseInt(searchParams.page) || 1;
@@ -33,10 +33,14 @@ const SinglePage = async ({ searchParams, params }) => {
                 <Image src={data.user.image} alt="" fill className={styles.avatar} />
               </div>
             )}
-            <div className={styles.userTextContainer}>
-              <span className={styles.username}>{data?.user.name}</span>
-              <span className={styles.date}>01.01.2024</span>
-            </div>
+          <div className={styles.userTextContainer}>
+            {data.user && (
+              <span className={styles.username}>{data.user.name}</span>
+            )}
+            {data.post && data.post.createdAt && (
+              <span className={styles.date}>{data.post.createdAt.substring(0, 10)} -{" "}</span>
+            )}
+          </div>
           </div>
         </div>
         {data?.img && (
@@ -47,10 +51,10 @@ const SinglePage = async ({ searchParams, params }) => {
       </div>
       <div className={styles.content}>
         <div className={styles.post}>
-          <div
-            className={styles.description}
-            dangerouslySetInnerHTML={{ __html: data?.desc }}
-          />
+        <div
+          className={styles.description}
+          dangerouslySetInnerHTML={{ __html: data?.desc || "" }}
+        />
           <div className={styles.comment}>
             <Comments postSlug={slug}/>
           </div>
@@ -59,6 +63,7 @@ const SinglePage = async ({ searchParams, params }) => {
       </div>
     </div>
   );
+  
 };
 
 export default SinglePage;
