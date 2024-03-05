@@ -14,6 +14,7 @@ import {
 } from "firebase/storage";
 import { app } from "@/utils/firebase";
 import ReactQuill from "react-quill";
+import { Button } from "@nextui-org/react";
 
 const WritePage = () => {
   const { status } = useSession();
@@ -77,7 +78,7 @@ const WritePage = () => {
       .replace(/[\s_-]+/g, "-")
       .replace(/^-+|-+$/g, "");
 
-  const handleSubmit = async () => {
+  const postSubmit = async () => {
     const res = await fetch("/api/posts", {
       method: "POST",
       body: JSON.stringify({
@@ -147,9 +148,9 @@ const WritePage = () => {
           placeholder="Tell your story..."
         />
       </div>
-      <button className={styles.publish} onClick={handleSubmit}>
+      <Button className={styles.publish} onClick={postSubmit}>
         Publish
-      </button>
+      </Button>
     </div>
   );
 };

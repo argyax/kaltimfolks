@@ -46,7 +46,7 @@ const CustomDropdown = () => {
       </DropdownToggle>
       <DropdownMenu aria-label="News Categories" className={styles.menu}>
         <DropdownItem>
-          {data.map((item) => (
+          {data?.map((item) => (
             <Link
               href={`/blog?cat=${item.slug}`}
               className={`${styles.categoryItem} ${styles[item.slug]}`}
