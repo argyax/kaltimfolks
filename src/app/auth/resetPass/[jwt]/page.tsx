@@ -1,5 +1,7 @@
 import ResetPasswordForm from "@/app/components/AuthComponents/ResetPasswordForm";
 import { verifyJwt } from "@/lib/jwt";
+import Link from "next/link";
+import styles from "./resetpassPage.module.css";
 
 interface Props {
   params: {
@@ -16,8 +18,12 @@ const ResetPasswordPage = ({ params }: Props) => {
       </div>
     );
   return (
-    <div className="flex justify-center">
-      <ResetPasswordForm jwtUserId={params.jwt} />
+    <div className={styles.container}>
+      <div className={styles.wrapper}>
+        <Link href="/" className={styles.logo}>KALTIMFOLKS.</Link>
+        <p className={styles.desc}>Reset Your Password</p>
+        <ResetPasswordForm jwtUserId={params.jwt} />
+      </div>
     </div>
   );
 };

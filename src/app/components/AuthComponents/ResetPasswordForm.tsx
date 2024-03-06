@@ -9,6 +9,7 @@ import { z } from "zod";
 import PasswordStrength from "./PasswordStrength";
 import { resetPassword } from "@/lib/actions/authActions";
 import { toast } from "react-toastify";
+import styles from "./authComponents.module.css";
 
 interface Props {
   jwtUserId: string;
@@ -59,41 +60,67 @@ const ResetPasswordForm = ({ jwtUserId }: Props) => {
   return (
     <form
       onSubmit={handleSubmit(resetPass)}
-      className="flex flex-col gap-2 p-2 m-2 border rounded-md shadow"
-    >
-      <div className="text-center p-2">Reset Your Password</div>
+      className={styles.form}>
+      <div className={styles.inputContainer}>
       <Input
         type={visiblePass ? "text" : "password"}
-        label="Password"
+        placeholder="Password"
         {...register("password")}
         errorMessage={errors.password?.message}
         endContent={
-          <button type="button" onClick={() => setVisiblePass((prev) => !prev)}>
+          <Button className={styles.eye} 
+            onClick={() => setVisiblePass((prev) => !prev)}
+            style={{
+              position: 'absolute',
+              width: '20px',
+              border: 'none',
+              marginTop: '13px',
+              transform: 'translate(-125%)',
+              cursor: 'pointer',
+              color: 'grey',
+              backgroundColor: 'transparent'
+            }}
+            >
             {visiblePass ? (
-              <EyeSlashIcon className="w-4" />
+              <EyeSlashIcon/>
             ) : (
-              <EyeIcon className="w-4" />
+              <EyeIcon/>
             )}
-          </button>
+          </Button>
         }
+        style={{
+          width: '100%',
+          padding: '0.95rem',
+          border: 'none',
+          borderRadius: '7px',
+          boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.1)',
+          outline: 'none'
+        }}
       />
       <PasswordStrength passStrength={passStrength} />
       <Input
         type={visiblePass ? "text" : "password"}
-        label="Confirm Password"
+        placeholder="Confirm Password"
         {...register("confirmPassword")}
         errorMessage={errors.confirmPassword?.message}
+        style={{
+          width: '100%',
+          padding: '0.95rem',
+          border: 'none',
+          borderRadius: '7px',
+          boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.1)',
+          outline: 'none'
+        }}
       />
-      <div className="flex justify-center">
+      </div>
         <Button
+          className={styles.socialButton1} color="primary" 
           isLoading={isSubmitting}
           type="submit"
           disabled={isSubmitting}
-          color="primary"
         >
           {isSubmitting ? "Please Wait..." : "Submit"}
         </Button>
-      </div>
     </form>
   );
 };
