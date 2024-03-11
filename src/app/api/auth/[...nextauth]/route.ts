@@ -4,10 +4,9 @@ import { getServerSession } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import * as bcrypt from "bcrypt";
-import NextAuth from "next-auth/next";
-import { PrismaAdapter } from "@auth/prisma-adapter";
+import NextAuth from "next-auth";
+import { PrismaAdapter } from "@auth/prisma-adapter"; // Correct import
 
-import { use } from "react";
 import { User } from "@prisma/client";
 
 export const authOptions: AuthOptions = {
@@ -31,6 +30,16 @@ export const authOptions: AuthOptions = {
           scope: "openid profile email",
         },
       },
+
+      profile(profile) {
+        return {
+          id: profile.sub,
+          name: `${profile.name}`,
+          email: profile.email,
+          image: profile.picture,
+          role: profile.role ? profile.role : "user",
+        }
+      }
     }),
     CredentialsProvider({
       name: "Credentials",
@@ -55,12 +64,10 @@ export const authOptions: AuthOptions = {
 
         if (!user) throw new Error("User name or password is not correct");
 
-        // This is Naive Way of Comparing The Passwords
-        // const isPassowrdCorrect = credentials?.password === user.password;
         if (!credentials?.password) throw new Error("Please Provide Your Password");
-        const isPassowrdCorrect = await bcrypt.compare(credentials.password, user.password);
+        const isPasswordCorrect = await bcrypt.compare(credentials.password, user.password);
 
-        if (!isPassowrdCorrect) throw new Error("Username or password is not correct");
+        if (!isPasswordCorrect) throw new Error("Username or password is not correct");
 
         if (!user.emailVerified) throw new Error("Please verify your email first!");
 
@@ -73,11 +80,11 @@ export const authOptions: AuthOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) token.user = user as User;
-      return token;
+      return {...token, ...user};
     },
 
     async session({ token, session }) {
-      session.user = token.user;
+      session.user.role = token.user.role;
       return session;
     },
   },
@@ -86,3 +93,5 @@ export const authOptions: AuthOptions = {
 const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
+
+export const getAuthSession = () => getServerSession(authOptions);

@@ -51,7 +51,7 @@ const ResetPasswordForm = ({ jwtUserId }: Props) => {
     try {
       const result = await resetPassword(jwtUserId, data.password);
       if (result === "success")
-        toast.success("Your password has been reset successfully!");
+        toast.success("Your password has been reset successfully!. Verification email has been sent, if you're not seeing it in your inbox, check the spam folder");
     } catch (err) {
       toast.error("Something went wrong!");
       console.error(err);

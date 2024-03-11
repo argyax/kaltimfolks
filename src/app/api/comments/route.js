@@ -1,4 +1,4 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { getAuthSession } from "@/app/api/auth/[...nextauth]/route";
 import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
@@ -27,7 +27,7 @@ export const GET = async (req) => {
 
 // CREATE A COMMENT
 export const POST = async (req) => {
-  const session = await authOptions();
+  const session = await getAuthSession();
 
   if (!session) {
     return new NextResponse(

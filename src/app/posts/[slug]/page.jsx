@@ -1,11 +1,11 @@
-import Menu from "../../components/Menu/Menu.jsx";
+import Menu from "@/app/components/Menu/Menu";
 import styles from "./singlePage.module.css";
 import Image from "next/image";
-import Comments from "../../components/comments/Comments.jsx";
+import Comments from "@/app/components/comments/Comments";
 
 const getData = async (slug) => {
   const res = await fetch(`http://localhost:3000/api/posts/${slug}`, {
-    cache: "no-cache",
+    cache: "no-store",
   });
 
   if (!res.ok) {
@@ -15,10 +15,8 @@ const getData = async (slug) => {
   return res.json();
 };
 
-const SinglePage = async ({ searchParams, params, item}) => {
+const SinglePage = async ({ params }) => {
   const { slug } = params;
-
-  const page = parseInt(searchParams.page) || 1;
 
   const data = await getData(slug);
 
@@ -33,14 +31,10 @@ const SinglePage = async ({ searchParams, params, item}) => {
                 <Image src={data.user.image} alt="" fill className={styles.avatar} />
               </div>
             )}
-          <div className={styles.userTextContainer}>
-            {data.user && (
-              <span className={styles.username}>{data.user.name}</span>
-            )}
-            {data.post && data.post.createdAt && (
-              <span className={styles.date}>{data.post.createdAt.substring(0, 10)} -{" "}</span>
-            )}
-          </div>
+            <div className={styles.userTextContainer}>
+              <span className={styles.username}>{data?.user.name}</span>
+              <span className={styles.date}>{data?.createdAt.substring(0, 10)}</span>
+            </div>
           </div>
         </div>
         {data?.img && (
@@ -51,19 +45,18 @@ const SinglePage = async ({ searchParams, params, item}) => {
       </div>
       <div className={styles.content}>
         <div className={styles.post}>
-        <div
-          className={styles.description}
-          dangerouslySetInnerHTML={{ __html: data?.desc || "" }}
-        />
+          <div
+            className={styles.description}
+            dangerouslySetInnerHTML={{ __html: data?.desc }}
+          />
           <div className={styles.comment}>
             <Comments postSlug={slug}/>
           </div>
         </div>
-        <Menu page={page}/>
+        <Menu />
       </div>
     </div>
   );
-  
 };
 
 export default SinglePage;

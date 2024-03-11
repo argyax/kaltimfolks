@@ -58,10 +58,6 @@ export const resetPasswordTemplate = `
 				margin: 0 auto;
 			}
 
-			.image_block div.fullWidth {
-				max-width: 100% !important;
-			}
-
 			.mobile_hide {
 				display: none;
 			}
@@ -129,12 +125,12 @@ export const resetPasswordTemplate = `
 									<table class="row-content stack" align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #ffffff; border-radius: 20px; color: #000000; width: 620px; margin: 0 auto;" width="620">
 										<tbody>
 											<tr>
-												<td class="column column-1" width="100%" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; padding-bottom: 5px; padding-top: 5px; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;">
+												<td class="column column-1" width="100%" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; padding-bottom: 20px; padding-left: 20px; padding-right: 20px; padding-top: 20px; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;">
 													<table class="image_block block-1" width="100%" border="0" cellpadding="15" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
 														<tr>
 															<td class="pad">
 																<div class="alignment" align="center" style="line-height:10px">
-																	<div class="fullWidth" style="max-width: 496px;"><img src="https://df83f8dfb0.imgdist.com/pub/bfra/4292wskb/ep2/l10/0tm/Kaltimfolks.png" style="display: block; height: auto; border: 0; width: 100%;" width="496" alt="I'm an image" title="I'm an image"></div>
+																	<div style="max-width: 203px;"><img src="https://df83f8dfb0.imgdist.com/pub/bfra/4292wskb/z5v/0m1/cf0/kaltimicon.png" style="display: block; height: auto; border: 0; width: 100%;" width="203" alt="I'm an image" title="I'm an image"></div>
 																</div>
 															</td>
 														</tr>
@@ -183,7 +179,7 @@ export const resetPasswordTemplate = `
 <w:anchorlock/>
 <v:textbox inset="0px,0px,0px,0px">
 <center style="color:#ffffff; font-family:Arial, sans-serif; font-size:22px">
-<![endif]--><a href="{{url}}" target="_blank" style="text-decoration:none;display:inline-block;color:#ffffff;background-color:#000000;border-radius:4px;width:auto;border-top:0px solid transparent;font-weight:700;border-right:0px solid transparent;border-bottom:0px solid transparent;border-left:0px solid transparent;padding-top:5px;padding-bottom:5px;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;font-size:22px;text-align:center;mso-border-alt:none;word-break:keep-all;"><span style="padding-left:20px;padding-right:20px;font-size:22px;display:inline-block;letter-spacing:normal;"><span style="margin: 0; word-break: break-word; line-height: 44px;">Reset your password</span></span></a><!--[if mso]></center></v:textbox></v:roundrect><![endif]--></div>
+<![endif]--><a href="{{url}}" target="_blank" style="text-decoration:none;display:inline-block;color:#ffffff;background-color:#000000;border-radius:4px;width:auto;border-top:0px solid transparent;font-weight:700;border-right:0px solid transparent;border-bottom:0px solid transparent;border-left:0px solid transparent;padding-top:5px;padding-bottom:5px;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;font-size:22px;text-align:center;mso-border-alt:none;word-break:keep-all;"><span style="padding-left:20px;padding-right:20px;font-size:22px;display:inline-block;letter-spacing:normal;"><span style="margin: 0; word-break: break-word; line-height: 44px;">Reset Password</span></span></a><!--[if mso]></center></v:textbox></v:roundrect><![endif]--></div>
 															</td>
 														</tr>
 													</table>
@@ -191,7 +187,7 @@ export const resetPasswordTemplate = `
 														<tr>
 															<td class="pad" style="width:100%;padding-right:0px;padding-left:0px;">
 																<div class="alignment" align="center" style="line-height:10px">
-																	<div style="max-width: 124px;"><img src="https://df83f8dfb0.imgdist.com/pub/bfra/4292wskb/evz/irj/7ov/message.gif" style="display: block; height: auto; border: 0; width: 100%;" width="124" alt="email icon" title="email icon"></div>
+																	<div style="max-width: 116px;"><img src="https://df83f8dfb0.imgdist.com/pub/bfra/4292wskb/evz/irj/7ov/message.gif" style="display: block; height: auto; border: 0; width: 100%;" width="116" alt="email icon" title="email icon"></div>
 																</div>
 															</td>
 														</tr>
@@ -209,9 +205,9 @@ export const resetPasswordTemplate = `
 																<div class="alignment" align="center">
 																	<table class="social-table" width="138px" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; display: inline-block;">
 																		<tr>
-																			<td style="padding:0 7px 0 7px;"><a href="https://www.x.com/kaltimfolks/" target="_blank"><img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/t-circle-color/twitter@2x.png" width="32" height="32" alt="Twitter" title="Twitter" style="display: block; height: auto; border: 0;"></a></td>
-																			<td style="padding:0 7px 0 7px;"><a href="https://www.instagram.com/kaltimfolks/" target="_blank"><img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/t-circle-color/instagram@2x.png" width="32" height="32" alt="Instagram" title="Instagram" style="display: block; height: auto; border: 0;"></a></td>
-																			<td style="padding:0 7px 0 7px;"><a href="https://www.tiktok.com/@kaltimfolks" target="_blank"><img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/t-circle-color/tiktok@2x.png" width="32" height="32" alt="TikTok" title="TikTok" style="display: block; height: auto; border: 0;"></a></td>
+																			<td style="padding:0 7px 0 7px;"><a href="https://www.twitter.com" target="_blank"><img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/t-circle-color/twitter@2x.png" width="32" height="32" alt="Twitter" title="Twitter" style="display: block; height: auto; border: 0;"></a></td>
+																			<td style="padding:0 7px 0 7px;"><a href="https://www.instagram.com" target="_blank"><img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/t-circle-color/instagram@2x.png" width="32" height="32" alt="Instagram" title="Instagram" style="display: block; height: auto; border: 0;"></a></td>
+																			<td style="padding:0 7px 0 7px;"><a href="https://www.tiktok.com" target="_blank"><img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/t-circle-color/tiktok@2x.png" width="32" height="32" alt="TikTok" title="TikTok" style="display: block; height: auto; border: 0;"></a></td>
 																		</tr>
 																	</table>
 																</div>

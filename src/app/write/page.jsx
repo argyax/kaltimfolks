@@ -1,9 +1,9 @@
 "use client";
+
 import Image from "next/image";
 import styles from "./writePage.module.css";
 import { useEffect, useState } from "react";
 import "react-quill/dist/quill.bubble.css";
-import { FaPlus, FaImage, FaExternalLinkAlt, FaVideo } from 'react-icons/fa';
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import {
@@ -14,7 +14,6 @@ import {
 } from "firebase/storage";
 import { app } from "@/utils/firebase";
 import ReactQuill from "react-quill";
-import { Button } from "@nextui-org/react";
 
 const WritePage = () => {
   const { status } = useSession();
@@ -78,7 +77,7 @@ const WritePage = () => {
       .replace(/[\s_-]+/g, "-")
       .replace(/^-+|-+$/g, "");
 
-  const postSubmit = async () => {
+  const handleSubmit = async () => {
     const res = await fetch("/api/posts", {
       method: "POST",
       body: JSON.stringify({
@@ -86,7 +85,7 @@ const WritePage = () => {
         desc: value,
         img: media,
         slug: slugify(title),
-        catSlug: catSlug //If not selected, choose the general category
+        catSlug: catSlug || "style", //If not selected, choose the general category
       }),
     });
 
@@ -104,8 +103,7 @@ const WritePage = () => {
         className={styles.input}
         onChange={(e) => setTitle(e.target.value)}
       />
-      
-      <select className={styles.select} onChange={(e) => setCatSlug(e.target.value)}>
+       <select className={styles.select} value={catSlug} onChange={(e) => setCatSlug(e.target.value)}>
         <option value="culture">Culture</option>
         <option value="lifestyle">Lifestyle</option>
         <option value="movies">Movies</option>
@@ -117,7 +115,7 @@ const WritePage = () => {
       </select>
       <div className={styles.editor}>
         <button className={styles.button} onClick={() => setOpen(!open)}>
-          <FaPlus size={16} />
+          <Image src="/plus.png" alt="" width={16} height={16} />
         </button>
         {open && (
           <div className={styles.add}>
@@ -129,14 +127,14 @@ const WritePage = () => {
             />
             <button className={styles.addButton}>
               <label htmlFor="image">
-                <FaImage size={16} />
+                <Image src="/image.png" alt="" width={16} height={16} />
               </label>
             </button>
             <button className={styles.addButton}>
-              <FaExternalLinkAlt size={16} />
+              <Image src="/external.png" alt="" width={16} height={16} />
             </button>
             <button className={styles.addButton}>
-              <FaVideo size={16} />
+              <Image src="/video.png" alt="" width={16} height={16} />
             </button>
           </div>
         )}
@@ -148,9 +146,9 @@ const WritePage = () => {
           placeholder="Tell your story..."
         />
       </div>
-      <Button className={styles.publish} onClick={postSubmit}>
+      <button className={styles.publish} onClick={handleSubmit}>
         Publish
-      </Button>
+      </button>
     </div>
   );
 };

@@ -1,14 +1,14 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { getAuthSession } from "@/app/api/auth/[...nextauth]/route";
 import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
 export const GET = async (req) => {
   const { searchParams } = new URL(req.url);
 
-  const page = searchParams.get("page");
+  const page = parseInt(searchParams.get("page")) || 1; // Parse page to integer, default to 1
   const cat = searchParams.get("cat");
 
-  const POST_PER_PAGE = 2;
+  const POST_PER_PAGE = 6;
 
   const query = {
     take: POST_PER_PAGE,
@@ -16,15 +16,11 @@ export const GET = async (req) => {
     where: {
       ...(cat && { catSlug: cat }),
     },
+    orderBy: {
+      createdAt: "desc" // Sort by createdAt field in descending order
+    }
   };
 
-
-
-
-
-
-  
-  
   try {
     const [posts, count] = await prisma.$transaction([
       prisma.post.findMany(query),
@@ -39,18 +35,9 @@ export const GET = async (req) => {
   }
 };
 
-
-
-
-
-
-
-
-
-
 // CREATE A POST
 export const POST = async (req) => {
-  const session = await authOptions();
+  const session = await getAuthSession();
 
   if (!session) {
     return new NextResponse(
