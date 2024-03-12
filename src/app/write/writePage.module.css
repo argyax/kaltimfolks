@@ -9,7 +9,6 @@
     padding: 10px 20px;
     margin-left: 50px;
     width: max-content;
-    border: 1px solid var(--textColor);
     display: flex;
     align-items: center;
     justify-content: center;

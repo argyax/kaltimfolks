@@ -11,7 +11,7 @@ import { prisma } from "@/lib/prisma";
 
 
 export async function registerUser(
-  user: Omit<User, "updatedAt" | "createdAt" | "isAdmin" | "comments" | "posts" | "id" | "emailVerified" | "image">
+  user: Omit<User, "updatedAt" | "createdAt" | "isAdmin" | "comments" | "posts" | "id" | "emailVerified" | "image" | "role">
 )
  {
   const result = await prisma.user.create({

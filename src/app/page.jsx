@@ -3,16 +3,9 @@ import Featured from "./components/Featured/Featured";
 import CategoryList from "./components/CategoryList/CategoryList";
 import CardList from "./components/CardList/CardList";
 import Menu from "./components/Menu/Menu";
-import { sendMail } from "@/lib/mail";
 
 export default async function Home({ searchParams }) {
   const page = parseInt(searchParams.page) || 1;
-
-  await sendMail({
-    to: "",
-    subject:"test",
-    body:"hello world",
-  });
 
   return (
   <>
