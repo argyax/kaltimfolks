@@ -1,0 +1,110 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  width: 100%;
+  flex-direction: column;
+  margin: 48px 0;
+  background: var(--textColor);
+  border-radius: 10px;
+}
+
+.container h2 {
+  color: var(--bg);
+  margin-bottom: 20px;
+  text-align: center;
+  padding: 0 16px;
+}
+
+.input-button {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.input {
+  width: 80%;
+  max-width: 425px;
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+}
+
+.button {
+  padding: 10px 12px;
+  border-radius: 5px;
+  background-color: var(--bg);
+  color: var(--textColor);
+  cursor: pointer;
+}
+
+.logo-social {
+  display: flex;
+  gap: 16px;
+  flex-direction: row;
+  align-items: center;
+}
+
+.socmed-icon:hover {
+  color: var(--iconColor);
+}
+
+.social {
+  display: flex;
+  gap: 10px;
+  flex: 1;
+}
+
+.logo {
+  flex: 1;
+  text-align: center;
+  font-size: 36px;
+  font-weight: bold;
+}
+
+.links {
+  display: flex;
+  gap: 20px;
+  align-items: flex-end;
+  /* flex: 2; */
+  font-size: 14px;
+}
+
+@media screen and (max-width: 1280px) {
+  .logo {
+    font-size: 32px;
+  }
+  .links {
+    font-size: 14px;
+    gap: 15px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .social {
+    display: none;
+  }
+  .logo {
+    text-align: left;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .logo {
+    font-size: 24px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .links {
+    justify-content: flex-end;
+  }
+  .link {
+    display: none;
+  }
+}

@@ -1,15 +1,20 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Alert, Button, FileInput, Select } from 'flowbite-react';
-import { RiAddLine, RiImageAddLine, RiUpload2Fill } from 'react-icons/ri';
-import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { Alert, Button, FileInput, Select } from "flowbite-react";
+import { RiAddLine, RiImageAddLine, RiUpload2Fill } from "react-icons/ri";
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
 import { app } from "@/utils/firebase";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.bubble.css";
 import styles from "./writePage.module.css";
 import { useRouter } from "next/navigation";
-import { CircularProgressbar } from 'react-circular-progressbar';
-import 'react-circular-progressbar/dist/styles.css';
+import { CircularProgressbar } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
 import Image from "next/image";
 
 const WritePage = () => {
@@ -29,22 +34,23 @@ const WritePage = () => {
     const upload = async () => {
       try {
         if (!file) {
-          setFileUploadError('Please select a file');
+          setFileUploadError("Please select a file");
           return;
         }
 
-        const name = new Date().getTime() + '-' + file.name;
+        const name = new Date().getTime() + "-" + file.name;
         const storageRef = ref(storage, name);
         const uploadTask = uploadBytesResumable(storageRef, file);
 
         uploadTask.on(
-          'state_changed',
+          "state_changed",
           (snapshot) => {
-            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            const progress =
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
             setFileUploadProgress(progress.toFixed(0));
           },
           (error) => {
-            setFileUploadError('File upload failed');
+            setFileUploadError("File upload failed");
             setFileUploadProgress(null);
           },
           async () => {
@@ -55,7 +61,7 @@ const WritePage = () => {
           }
         );
       } catch (error) {
-        setFileUploadError('File upload failed');
+        setFileUploadError("File upload failed");
         setFileUploadProgress(null);
         console.log(error);
       }
@@ -65,12 +71,12 @@ const WritePage = () => {
   }, [file]);
 
   const slugify = (str) =>
-  str
-    .toLowerCase()
-    .trim()
-    .replace(/[^\w\s-]/g, "")
-    .replace(/[\s_-]+/g, "-")
-    .replace(/^-+|-+$/g, "");
+    str
+      .toLowerCase()
+      .trim()
+      .replace(/[^\w\s-]/g, "")
+      .replace(/[\s_-]+/g, "-")
+      .replace(/^-+|-+$/g, "");
 
   const handleSubmit = async () => {
     const res = await fetch("/api/posts", {
@@ -103,7 +109,11 @@ const WritePage = () => {
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
-      <Select className={styles.select} value={catSlug} onChange={(e) => setCatSlug(e.target.value)}>
+      <Select
+        className={styles.select}
+        value={catSlug}
+        onChange={(e) => setCatSlug(e.target.value)}
+      >
         <option value="culture">Culture</option>
         <option value="lifestyle">Lifestyle</option>
         <option value="movies">Movies</option>
@@ -113,6 +123,8 @@ const WritePage = () => {
         <option value="ikn">IKN</option>
         <option value="politics">Politics</option>
       </Select>
+      {media && <Image src={media} alt="Uploaded File" width={200} height={200} />}{" "}
+      {/* Display uploaded file */}
       <div className={styles.editor}>
         <Button className={styles.button} onClick={() => setOpen(!open)}>
           <RiAddLine size={16} />
@@ -125,19 +137,19 @@ const WritePage = () => {
               </label>
             </Button>
             <FileInput
-              type='file'
-              accept='image/*, video/*'
+              type="file"
+              accept="image/*, video/*"
               onChange={handleUploadFile}
             />
             <Button
-              type='button'
+              type="button"
               className={styles.addButton}
-              size='sm'
+              size="sm"
               outline
               disabled={fileUploadProgress}
             >
               {fileUploadProgress ? (
-                <div className='w-16 h-16'>
+                <div className="w-16 h-16">
                   <CircularProgressbar
                     value={fileUploadProgress}
                     text={`${fileUploadProgress || 0}%`}
@@ -149,7 +161,7 @@ const WritePage = () => {
             </Button>
           </div>
         )}
-        {fileUploadError && <Alert color='failure'>{fileUploadError}</Alert>}
+        {fileUploadError && <Alert color="failure">{fileUploadError}</Alert>}
         <ReactQuill
           className={styles.textArea}
           theme="bubble"
@@ -157,7 +169,6 @@ const WritePage = () => {
           onChange={setValue}
           placeholder="Tell your story..."
         />
-        {media && <Image src={media} alt="Uploaded File" />} {/* Display uploaded file */}
       </div>
       <button className={styles.publish} onClick={handleSubmit}>
         Publish
