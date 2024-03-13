@@ -1,74 +1,78 @@
 "use client";
+
 import { useEffect, useState } from "react";
-import { Alert, Button, FileInput, Select } from "flowbite-react";
-import { RiAddLine, RiImageAddLine, RiUpload2Fill } from "react-icons/ri";
-import {
-  getStorage,
-  ref,
-  uploadBytesResumable,
-  getDownloadURL,
-} from "firebase/storage";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react"; // Import useSession from next-auth/react
+import { Alert, Button, FileInput, Select } from 'flowbite-react';
+import { RiAddLine, RiImageAddLine, RiUpload2Fill } from 'react-icons/ri';
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { app } from "@/utils/firebase";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.bubble.css";
 import styles from "./writePage.module.css";
-import { useRouter } from "next/navigation";
-import { CircularProgressbar } from "react-circular-progressbar";
-import "react-circular-progressbar/dist/styles.css";
+import { CircularProgressbar } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 import Image from "next/image";
 
 const WritePage = () => {
   const router = useRouter();
+  const { data: session, status } = useSession(); // Use useSession hook
   const [fileUploadProgress, setFileUploadProgress] = useState(null);
   const [fileUploadError, setFileUploadError] = useState(null);
   const [open, setOpen] = useState(false);
   const [file, setFile] = useState(null);
-  const [media, setMedia] = useState("");
+  const [localMedia, setLocalMedia] = useState(""); // Store local media URL
+  const [media, setMedia] = useState(""); // Store Firebase media URL
   const [value, setValue] = useState("");
   const [title, setTitle] = useState("");
   const [catSlug, setCatSlug] = useState("");
 
+
   useEffect(() => {
     const storage = getStorage(app);
 
-    const upload = async () => {
-      try {
-        if (!file) {
-          setFileUploadError("Please select a file");
-          return;
-        }
+    if (status === "loading") return; // Wait until session is loaded
 
-        const name = new Date().getTime() + "-" + file.name;
-        const storageRef = ref(storage, name);
-        const uploadTask = uploadBytesResumable(storageRef, file);
+    if (!session) {
+      // If user is not authenticated, redirect to login page
+      router.push("/auth/login");
+    }
+  }, [session, status, router]);
 
-        uploadTask.on(
-          "state_changed",
-          (snapshot) => {
-            const progress =
-              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            setFileUploadProgress(progress.toFixed(0));
-          },
-          (error) => {
-            setFileUploadError("File upload failed");
-            setFileUploadProgress(null);
-          },
-          async () => {
-            const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-            setFileUploadProgress(null);
-            setFileUploadError(null);
-            setMedia(downloadURL);
-          }
-        );
-      } catch (error) {
-        setFileUploadError("File upload failed");
-        setFileUploadProgress(null);
-        console.log(error);
+  const upload = async () => {
+    try {
+      if (!file) {
+        setFileUploadError('Please select a file');
+        return;
       }
-    };
 
-    upload();
-  }, [file]);
+      const name = new Date().getTime() + '-' + file.name;
+      const storageRef = ref(storage, name);
+      const uploadTask = uploadBytesResumable(storageRef, file);
+
+      uploadTask.on(
+        'state_changed',
+        (snapshot) => {
+          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          setFileUploadProgress(progress.toFixed(0));
+        },
+        (error) => {
+          setFileUploadError('File upload failed');
+          setFileUploadProgress(null);
+        },
+        async () => {
+          const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+          setFileUploadProgress(null);
+          setFileUploadError(null);
+          setMedia(downloadURL);
+        }
+      );
+    } catch (error) {
+      setFileUploadError('File upload failed');
+      setFileUploadProgress(null);
+      console.log(error);
+    }
+  };
 
   const slugify = (str) =>
     str
@@ -79,6 +83,12 @@ const WritePage = () => {
       .replace(/^-+|-+$/g, "");
 
   const handleSubmit = async () => {
+    // Check if media is uploaded to Firebase
+    if (!media) {
+      console.log("Please upload the image first.");
+      return;
+    }
+
     const res = await fetch("/api/posts", {
       method: "POST",
       body: JSON.stringify({
@@ -96,8 +106,39 @@ const WritePage = () => {
     }
   };
 
-  const handleUploadFile = (e) => {
-    setFile(e.target.files[0]);
+  const handleUploadFile = async (e) => {
+    const uploadedFile = e.target.files[0];
+
+    try {
+      const localMediaUrl = URL.createObjectURL(uploadedFile); // Get local media URL
+      setLocalMedia(localMediaUrl); // Store local media URL
+
+      const name = new Date().getTime() + '-' + uploadedFile.name;
+      const storageRef = ref(getStorage(app), name);
+      const uploadTask = uploadBytesResumable(storageRef, uploadedFile);
+
+      uploadTask.on(
+        'state_changed',
+        (snapshot) => {
+          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          setFileUploadProgress(progress.toFixed(0));
+        },
+        (error) => {
+          setFileUploadError('File upload failed');
+          setFileUploadProgress(null);
+        },
+        async () => {
+          const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+          setFileUploadProgress(null);
+          setFileUploadError(null);
+          setMedia(downloadURL);
+        }
+      );
+    } catch (error) {
+      setFileUploadError('File upload failed');
+      setFileUploadProgress(null);
+      console.log(error);
+    }
   };
 
   return (
@@ -109,11 +150,7 @@ const WritePage = () => {
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
-      <Select
-        className={styles.select}
-        value={catSlug}
-        onChange={(e) => setCatSlug(e.target.value)}
-      >
+      <Select className={styles.select} value={catSlug} onChange={(e) => setCatSlug(e.target.value)}>
         <option value="culture">Culture</option>
         <option value="lifestyle">Lifestyle</option>
         <option value="movies">Movies</option>
@@ -123,33 +160,32 @@ const WritePage = () => {
         <option value="ikn">IKN</option>
         <option value="politics">Politics</option>
       </Select>
-      {media && <Image src={media} alt="Uploaded File" width={200} height={200} />}{" "}
-      {/* Display uploaded file */}
       <div className={styles.editor}>
         <Button className={styles.button} onClick={() => setOpen(!open)}>
           <RiAddLine size={16} />
         </Button>
         {open && (
           <div className={styles.add}>
+            {/* This is headline image */}
             <Button className={styles.addButton}>
               <label htmlFor="image">
                 <RiImageAddLine size={16} />
               </label>
             </Button>
             <FileInput
-              type="file"
-              accept="image/*, video/*"
+              type='file'
+              accept='image/*, video/*'
               onChange={handleUploadFile}
             />
             <Button
-              type="button"
+              type='button'
               className={styles.addButton}
-              size="sm"
+              size='sm'
               outline
               disabled={fileUploadProgress}
             >
               {fileUploadProgress ? (
-                <div className="w-16 h-16">
+                <div className='w-16 h-16'>
                   <CircularProgressbar
                     value={fileUploadProgress}
                     text={`${fileUploadProgress || 0}%`}
@@ -161,7 +197,7 @@ const WritePage = () => {
             </Button>
           </div>
         )}
-        {fileUploadError && <Alert color="failure">{fileUploadError}</Alert>}
+        {fileUploadError && <Alert color='failure'>{fileUploadError}</Alert>}
         <ReactQuill
           className={styles.textArea}
           theme="bubble"
@@ -169,6 +205,8 @@ const WritePage = () => {
           onChange={setValue}
           placeholder="Tell your story..."
         />
+        {/* Display uploaded file */}
+        {media && <Image src={media} alt="Uploaded File" />}
       </div>
       <button className={styles.publish} onClick={handleSubmit}>
         Publish
