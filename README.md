@@ -42,7 +42,7 @@ NEXTAUTH_SECRET = mysecretid
 
 DATABASE_URL="mongodb+srv://kaltimfolks:kaltimfolks2024@cluster0.uacvfka.mongodb.net/blog?retryWrites=true&w=majority"
 
-FIREBASE = "GANTI DULU CUY"
+FIREBASE = AIzaSyD-wV8l7POFFoKvEGS_PsDV26MNeWxEjjE
 
 SMTP_EMAIL = information.kaltimfolks@gmail.com
 SMTP_GMAIL_PASS ="wdbb ddyd fdql uehq"
