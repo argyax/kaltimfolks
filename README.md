@@ -32,3 +32,23 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+//.ENV//
+GOOGLE_ID = 511642203085-d1tnftb4nch2bq6sfecemt0dm559ek5q.apps.googleusercontent.com
+GOOGLE_SECRET = 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
+
+NEXTAUTH_URL = http://localhost:3000
+NEXTAUTH_SECRET = mysecretid
+
+DATABASE_URL="mongodb+srv://kaltimfolks:kaltimfolks2024@cluster0.uacvfka.mongodb.net/blog?retryWrites=true&w=majority"
+
+FIREBASE = "GANTI DULU CUY"
+
+SMTP_EMAIL = information.kaltimfolks@gmail.com
+SMTP_GMAIL_PASS ="wdbb ddyd fdql uehq"
+SMTP_USER = "b8fadcf1359086"
+SMTP_PASS = "fd6715b7310c18"
+
+
+JWT_USER_ID_SECRET="aeuZSPivn/RKwxHRRtVkkzVfsOZ2brmpJGXykd8Eo88="
+//.ENV//
