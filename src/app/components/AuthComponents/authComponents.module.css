@@ -70,10 +70,6 @@
     gap: 10px;
   }
   
-  @media (max-width: px) {
-
-  }
-  
   @media screen and (max-width: 768px) {
     .wrapper {
       padding: 50px 100px;

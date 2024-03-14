@@ -1,18 +1,17 @@
-.bg-blur {
-  height: 80px;
+
+.container {
+  height: 100px;
   width: 100%;
   z-index: 10;
 }
 
-.container {
+.wrapper {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 80px;
+  height: 100px;
   width: 100%;
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
-  background-color: #0000001e;
+  backdrop-filter: blur(10px);
   position: absolute;
   top: 0;
   left: 0;
@@ -78,12 +77,16 @@
 @media screen and (max-width: 768px) {
   .logo {
     font-size: 24px;
+    margin-left: -40px;
+  }
+  .toggle {
+    padding-right: 2rem;
   }
 }
 
 @media screen and (max-width: 1024px) {
   .links {
-    justify-content: flex-start;
+    justify-content: flex-end;
   }
   .cat {
     display: none;

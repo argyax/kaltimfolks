@@ -2,6 +2,8 @@ import { getAuthSession } from "@/app/api/auth/[...nextauth]/route";
 import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
+
+//GET POST
 export const GET = async (req) => {
   const { searchParams } = new URL(req.url);
 

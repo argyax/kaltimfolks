@@ -9,9 +9,9 @@ import DropDown from "../DropDown/DropDown";
 
 const Navbar = () => {
   return (
-    <div>
-      <div className={styles["bg-blur"]}></div>
-      <div className={styles.container}>
+    <>
+    <div className={styles.container}>
+      <div className={styles.wrapper}> 
         <div className={styles.social}>
           <Link href="https://www.instagram.com/kaltimfolks/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><FaInstagram size={24} /></Link>
           <Link href="https://x.com/kaltimfolks" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><FaXTwitter size={24} /></Link>
@@ -29,6 +29,7 @@ const Navbar = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

@@ -1,6 +1,6 @@
 import styles from "./aboutUsPage.module.css";
 import Image from "next/image";
-import NewsletterForm from "../components/NewsletterForm/NewsletterForm";
+import ContactForm from "../components/ContactForm/contactForm";
 
 const AboutPage = () => {
   return (
@@ -41,7 +41,7 @@ const AboutPage = () => {
           Kalimantan.
         </p>
       </div>
-      <NewsletterForm />
+      <ContactForm/>
     </div>
   );
 };
