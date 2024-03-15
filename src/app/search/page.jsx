@@ -4,7 +4,6 @@ import useSWR from "swr";
 import styles from "./search.module.css";
 import Card from "../components/Card/Card";
 import Pagination from "../components/pagination/Pagination";
-import SinglePage from "@/app/posts/[slug]/page"
 
 const fetchPosts = async (url) => {
   const response = await fetch(url);
@@ -49,7 +48,7 @@ const SearchPage = () => {
       <h1 className={styles.title}>Results</h1>
       <div className={styles.posts}>
         {posts.map((item) => (
-          <SinglePage item={item} key={item._id} />
+          <Card item={item} key={item._id} />
         ))}
       </div>
       <Pagination page={1} hasPrev={false} hasNext={false} /> {/* Pagination needs to be updated */}

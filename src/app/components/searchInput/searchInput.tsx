@@ -4,6 +4,7 @@ import { useState } from "react";
 import styles from "./searchInput.module.css";
 import { BiSearch } from 'react-icons/bi';
 import { Input } from "@nextui-org/react";
+import React from "react";
 
 const SearchInput = () => {
   const [searchQuery, setSearchQuery] = useState<string>(""); // Initialize with an empty string directly

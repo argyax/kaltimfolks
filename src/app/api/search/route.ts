@@ -1,11 +1,7 @@
-import { Post, User } from "@prisma/client";
-import type { NextApiRequest, NextApiResponse } from "next";
+import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "@/lib/prisma";
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export async function getSearchResults(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "GET") {
     try {
       const { q: query } = req.query;
@@ -13,15 +9,16 @@ export default async function handler(
       if (typeof query !== "string") {
         throw new Error("Invalid request");
       }
+      else {}
 
       /**
        * Search posts
        */
-      const posts: Array<Post & { user: User }> = await prisma.post.findMany({
+      const posts = await prisma.post.findMany({
         where: {
           OR: [
             {
-             title: {
+              title: {
                 contains: query,
                 mode: "insensitive",
               },
@@ -61,5 +58,8 @@ export default async function handler(
       console.error(error);
       res.status(500).end();
     }
+  } else {
+    res.setHeader("Allow", ["GET"]);
+    res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 }
