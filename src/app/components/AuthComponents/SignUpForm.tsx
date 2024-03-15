@@ -103,7 +103,7 @@ const SignUpForm = () => {
             transform: 'translate(-125%)',
             cursor: 'pointer',
             color: 'grey',
-            backgroundColor: 'transparent'
+            backgroundColor: 'transparent',
           }} />}
         style={{
           width: '100%',

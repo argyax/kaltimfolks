@@ -6,6 +6,7 @@ import Link from "next/link";
 import AuthLinks from "../authLinks/AuthLinks";
 import ThemeToggle from "../themeToggle/ThemeToggle";
 import DropDown from "../DropDown/DropDown";
+import SearchInput from "../searchInput/searchInput"
 
 const Navbar = () => {
   return (
@@ -25,6 +26,7 @@ const Navbar = () => {
           <Link href="/our-content" className={styles.link}>Our Content</Link>
         </div>
         <div className={styles.auth}>
+          <div className={styles.search}> <SearchInput /> </div>
           <AuthLinks />
         </div>
       </div>

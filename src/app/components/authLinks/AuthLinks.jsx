@@ -4,6 +4,7 @@ import styles from "./authLinks.module.css";
 import { useState } from "react";
 import { signOut, useSession } from "next-auth/react";
 import DropDown from "../DropDown/DropDown";
+import SearchInput from "../searchInput/searchInput"
 
 const AuthLinks = () => {
   const [open, setOpen] = useState(false);
@@ -42,10 +43,11 @@ const AuthLinks = () => {
       </div>
       {open && (
         <div className={styles.responsiveMenu}>
+          
           <DropDown />
-          <Link href="/">About</Link>
-          <Link href="/">Contact</Link>
-          {status === "notauthenticated" ? (
+          <Link href="/about-us">About Us</Link>
+          <Link href="/our-content">Our Content</Link>
+          {status === "unauthenticated" ? (
             <>
               <Link href="/auth/login">Log In</Link>
               <Link href="/auth/signup">Sign Up</Link>
@@ -53,9 +55,10 @@ const AuthLinks = () => {
           ) : (
             <>
               <Link href="/write">Write</Link>
-              <span className={styles.link}>Logout</span>
+              <span onClick={signOut}>Logout</span>
             </>
           )}
+          <SearchInput />
         </div>
       )}
     </>

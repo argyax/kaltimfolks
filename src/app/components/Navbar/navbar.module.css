@@ -62,6 +62,9 @@
     font-size: 18px;
     gap: 15px;
   }
+  .search {
+    display: none;
+  }
 }
 
 @media screen and (max-width: 1024px) {
@@ -87,6 +90,7 @@
 @media screen and (max-width: 1024px) {
   .links {
     justify-content: flex-end;
+    flex: 0;
   }
   .cat {
     display: none;

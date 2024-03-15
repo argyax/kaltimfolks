@@ -56,6 +56,7 @@
         top: 100px;
         left: 0;
         background-color: var(--bg);
+        backdrop-filter: blur(10px);
         height: calc(100vh - 100px);
         width: 100%;
         display: flex;

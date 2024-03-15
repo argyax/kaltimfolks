@@ -95,3 +95,8 @@ model Comment {
   postSlug  String
   post      Post     @relation(fields: [postSlug], references: [slug])
 }
+
+model SearchQuery {
+  id    String @id @default(cuid()) @map("_id")
+  query String
+}
