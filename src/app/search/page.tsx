@@ -3,9 +3,12 @@ import { useRouter, useSearchParams } from "next/navigation";
 import useSWR from "swr";
 import styles from "./search.module.css";
 import Card from "../components/Card/Card";
+import Posts from "../components/Post/post";
 import Pagination from "../components/pagination/Pagination";
+import { Spinner } from "react-bootstrap";
+import Menu from "../components/Menu/Menu";
 
-const fetchPosts = async (url) => {
+const fetchPosts = async (url: string) => {
   const response = await fetch(url);
 
   if (!response.ok) {
@@ -16,13 +19,14 @@ const fetchPosts = async (url) => {
 };
 
 const SearchPage = () => {
-  const router = useRouter();
   const search = useSearchParams();
   const searchQuery = search ? search.get("q") : null;
+  const router = useRouter();
+
   const encodedSearchQuery = encodeURI(searchQuery || "");
 
-  const { data, error } = useSWR(
-    `http://localhost:3000/api/search?q=${encodedSearchQuery}`,
+  const { data, isLoading } = useSWR(
+    `/api/search?q=${encodedSearchQuery}`,
     fetchPosts,
     { revalidateOnFocus: false }
   );
@@ -31,25 +35,24 @@ const SearchPage = () => {
     router.push("/");
   }
 
-  if (error) {
-    return <div className={styles.container}>Error: {error.message}</div>;
+  if (!searchQuery) {
+    // Handle case where there's no search query
+    return <div>No search query provided</div>;
   }
 
-  if (!data) {
-    return <div className={styles.container}>Loading...</div>;
+  if (isLoading) {
+    return <Spinner />;
   }
 
-  if (!data.posts || data.posts.length === 0) {
-    return <div className={styles.container}>No Results</div>;
+  if (!data?.posts) {
+    return null;
   }
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Results</h1>
-      <div className={styles.posts}>
-        {posts.map((item) => (
-          <Card item={item} key={item._id} />
-        ))}
+      <h1 className={styles.title}>Showing Results for: {""} <span className={styles.posts}>{searchQuery}</span></h1>
+      <div className={styles.content}>
+          <Posts posts={data.posts} />
       </div>
       <Pagination page={1} hasPrev={false} hasNext={false} /> {/* Pagination needs to be updated */}
     </div>

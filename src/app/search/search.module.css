@@ -1,8 +1,5 @@
 .container {
-    margin-bottom: 50px;
-    display: flex;
-    align-items: center;
-    gap: 50px;
+    flex: 5;
   }
   
   .imageContainer {
@@ -43,6 +40,19 @@
     border-bottom: 1px solid crimson;
     width: max-content;
     padding: 2px 0px;
+  }
+
+  .title{
+    background-color: var(--textColor);
+    color: var(--bg);
+    padding: 5px 10px;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  
+  .content{
+    display: flex;
+    gap: 50px;
   }
   
   @media screen and (max-width: 1280px) {
