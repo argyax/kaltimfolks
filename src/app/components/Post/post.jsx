@@ -4,7 +4,7 @@ import styles from "./postPage.module.css";
 
 const Posts = ({ posts }) => {
   return (
-    <div className={styles.container}>
+    <div className={styles.container} key={posts.id}>
       {posts.map((post) => (
         <div key={post.id} className={styles.textContainer}>
           {post.img && (

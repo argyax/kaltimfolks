@@ -37,11 +37,11 @@ const SinglePage = async ({ params }) => {
             </div>
           </div>
         </div>
-        {/*{data?.img && (
+        {data?.img && (
           <div className={styles.imageContainer}>
             <Image src={data.img} alt="" fill className={styles.image} />
           </div>
-        )}*/}
+        )}
       </div>
       <div className={styles.content}>
         <div className={styles.post}>
