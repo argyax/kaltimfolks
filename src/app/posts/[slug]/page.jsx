@@ -22,9 +22,17 @@ const SinglePage = async ({ params }) => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.infoContainer}>
+      
+      {/*Header*/}
+      <div className={styles.content}>
+      <div className={styles.post}>
         <div className={styles.textContainer}>
           <h1 className={styles.title}>{data?.title}</h1>
+          {data?.img && (
+          <div className={styles.imageContainer}>
+            <Image src={data.img} alt="" fill className={styles.image} />
+          </div>
+          )}
           <div className={styles.user}>
             {data?.user?.image && (
               <div className={styles.userImageContainer}>
@@ -37,14 +45,8 @@ const SinglePage = async ({ params }) => {
             </div>
           </div>
         </div>
-        {data?.img && (
-          <div className={styles.imageContainer}>
-            <Image src={data.img} alt="" fill className={styles.image} />
-          </div>
-        )}
-      </div>
-      <div className={styles.content}>
-        <div className={styles.post}>
+      {/* End of Header*/}
+
           <div
             className={styles.description}
             dangerouslySetInnerHTML={{ __html: data?.desc }}

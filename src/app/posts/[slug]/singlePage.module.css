@@ -38,13 +38,14 @@
   }
   
   .username {
+    margin-top: 20px;
     font-size: 20px;
     font-weight: 500;
   }
   
   .imageContainer {
     flex: 1;
-    height: 350px;
+    height: 450px;
     position: relative;
   }
   
@@ -65,7 +66,7 @@
   .description p {
     font-size: 20px;
     font-weight: 300;
-    margin-bottom: 20px;
+    margin-top: 20px;
   }
   
   @media screen and (max-width: 1536px) {
