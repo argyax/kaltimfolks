@@ -9,15 +9,24 @@ import {
 import { signJwt, verifyJwt } from "../jwt";
 import { prisma } from "@/lib/prisma";
 
-
 export async function registerUser(
-  user: Omit<User, "updatedAt" | "createdAt" | "isAdmin" | "comments" | "posts" | "id" | "emailVerified" | "image" | "role">
-)
- {
+  user: Omit<
+    User,
+    | "updatedAt"
+    | "createdAt"
+    | "isAdmin"
+    | "comments"
+    | "posts"
+    | "id"
+    | "emailVerified"
+    | "image"
+    | "role"
+  >
+) {
   const result = await prisma.user.create({
     data: {
       ...user,
-      password: await bcrypt.hash(user.password, 10)
+      password: await bcrypt.hash(user.password, 10),
     },
   });
 
@@ -29,7 +38,6 @@ export async function registerUser(
   await sendMail({ to: user.email, subject: "Activate Your Account", body });
   return result;
 }
-
 
 type ActivateUserFunc = (
   jwtUserId: string

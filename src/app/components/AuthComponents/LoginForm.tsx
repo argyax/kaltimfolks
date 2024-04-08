@@ -1,5 +1,10 @@
 "use client";
-import { EyeIcon, EyeSlashIcon } from "@heroicons/react/20/solid";
+import {
+  EyeIcon,
+  EyeSlashIcon,
+  EnvelopeIcon,
+  KeyIcon,
+} from "@heroicons/react/20/solid";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Input } from "@nextui-org/react";
 import { signIn } from "next-auth/react";
@@ -50,61 +55,94 @@ const LoginForm = (props: Props) => {
   };
 
   return (
-        <form
-          onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-          <div className={styles.inputContainer}>
-            <Input
-                placeholder="Email"
-                {...register("email")}
-                errorMessage={errors.email?.message}
-                style={{
-                  width: '100%',
-                  padding: '0.95rem',
-                  border: 'none',
-                  borderRadius: '7px',
-                  boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.1)',
-                  outline: 'none'
-                }}
-              />
+    <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+      <div className={styles.inputContainer}>
+        <Input
+          placeholder="Email"
+          {...register("email")}
+          errorMessage={errors.email?.message}
+          startContent={
+            <EnvelopeIcon
+              style={{
+                position: "absolute",
+                width: "20px",
+                border: "none",
+                marginTop: "13px",
+                transform: "translate(50%)",
+                cursor: "pointer",
+                color: "grey",
+                backgroundColor: "transparent",
+              }}
+            />
+          }
+          style={{
+            width: "100%",
+            padding: "1rem 2.5rem",
+            border: "none",
+            borderRadius: "6px",
+            boxShadow: "0px 0px 2px rgba(0, 0, 0, 0.8)",
+            outline: "none",
+          }}
+        />{" "}
+        <Input
+          placeholder="Password"
+          {...register("password")}
+          type={visiblePass ? "text" : "password"}
+          errorMessage={errors.password?.message}
+          startContent={
+            <KeyIcon
+              style={{
+                position: "absolute",
+                width: "20px",
+                border: "none",
+                marginTop: "13px",
+                transform: "translate(50%)",
+                cursor: "pointer",
+                color: "grey",
+                backgroundColor: "transparent",
+              }}
+            />
+          }
+          endContent={
+            <Button
+              className={styles.eye}
+              onClick={() => setVisiblePass((prev) => !prev)}
+              style={{
+                position: "absolute",
+                width: "20px",
+                border: "none",
+                marginTop: "13px",
+                transform: "translate(-150%)",
+                cursor: "pointer",
+                color: "grey",
+                backgroundColor: "transparent",
+              }}
+            >
+              {visiblePass ? <EyeSlashIcon /> : <EyeIcon />}
+            </Button>
+          }
+          style={{
+            width: "100%",
+            padding: "1rem 2.5rem",
+            border: "none",
+            borderRadius: "6px",
+            boxShadow: "0px 0px 2px rgba(0, 0, 0, 0.8)",
+            outline: "none",
+            marginBottom: "16px",
+          }}
+        />
+      </div>
 
-              <Input
-                placeholder="Password"
-                {...register("password")}
-                type={visiblePass ? "text" : "password"}
-                errorMessage={errors.password?.message}
-                endContent={
-                  <Button
-                    className={styles.eye}
-                    onClick={() => setVisiblePass((prev) => !prev)}
-                    style={{
-                      position: 'absolute',
-                      width: '20px',
-                      border: 'none',
-                      marginTop: '13px',
-                      transform: 'translate(-125%)',
-                      cursor: 'pointer',
-                      color: 'grey',
-                      backgroundColor: 'transparent'
-                    }}
-                  >
-                    {visiblePass ? <EyeSlashIcon /> : <EyeIcon />}
-                  </Button>
-                }
-                style={{
-                  width: '100%',
-                  padding: '0.95rem',
-                  border: 'none',
-                  borderRadius: '7px',
-                  boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.1)',
-                  outline: 'none'
-                }}
-              />
-          </div>
-
-              <Button className={styles.socialButton1} color="primary" type="submit" disabled={isSubmitting} isLoading={isSubmitting}>
-                {isSubmitting ? "Signing In..." : "Log In"}
-              </Button>
-        </form>
+      <Button
+        className={styles.socialButton1}
+        color="primary"
+        type="submit"
+        disabled={isSubmitting}
+        isLoading={isSubmitting}
+      >
+        {isSubmitting ? "Signing In..." : "Log In"}
+      </Button>
+    </form>
   );
 };
 

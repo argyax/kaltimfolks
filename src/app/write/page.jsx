@@ -9,6 +9,7 @@ import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/
 import { app } from "@/utils/firebase";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.bubble.css";
+import 'react-quill/dist/quill.snow.css';
 import styles from "./writePage.module.css";
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
@@ -141,6 +142,8 @@ const WritePage = () => {
     }
   };
 
+  const [editorValue, setEditorValue] = useState('');
+
   return (
     <div className={styles.container}>
       <input
@@ -150,63 +153,75 @@ const WritePage = () => {
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
-      <Select className={styles.select} value={catSlug} onChange={(e) => setCatSlug(e.target.value)}>
-        <option value="culture">Culture</option>
-        <option value="lifestyle">Lifestyle</option>
-        <option value="movies">Movies</option>
-        <option value="sports">Sports</option>
-        <option value="technology">Technology</option>
-        <option value="music">Music</option>
-        <option value="ikn">IKN</option>
-        <option value="politics">Politics</option>
-      </Select>
-      <div className={styles.editor}>
-        <Button className={styles.button} onClick={() => setOpen(!open)}>
+      <div className={styles["category-wrapper"]}>
+        <p>Category: </p>
+        <Select className={styles.select} value={catSlug} onChange={(e) => setCatSlug(e.target.value)}>
+          <option value="culture">Culture</option>
+          <option value="lifestyle">Lifestyle</option>
+          <option value="movies">Movies</option>
+          <option value="sports">Sports</option>
+          <option value="technology">Technology</option>
+          <option value="music">Music</option>
+          <option value="ikn">IKN</option>
+          <option value="politics">Politics</option>
+        </Select>
+      </div>
+      <div>
+        {/* <Button className={styles.button} onClick={() => setOpen(!open)}>
           <RiAddLine size={16} />
         </Button>
-        {open && (
-          <div className={styles.add}>
-            {/* This is headline image */}
-            <Button className={styles.addButton}>
-              <label htmlFor="image">
-                <RiImageAddLine size={16} />
-              </label>
-            </Button>
-            <FileInput
-              type='file'
-              accept='image/*, video/*'
-              onChange={handleUploadFile}
-            />
-            <Button
-              type='button'
-              className={styles.addButton}
-              size='sm'
-              outline
-              disabled={fileUploadProgress}
-            >
-              {fileUploadProgress ? (
-                <div className='w-16 h-16'>
-                  <CircularProgressbar
-                    value={fileUploadProgress}
-                    text={`${fileUploadProgress || 0}%`}
-                  />
-                </div>
-              ) : (
-                <RiUpload2Fill size={16} onClick={handleUploadFile} />
-              )}
-            </Button>
-          </div>
-        )}
-        {fileUploadError && <Alert color='failure'>{fileUploadError}</Alert>}
+        {open && ( */}
+        <div className={styles.add}>
+          {/* This is headline image */}
+          <p>Header image: </p>
+          <FileInput
+            type='file'
+            accept='image/*, video/*'
+            onChange={handleUploadFile}
+          />
+          <Button
+            type='button'
+            className={styles.addButton}
+            size='sm'
+            outline
+            disabled={fileUploadProgress}
+          >
+            {fileUploadProgress ? (
+              <div className='w-16 h-16'>
+                <CircularProgressbar
+                  value={fileUploadProgress}
+                  text={`${fileUploadProgress || 0}%`}
+                />
+              </div>
+            ) : (
+              <RiUpload2Fill size={16} onClick={handleUploadFile} />
+            )}
+          </Button>
+        </div>
+        {/* )} */}
+      </div>
+      {fileUploadError && <Alert color='failure'>{fileUploadError}</Alert>}
+      <div className={styles.editor}>
         <ReactQuill
           className={styles.textArea}
-          theme="bubble"
+          theme="snow"
           value={value}
           onChange={setValue}
           placeholder="Tell your story..."
+          modules={{
+            toolbar: [
+              [{ header: '2' }], ,
+              ['bold', 'italic', 'underline'],
+              ['link'],
+              ['image'],
+              ['video'],
+              [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+              ['clean']
+            ]
+          }}
         />
         {/* Display uploaded file */}
-        {media && <Image src={media} alt="Uploaded File" />}
+        {media && <Image src={media} width={500} height={500} alt="Uploaded File" />}
       </div>
       <button className={styles.publish} onClick={handleSubmit}>
         Publish

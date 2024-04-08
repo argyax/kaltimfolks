@@ -7,15 +7,15 @@ const MenuPosts = ({ withImage, postId, item }) => {
   return (
     <div className={styles.items} key={postId}>
       <Link href={`/posts/${item.slug}`} className={styles.item}>
+        <div className={styles.textContainer}>
           {item.img && (
             <div className={styles.imageContainer}>
               <Image src={item.img} alt="" fill className={styles.image} />
             </div>
           )}
-        <div className={styles.textContainer}>
-          <Link href={`/posts/${item.slug}`} className={styles.postTitle}>
-            <h3>{item.title}</h3>
-          </Link>
+          <div className={styles.postTitle}>
+            <h3 className={styles.title}>{item.title}</h3>
+          </div>
           <div className={styles.detail}>
             <span className={styles.date}>
               {item.createdAt.substring(0, 10)} -{" "}

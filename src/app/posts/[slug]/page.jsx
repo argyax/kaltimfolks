@@ -22,37 +22,37 @@ const SinglePage = async ({ params }) => {
 
   return (
     <div className={styles.container}>
-      
+
       {/*Header*/}
       <div className={styles.content}>
-      <div className={styles.post}>
-        <div className={styles.textContainer}>
-          <h1 className={styles.title}>{data?.title}</h1>
-          {data?.img && (
-          <div className={styles.imageContainer}>
-            <Image src={data.img} alt="" fill className={styles.image} />
-          </div>
-          )}
-          <div className={styles.user}>
-            {data?.user?.image && (
-              <div className={styles.userImageContainer}>
-                <Image src={data.user.image} alt="" fill className={styles.avatar} />
+        <div className={styles.post}>
+          <div className={styles.textContainer}>
+            <h1 className={styles.title}>{data?.title}</h1>
+            <div className={styles.user}>
+              {data?.user?.image && (
+                <div className={styles.userImageContainer}>
+                  <Image src={data.user.image} alt="" fill className={styles.avatar} />
+                </div>
+              )}
+              <div className={styles.userTextContainer}>
+                <span className={styles.username}>{data?.user.name}</span>
+                <span className={styles.date}>{data?.createdAt.substring(0, 10)}</span>
+              </div>
+            </div>
+            {data?.img && (
+              <div className={styles.imageContainer}>
+                <Image src={data.img} alt="" fill className={styles.image} />
               </div>
             )}
-            <div className={styles.userTextContainer}>
-              <span className={styles.username}>{data?.user.name}</span>
-              <span className={styles.date}>{data?.createdAt.substring(0, 10)}</span>
-            </div>
           </div>
-        </div>
-      {/* End of Header*/}
+          {/* End of Header*/}
 
           <div
             className={styles.description}
             dangerouslySetInnerHTML={{ __html: data?.desc }}
           />
           <div className={styles.comment}>
-            <Comments postSlug={slug}/>
+            <Comments postSlug={slug} />
           </div>
         </div>
         <Menu />

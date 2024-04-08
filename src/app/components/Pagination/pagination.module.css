@@ -23,12 +23,12 @@
   cursor: pointer;
 }
 
-@media screen and (max-width:1024px) {
+@media screen and (max-width: 1024px) {
   .pageNumber {
     align-items: center;
     padding: 2px;
   }
- }
+}
 
 .activePage {
   font-weight: bold;

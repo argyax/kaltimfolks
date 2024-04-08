@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useRouter, useSearchParams } from "next/navigation";
 import useSWR from "swr";
 import styles from "./search.module.css";
@@ -50,11 +50,15 @@ const SearchPage = () => {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Showing Results for: {""} <span className={styles.posts}>{searchQuery}</span></h1>
+      <h2 className={styles.title}>
+        Showing Results for: {""}{" "}
+        <span className={styles.posts}>{searchQuery}</span>
+      </h2>
       <div className={styles.content}>
-          <Posts posts={data.posts} />
+        <Posts posts={data.posts} />
       </div>
-      <Pagination page={1} hasPrev={false} hasNext={false} /> {/* Pagination needs to be updated */}
+      <Pagination page={1} hasPrev={false} hasNext={false} />{" "}
+      {/* Pagination needs to be updated */}
     </div>
   );
 };

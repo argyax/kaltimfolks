@@ -1,7 +1,5 @@
 import React from "react";
 import styles from "./menu.module.css";
-import Link from "next/link";
-import Image from "next/image";
 import MenuPosts from "../menuPosts/MenuPosts";
 import MenuCategories from "../menuCategories/MenuCategories";
 
@@ -20,7 +18,7 @@ const getData = async (page, cat) => {
   return res.json();
 };
 
-const Menu = async ({ page, cat}) => {
+const Menu = async ({ page, cat }) => {
   const { posts, count } = await getData(page, cat);
 
   // Slice the posts array to display only 4 recent articles
@@ -28,13 +26,13 @@ const Menu = async ({ page, cat}) => {
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.subtitle}>Discover by topic</h2>
-      <h1 className={styles.title}>Categories</h1>
+      <span className={styles.subtitle}>Discover by topic</span>
+      <h2 className={styles.title}>Categories</h2>
       <MenuCategories />
-      <h2 className={styles.subtitle}>{"What's hot"}</h2>
-      <h1 className={styles.title}>Recent Articles</h1>
+      <span className={styles.subtitle}>{"What's hot"}</span>
+      <h2 className={styles.title}>Recent Articles</h2>
       {slicedPosts?.map((item, index) => (
-        <MenuPosts withImage={true} postId={item._id} item={item} key={index}/>
+        <MenuPosts withImage={true} postId={item._id} item={item} key={index} />
       ))}
     </div>
   );

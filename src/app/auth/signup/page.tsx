@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import SignUpForm from "@/app/components/AuthComponents/SignUpForm";
 import { Image, Link } from "@nextui-org/react";
 import styles from "./signupPage.module.css";
@@ -16,18 +16,27 @@ const SignupPage = () => {
   }
 
   if (status === "authenticated") {
-    router.push("/")
+    router.push("/");
   }
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
-        <Link href="/" className={styles.logo}>KALTIMFOLKS.</Link>
-          <p className={styles.desc}>A place for you to explore the creative culture of East Kalimantan and Indonesians</p>
-        <div className={styles.log}>
-          <p>Already have an account? </p>
-          <Link href={"/auth/login"}>Log In</Link>
-        </div>
+        <Link href="/" className={styles.logo}>
+          KALTIMFOLKS.
+        </Link>
+        <p className={styles.desc}>
+          A place for you to explore the creative culture of East Kalimantan and
+          Indonesians
+        </p>
         <SignUpForm />
+        <div className={styles.log}>
+          <p>
+            Already have an account? {"  "}
+            <Link href={"/auth/login"} className={styles.link}>
+              Log in
+            </Link>
+          </p>
+        </div>
         <NextAuthProviders />
       </div>
     </div>
