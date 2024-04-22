@@ -3,7 +3,8 @@ import React, { useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import styles from "./mainHeader.module.css";
+import styles from "./mainHeader.module.css"
+import Image from "next/image"
 
 function MainHeader() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -41,8 +42,10 @@ function MainHeader() {
     <div className="slider-container">
       <Slider {...settings}>
         <div className={styles.container}>
-          <img
+          <Image
             className={styles.backgroundImage}
+            width= {100}
+            height= {100}
             src="/mahakam.png"
             alt="mahakam.png"
           />
@@ -54,8 +57,10 @@ function MainHeader() {
           </div>
         </div>
         <div className={styles.container}>
-          <img
+          <Image
             className={styles.backgroundImage}
+            width= {100}
+            height= {100}
             src="/mahakam.png"
             alt="mahakam.png"
           />
@@ -67,8 +72,10 @@ function MainHeader() {
           </div>
         </div>
         <div className={styles.container}>
-          <img
+          <Image
             className={styles.backgroundImage}
+            width= {100}
+            height= {100}
             src="/mahakam.png"
             alt="mahakam.png"
           />
@@ -80,8 +87,10 @@ function MainHeader() {
           </div>
         </div>
         <div className={styles.container}>
-          <img
+          <Image
             className={styles.backgroundImage}
+            width= {100}
+            height= {100}
             src="/mahakam.png"
             alt="mahakam.png"
           />
