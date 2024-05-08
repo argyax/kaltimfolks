@@ -1,0 +1,45 @@
+.dropdown {
+  position: relative;
+  display: inline-block;
+  z-index: 999;
+}
+
+.button {
+  display: flex;
+  border-radius: 10%;
+  color: var(--textColor);
+  font-size: 20px;
+  font-weight: bold;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 1024px) {
+  .button {
+    gap: 15px;
+  }
+}
+
+.menu {
+  display: none;
+  position: absolute;
+
+  left: 0;
+  z-index: 1000;
+  background-color: var(--softBg);
+  border-radius: 5%;
+}
+
+.categoryItem {
+  display: block;
+  z-index: 1000;
+  padding: 8px;
+  font-size: 20px;
+}
+
+.dropdown:hover .menu {
+  z-index: 1000;
+  display: block;
+}

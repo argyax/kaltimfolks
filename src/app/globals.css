@@ -1,0 +1,91 @@
+:root {
+  --bg: black;
+  --textColor: white;
+  --softBg: #f0f0f0;
+  --softtextColor: #626262;
+  --iconColor: rgb(198, 198, 198);
+  --linear-gradient: linear-gradient(180deg, #3c3c3c00, #00000080, #0b0b0b);
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.dark {
+  --bg: #0b0b0b;
+  --textColor: #fff;
+  background-color: var(--bg);
+  --softBg: #171718;
+  --softTextColor: #a6a6a6;
+  --iconColor: rgb(198, 198, 198);
+  --linear-gradient: linear-gradient(180deg, #3c3c3c00, #00000080, #0b0b0b);
+  position: relative;
+  z-index: 0;
+  background-color: var(--bg);
+}
+
+.light {
+  --bg: white;
+  --textColor: black;
+  --softBg: #f0f0f0;
+  --softTextColor: #626262;
+  --iconColor: rgb(99, 99, 99);
+  --linear-gradient: #ffffff00, #ffffff77, #ffffff;
+  --linear-gradient: linear-gradient(180deg, #ffffff00, #ffffff77, #ffffff);
+}
+
+.container {
+  min-height: 100vh;
+  color: var(--textColor);
+}
+
+.wrapper {
+  max-width: 1366px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media screen and (max-width: 1440px) {
+  .wrapper {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  .wrapper {
+    max-width: 1024px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .wrapper {
+    max-width: 768px;
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .wrapper {
+    max-width: 640px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .wrapper {
+    max-width: 475px;
+  }
+}

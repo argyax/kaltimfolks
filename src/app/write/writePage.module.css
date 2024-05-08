@@ -1,0 +1,91 @@
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  z-index: -100;
+}
+
+.category-wrapper {
+  display: flex;
+  gap: 24px;
+  flex-direction: row;
+}
+
+.select {
+  margin-bottom: 16px;
+  width: max-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.editor {
+  display: flex;
+  position: relative;
+  /* background-color: var(--softBg); */
+  color: var(--textColor);
+}
+
+.editor > .quill {
+  background-color: black;
+}
+
+.button,
+.addButton {
+  margin: 20px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: transparent;
+  border: 1px solid var(--textColor);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--textColor);
+}
+
+.addButton {
+  border: 1px solid var(--textColor);
+}
+
+.add {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background-color: var(--bg);
+  width: 100%;
+  z-index: -100;
+}
+
+.input {
+  padding: 30px;
+  margin-bottom: 20px;
+  font-size: 64px;
+  border: none;
+  outline: none;
+  background-color: var(--softBg);
+  color: var(--textColor);
+  z-index: -100;
+}
+
+.input::placeholder {
+  color: #b3b3b1;
+}
+
+.textArea {
+  width: 100%;
+}
+
+.publish {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  padding: 10px 20px;
+  border: none;
+  background-color: #1a8917;
+  color: white;
+  cursor: pointer;
+  border-radius: 20px;
+}

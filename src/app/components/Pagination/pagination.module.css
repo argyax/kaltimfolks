@@ -1,0 +1,39 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.button {
+  width: 100px;
+  border: none;
+  padding: 16px;
+  background-color: var(--softBg);
+  color: var(--textColor);
+  cursor: pointer;
+}
+
+.button:disabled {
+  background-color: var(--softBg);
+  cursor: not-allowed;
+}
+
+.pageNumber {
+  padding: 8px;
+  margin-right: 4px;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 1024px) {
+  .pageNumber {
+    align-items: center;
+    padding: 2px;
+  }
+}
+
+.activePage {
+  font-weight: bold;
+}
+
+.ellipsis {
+  margin-right: 4px;
+}
