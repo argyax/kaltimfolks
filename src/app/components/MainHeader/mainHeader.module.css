@@ -6,30 +6,12 @@
 }
 
 .header {
-  width: 50%; /* Atur lebar sesuai kebutuhan Anda */
+  width: 65%; /* Atur lebar sesuai kebutuhan Anda */
   font-size: 3rem;
 }
 
-/* Responsif pada layar dengan lebar 768px atau lebih kecil */
-@media (max-width: 768px) {
-  .header {
-    width: 75%;
-    font-size: 2rem;
-  }
-}
-
-/* Responsif pada layar dengan lebar 576px atau lebih kecil */
-@media (max-width: 576px) {
-  .header {
-    font-size: 1rem;
-  }
-}
-
-/* Responsif pada layar dengan lebar 400px atau lebih kecil */
-@media (max-width: 400px) {
-  .header {
-    font-size: 1.5rem;
-  }
+.header::first-letter {
+  text-transform: capitalize;
 }
 
 .backgroundImage {
@@ -67,4 +49,27 @@
   z-index: 2; /* Z-index ditingkatkan untuk menampilkan konten di depan overlay hitam */
   color: white; /* Atur warna teks sesuai kebutuhan Anda */
   padding: 70px;
+}
+
+/* Responsif pada layar dengan lebar 768px atau lebih kecil */
+@media (max-width: 768px) {
+  .header {
+    /* width: 75%; */
+    font-size: 2rem;
+  }
+  .content {
+    padding-top: 4rem;
+    padding: 2rem;
+  }
+}
+
+/* Responsif pada layar dengan lebar 576px atau lebih kecil */
+@media (max-width: 576px) {
+  .header {
+    font-size: 1.25rem;
+  }
+  .content {
+    padding-top: 3rem;
+    padding: 1rem;
+  }
 }

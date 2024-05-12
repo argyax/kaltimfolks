@@ -17,7 +17,7 @@ const Posts = ({ posts }) => {
               <div className={styles.textContainer}>
                 <div className={styles.detail}>
                   <span className={styles.date}>
-                    {post.createdAt.slice(0, 10)} -{" "}
+                    {post.createdAt.slice(0, 10)} {" "}
                   </span>
                   <span className={styles.category}>{post.catSlug}</span>
                 </div>

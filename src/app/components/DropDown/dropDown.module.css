@@ -1,16 +1,51 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
 .dropdown {
   position: relative;
   display: inline-block;
   z-index: 999;
 }
 
-.button {
-  display: flex;
-  border-radius: 10%;
+.btn {
+  background: none !important;
+  border: none;
+  padding: 0 !important;
+  /*input has OS specific font-family*/
+  cursor: pointer;
+  font-size: 16px;
   color: var(--textColor);
-  font-size: 20px;
   font-weight: bold;
-  background-color: transparent;
+  font-family: "Montserrat", sans-serif;
+}
+
+.btn:active {
+  border: none;
+  padding: 0 !important;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.btn:focus {
+  border: none;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  padding: 0 !important;
+}
+
+.bg {
+  margin-top: 8px;
+  background-color: var(--softBg);
+  /* border: solid 1px #d1d1d1; */
+  border-radius: 6px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  padding: 4px 8px;
+}
+
+.categoryItem {
+  display: flex;
+  color: rgb(25, 25, 25);
+  font-size: 16px;
+  font-weight: bold;
   border: none;
   outline: none;
   cursor: pointer;
@@ -24,7 +59,7 @@
 
 .menu {
   display: none;
-  position: absolute;
+  position: static;
 
   left: 0;
   z-index: 1000;
@@ -34,9 +69,8 @@
 
 .categoryItem {
   display: block;
-  z-index: 1000;
   padding: 8px;
-  font-size: 20px;
+  font-size: 16px;
 }
 
 .dropdown:hover .menu {

@@ -38,19 +38,20 @@ const SearchInput = () => {
               width: "20px",
               border: "none",
               marginTop: "10px",
-              transform: "translate(-110%)",
+              transform: "translate(50%) !important",
               cursor: "pointer",
-              color: "var(--textColor)",
+              color: "grey !important",
               backgroundColor: "transparent",
+              zIndex: "200"
             }}
           />
         }
         style={{
           border: "none",
           width: "100%",
-          padding: "0.5rem",
+          padding: "0.5rem 1rem",
           borderRadius: "7px",
-          boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.5)",
+          boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;",
           outline: "none",
         }}
       />

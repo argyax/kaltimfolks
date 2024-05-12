@@ -102,9 +102,11 @@ const WritePage = () => {
 
   return (
     <div className={styles.container}>
-      <input
-        type="text"
+      <textarea
         placeholder="Title"
+        maxlength="90"
+        rows="1"
+        wrap="soft"
         className={styles.input}
         value={title}
         onChange={(e) => setTitle(e.target.value)}
@@ -135,7 +137,6 @@ const WritePage = () => {
           size='sm'
           outline
           disabled={fileUploadProgress}
-          onClick={handleUploadFile} // Handle upload on button click
         >
           {fileUploadProgress ? (
             <div className='w-16 h-16'>

@@ -22,6 +22,17 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/search/page.tsx", "src/app/api/search/route.js", "src/app/api/categories/route.js", "src/app/api/posts/route.js", "src/app/components/Post/post.jsx", "src/app/dashboard/fshy/func.jsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/app/search/page.tsx",
+    "src/app/api/search/route.js",
+    "src/app/api/categories/route.js",
+    "src/app/api/posts/route.js",
+    "src/app/components/Post/post.jsx",
+    "src/app/dashboard/fshy/func.jsx"
+  ],
   "exclude": ["node_modules"]
 }

@@ -1,7 +1,6 @@
-"use server";
 import styles from "./homepage.module.css";
-import Navbar from "./components/navbar/Navbar";
-import Footer from "./components/footer/Footer";
+import Navbar from "./components/Navbar/Navbar";
+import Footer from "./components/Footer/Footer";
 import CardList from "./components/CardList/CardList";
 import Menu from "./components/Menu/Menu";
 import MainHeader from "./components/MainHeader/MainHeader";

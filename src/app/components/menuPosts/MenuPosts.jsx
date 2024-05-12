@@ -18,7 +18,7 @@ const MenuPosts = ({ withImage, postId, item }) => {
           </div>
           <div className={styles.detail}>
             <span className={styles.date}>
-              {item.createdAt.substring(0, 10)} -{" "}
+              {item.createdAt.substring(0, 10)} | {" "}
             </span>
             <span className={styles.username}>{item.catSlug}</span>
           </div>

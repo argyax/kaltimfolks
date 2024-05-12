@@ -18,6 +18,8 @@
 }
 
 .pageNumber {
+  display: flex;
+  align-items: center;
   padding: 8px;
   margin-right: 4px;
   cursor: pointer;
@@ -36,4 +38,6 @@
 
 .ellipsis {
   margin-right: 4px;
+  display: flex;
+  align-items: center;
 }

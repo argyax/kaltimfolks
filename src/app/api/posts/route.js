@@ -11,6 +11,40 @@ export const GET = async (req) => {
 
   const POST_PER_PAGE = 6;
 
+
+  // EDITAN SUDAR
+
+  //   const query = {
+  //     take: POST_PER_PAGE,
+  //     skip: POST_PER_PAGE * (page - 1),
+  //     where: {
+  //       ...(cat && { catSlug: cat }),
+  //     },
+  //     orderBy: {
+  //       createdAt: "desc", // Sort by createdAt field in descending order
+  //     },
+  //   };
+
+  //   try {
+  //     const [posts, count] = await prisma.$transaction([
+  //       // prisma.post.findMany(query),
+  //       prisma.post.findMany({
+  //         take: 5,
+  //         orderBy: {
+  //           views: "desc",
+  //         },
+  //       }),
+  //       prisma.post.count({ where: query.where }),
+  //     ]);
+  //     return new NextResponse(JSON.stringify({ posts, count }, { status: 200 }));
+  //   } catch (err) {
+  //     console.log(err);
+  //     return new NextResponse(
+  //       JSON.stringify({ message: "Something went wrong!" }, { status: 500 })
+  //     );
+  //   }
+  // };
+
   const query = {
     take: POST_PER_PAGE,
     skip: POST_PER_PAGE * (page - 1),
@@ -18,19 +52,13 @@ export const GET = async (req) => {
       ...(cat && { catSlug: cat }),
     },
     orderBy: {
-      createdAt: "desc", // Sort by createdAt field in descending order
-    },
+      createdAt: "desc" // Sort by createdAt field in descending order
+    }
   };
 
   try {
     const [posts, count] = await prisma.$transaction([
-      // prisma.post.findMany(query),
-      prisma.post.findMany({
-        take: 4,
-        orderBy: {
-          views: "desc",
-        },
-      }),
+      prisma.post.findMany(query),
       prisma.post.count({ where: query.where }),
     ]);
     return new NextResponse(JSON.stringify({ posts, count }, { status: 200 }));

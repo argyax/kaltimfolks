@@ -15,14 +15,13 @@ const getData = async (page, cat) => {
   if (!res.ok) {
     throw new Error("Failed");
   }
-
   return res.json();
 };
 
 const CardList = async ({ page, cat }) => {
   const { posts, count } = await getData(page, cat);
 
-  const POST_PER_PAGE = 6;
+  const POST_PER_PAGE = 1;
 
   const hasPrev = POST_PER_PAGE * (page - 1) > 0;
   const hasNext = POST_PER_PAGE * (page - 1) + POST_PER_PAGE < count;

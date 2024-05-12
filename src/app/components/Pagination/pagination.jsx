@@ -3,7 +3,7 @@ import React from "react";
 import styles from "./pagination.module.css";
 import { useRouter } from "next/navigation";
 
-const Pagination = ({ page, hasPrev, hasNext }) => {
+const Pagination = ({ page, hasPrev, hasNext, pageNum }) => {
   const router = useRouter();
 
   const goToPage = (pageNum) => {
@@ -11,8 +11,10 @@ const Pagination = ({ page, hasPrev, hasNext }) => {
   };
 
   const renderPageNumbers = () => {
+    const page = searchParams.get("page") || 1;
+
     const pageNumbers = [];
-    const totalPages = 10; // Total number of pages to display
+    const totalPages = 1; // Total number of pages to display
     const visiblePages = 5; // Number of pages visible at a time
 
     if (totalPages <= visiblePages) {
@@ -21,9 +23,9 @@ const Pagination = ({ page, hasPrev, hasNext }) => {
         pageNumbers.push(
           <span
             key={i}
-            className={`${styles.pageNumber} ${
-              page === i ? styles.activePage : ""
-            }`}
+            className={`${styles.pageNumber} ${page === i ? styles.activePage : ""
+              }`}
+            disabled={!pageNum}
             onClick={() => goToPage(i)}
           >
             {i}
@@ -51,9 +53,8 @@ const Pagination = ({ page, hasPrev, hasNext }) => {
         pageNumbers.push(
           <span
             key={i}
-            className={`${styles.pageNumber} ${
-              page === i ? styles.activePage : ""
-            }`}
+            className={`${styles.pageNumber} ${page === i ? styles.activePage : ""
+              }`}
             onClick={() => goToPage(i)}
           >
             {i}

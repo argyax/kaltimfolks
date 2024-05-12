@@ -10,7 +10,11 @@
 
 .title {
   font-size: 30px;
-  margin-bottom: 32px;
+  margin-bottom: 24px;
+}
+
+.title::first-letter {
+  text-transform: capitalize;
 }
 
 .user {
@@ -32,15 +36,21 @@
 
 .userTextContainer {
   display: flex;
-  flex-direction: column;
   gap: 5px;
   color: var(--softTextColor);
-  margin-bottom: 24px;
+  margin-bottom: 16px;
+  justify-content: space-between;
+  width: 100%;
 }
 
-.username {
-  margin-bottom: 8px;
-  font-size: 20px;
+.profileContainer {
+  display: flex;
+  gap: 8px;
+  text-transform: uppercase;
+}
+
+.metadata {
+  font-size: 16px;
   font-weight: 500;
 }
 
@@ -62,13 +72,13 @@
 
 .post {
   flex: 5;
-  margin-top: 60px;
+  margin-top: 40px;
 }
 
 .description p {
   font-size: 20px;
   line-height: 180%;
-  font-weight: 300;
+  font-weight: 400;
   margin-top: 20px;
 }
 
@@ -101,6 +111,7 @@
 
   .description p {
     font-size: 18px;
+    line-height: 155%;
   }
 
   .username {

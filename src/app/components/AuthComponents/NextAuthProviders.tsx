@@ -13,9 +13,6 @@ const NextAuthProviders = () => {
   return (
     <>
       <Button className={styles.socialButton2} onClick={googleSignIn}>Log in with Google</Button>
-      <Button className={styles.socialButton3} onClick={() => signIn("facebook")}>
-          Log in with Facebook
-      </Button>
     </>
   );
 };

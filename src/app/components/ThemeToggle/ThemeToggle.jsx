@@ -18,8 +18,8 @@ const ThemeToggle = () => {
         className={styles.ball}
         style={
           theme === "dark"
-            ? { left: 1, background: "#0f172a" }
-            : { right: 1, background: "white" }
+            ? { left: 3, background: "#0f172a" }
+            : { right: 3, background: "white" }
         }
       ></div>
     </div>

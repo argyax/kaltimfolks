@@ -22,7 +22,7 @@ const Menu = async ({ page, cat }) => {
   const { posts, count } = await getData(page, cat);
 
   // Slice the posts array to display only 4 recent articles
-  const slicedPosts = posts?.slice(0, 4);
+  const slicedPosts = posts?.slice(0, 5);
 
   return (
     <div className={styles.container}>

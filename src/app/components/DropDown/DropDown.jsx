@@ -2,21 +2,14 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import styles from "./dropDown.module.css";
-import { Dropdown, DropdownToggle, DropdownItem, DropdownMenu } from "react-bootstrap";
+import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
 import Link from "next/link";
+// import { Montserrat } from 'next/font/google';
+
+// const montserrat = Montserrat({ subsets: ['latin'] });
 
 const CustomDropdown = () => {
-  const [open, setOpen] = useState(false);
-
   const [data, setData] = useState([]);
-
-  const handleMouseEnter = () => {
-    setOpen(true);
-  };
-
-  const handleMouseLeave = () => {
-    setOpen(false);
-  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,24 +33,22 @@ const CustomDropdown = () => {
   }, [])
 
   return (
-    <Dropdown className={styles.dropdown} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-      <DropdownToggle variant="success" id="dropdown-basic" className={styles.button}>
+    <Popover>
+      <PopoverButton className={styles.btn}>
         Categories
-      </DropdownToggle>
-      <DropdownMenu aria-label="News Categories" className={styles.menu}>
-        <DropdownItem>
-          {data?.map((item) => (
-            <Link
-              href={`/blog?cat=${item.slug}`}
-              className={`${styles.categoryItem} ${styles[item.slug]}`}
-              key={item._id}
-            >
-              {item.title}
-            </Link>
-          ))}
-        </DropdownItem>
-      </DropdownMenu>
-    </Dropdown>
+      </PopoverButton>
+      <PopoverPanel anchor="bottom" className={styles.bg}>
+        {data?.map((item) => (
+          <Link
+            href={`/blog?cat=${item.slug}`}
+            className={`${styles.categoryItem} ${styles[item.slug]}`}
+            key={item.id}
+          >
+            {item.title}
+          </Link>
+        ))}
+      </PopoverPanel>
+    </Popover>
   );
 };
 

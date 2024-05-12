@@ -35,8 +35,11 @@ const SinglePage = async ({ params }) => {
                 </div>
               )}
               <div className={styles.userTextContainer}>
-                <span className={styles.username}>{data?.user.name}</span>
-                <span className={styles.date}>{data?.createdAt.substring(0, 10)}</span>
+                <div className={styles.profileContainer}>
+                  <span className={styles.metadata}>{data?.user.name}</span>
+                  <span className={styles.metadata}>{data?.createdAt.substring(0, 10)}</span>
+                </div>
+                <span className={styles.metadata}>{data?.catSlug}</span>
               </div>
             </div>
             {data?.img && (
