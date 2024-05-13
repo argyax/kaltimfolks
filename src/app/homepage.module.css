@@ -2,8 +2,3 @@
   display: flex;
   gap: 32px;
 }
-
-.index {
-  position: relative;
-  z-index: -1;
-}

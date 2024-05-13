@@ -1,6 +1,6 @@
+'use server';
+
 import styles from "./homepage.module.css";
-import Navbar from "./components/Navbar/Navbar";
-import Footer from "./components/Footer/Footer";
 import CardList from "./components/CardList/CardList";
 import Menu from "./components/Menu/Menu";
 import MainHeader from "./components/MainHeader/MainHeader";
@@ -19,7 +19,7 @@ export default async function Home({ searchParams }) {
   return (
     <>
       <div className={styles.container}>
-        <MainHeader headerContent={headerContent} className={styles.index} />
+        <MainHeader headerContent={headerContent} />
         <div className={styles.content}>
           <CardList page={page} />
           <Menu page={page} />

@@ -4,7 +4,7 @@ import { FaInstagram, FaTiktok } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6'
 import Link from "next/link";
 import AuthLinks from "../authLinks/AuthLinks";
-import ThemeToggle from "../themeToggle/ThemeToggle";
+import ThemeToggle from "../ThemeToggle/ThemeToggle";
 import DropDown from "../DropDown/DropDown";
 import SearchInput from "../searchInput/searchInput"
 

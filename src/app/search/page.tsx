@@ -4,7 +4,7 @@ import useSWR from "swr";
 import styles from "./search.module.css";
 import Card from "../components/Card/Card";
 import Posts from "../components/Post/post";
-import Pagination from "../components/pagination/Pagination";
+import Pagination from "../components/Pagination/pagination";
 import { Spinner } from "react-bootstrap";
 import Menu from "../components/Menu/Menu";
 

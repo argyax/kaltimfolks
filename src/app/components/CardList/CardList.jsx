@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./cardList.module.css";
-import Pagination from "../pagination/Pagination";
+import Pagination from "../Pagination/pagination";
 import Image from "next/image";
 import Card from "../Card/Card";
 
@@ -34,7 +34,7 @@ const CardList = async ({ page, cat }) => {
           <Card item={item} key={item._id} />
         ))}
       </div>
-      <Pagination page={page} hasPrev={hasPrev} hasNext={hasNext} />
+      <Pagination count={count} />
     </div>
   );
 };
