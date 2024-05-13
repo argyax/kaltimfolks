@@ -5,6 +5,11 @@
   height: 400px; /* Atur sesuai kebutuhan Anda */
 }
 
+.slide-container {
+  position: relative;
+  z-index: -100;
+}
+
 .header {
   width: 65%; /* Atur lebar sesuai kebutuhan Anda */
   font-size: 3rem;
@@ -58,8 +63,8 @@
     font-size: 2rem;
   }
   .content {
-    padding-top: 4rem;
     padding: 2rem;
+    padding-top: 4rem;
   }
 }
 
@@ -69,7 +74,7 @@
     font-size: 1.25rem;
   }
   .content {
-    padding-top: 3rem;
     padding: 1rem;
+    padding-top: 3rem;
   }
 }

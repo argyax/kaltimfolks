@@ -11,10 +11,10 @@ const Pagination = ({ page, hasPrev, hasNext, pageNum }) => {
   };
 
   const renderPageNumbers = () => {
-    const page = searchParams.get("page") || 1;
+    // const page = searchParams.get("page") || 1;
 
     const pageNumbers = [];
-    const totalPages = 1; // Total number of pages to display
+    const totalPages = 5; // Total number of pages to display
     const visiblePages = 5; // Number of pages visible at a time
 
     if (totalPages <= visiblePages) {

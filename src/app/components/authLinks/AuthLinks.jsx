@@ -15,16 +15,16 @@ const AuthLinks = () => {
     <>
       {status === "unauthenticated" ? (
         <>
-        <button className={styles.button1}>
-          <Link href="/auth/login" className={styles.link}>
-             Log In
-          </Link>
-        </button>
-        <button className={styles.button2}>
-          <Link href="/auth/signup" className={styles.link}>
-            Sign Up
-          </Link>
-        </button>
+          <button className={styles.button1}>
+            <Link href="/auth/login" className={styles.link}>
+              Log In
+            </Link>
+          </button>
+          <button className={styles.button2}>
+            <Link href="/auth/signup" className={styles.link}>
+              Sign Up
+            </Link>
+          </button>
         </>
       ) : (
         <>
@@ -43,8 +43,8 @@ const AuthLinks = () => {
       </div>
       {open && (
         <div className={styles.responsiveMenu}>
-          
-          <DropDown />
+
+          {/* <DropDown /> */}
           <Link href="/about-us">About Us</Link>
           <Link href="/our-content">Our Content</Link>
           {status === "unauthenticated" ? (

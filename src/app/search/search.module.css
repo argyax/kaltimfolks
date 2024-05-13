@@ -6,6 +6,7 @@
   flex: 1;
   height: 350px;
   position: relative;
+  z-index: -1;
 }
 
 .image {

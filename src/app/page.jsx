@@ -19,7 +19,7 @@ export default async function Home({ searchParams }) {
   return (
     <>
       <div className={styles.container}>
-        <MainHeader headerContent={headerContent} />
+        <MainHeader headerContent={headerContent} className={styles.index} />
         <div className={styles.content}>
           <CardList page={page} />
           <Menu page={page} />

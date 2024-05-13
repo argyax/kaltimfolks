@@ -15,6 +15,7 @@
   width: 300px;
   height: 170px;
   position: relative;
+  z-index: -1;
 }
 
 .image {
