@@ -10,7 +10,7 @@ const Pagination = ({ count }) => {
 
   const page = parseInt(searchParams.get("page")) || 1;
 
-  const POST_PER_PAGE = 1;
+  const POST_PER_PAGE = 5;
 
   const hasPrev = POST_PER_PAGE * (page - 1) > 0;
   const hasNext = POST_PER_PAGE * page < count;

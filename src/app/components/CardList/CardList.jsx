@@ -5,8 +5,9 @@ import Image from "next/image";
 import Card from "../Card/Card";
 
 const getData = async (page, cat) => {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   const res = await fetch(
-    `http://localhost:3000/api/posts?page=${page}&cat=${cat || ""}`,
+    `${baseUrl}/api/posts?page=${page}&cat=${cat || ""}`,
     {
       cache: "no-store",
     }
@@ -34,7 +35,7 @@ const CardList = async ({ page, cat }) => {
           <Card item={item} key={item._id} />
         ))}
       </div>
-      <Pagination count={count}/>
+      <Pagination count={count} />
     </div>
   );
 };

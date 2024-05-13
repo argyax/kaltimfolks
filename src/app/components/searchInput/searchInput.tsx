@@ -10,6 +10,8 @@ const SearchInput = () => {
   const [searchQuery, setSearchQuery] = useState<string>(""); // Initialize with an empty string directly
   const router = useRouter();
 
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+
   const onSearch = (event: React.FormEvent) => {
     event.preventDefault();
 
@@ -19,7 +21,7 @@ const SearchInput = () => {
     }
 
     const encodedSearchQuery = encodeURI(searchQuery.trim());
-    router.push(`http://localhost:3000/search?q=${encodedSearchQuery}`);
+    router.push(`${baseUrl}/search?q=${encodedSearchQuery}`);
 
     console.log("current query", encodedSearchQuery);
   };
