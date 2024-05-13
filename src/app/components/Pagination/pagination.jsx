@@ -1,92 +1,33 @@
 "use client";
 import React from "react";
 import styles from "./pagination.module.css";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-const Pagination = ({ page, hasPrev, hasNext, pageNum }) => {
-  const router = useRouter();
+const Pagination = ({ count }) => {
+  const searchParams = useSearchParams();
+  const { replace } = useRouter();
+  const pathname = usePathname();
 
-  const goToPage = (pageNum) => {
-    router.push(`?page=${pageNum}`);
+  const page = searchParams.get("page") || 1;
+
+  const params = new URLSearchParams(searchParams);
+  const POST_PER_PAGE = 1;
+
+  const hasPrev = POST_PER_PAGE * (page - 1) > 0;
+  const hasNext = POST_PER_PAGE * (page - 1) + POST_PER_PAGE < count;
+
+  const handleChangePage = (type) => {
+    type === "prev"
+      ? params.set("page", parseInt(page) - 1)
+      : params.set("page", parseInt(page) + 1);
+    replace(`${pathname}?${params}`);
   };
-
-  const renderPageNumbers = () => {
-    const page = searchParams.get("page") || 1;
-
-    const pageNumbers = [];
-    const totalPages = 5; // Total number of pages to display
-    const visiblePages = 5; // Number of pages visible at a time
-
-    if (totalPages <= visiblePages) {
-      // If total pages are less than or equal to visible pages, display all pages
-      for (let i = 1; i <= totalPages; i++) {
-        pageNumbers.push(
-          <span
-            key={i}
-            className={`${styles.pageNumber} ${page === i ? styles.activePage : ""
-              }`}
-            disabled={!pageNum}
-            onClick={() => goToPage(i)}
-          >
-            {i}
-          </span>
-        );
-      }
-    } else {
-      // If total pages are more than visible pages, add ellipsis in between
-      const leftEllipsis = page > 2;
-      const rightEllipsis = page < totalPages - 1;
-
-      let startPage, endPage;
-      if (page <= Math.ceil(visiblePages / 2)) {
-        startPage = 1;
-        endPage = visiblePages;
-      } else if (page >= totalPages - Math.floor(visiblePages / 2)) {
-        startPage = totalPages - visiblePages + 1;
-        endPage = totalPages;
-      } else {
-        startPage = page - Math.floor(visiblePages / 2);
-        endPage = page + Math.floor(visiblePages / 2);
-      }
-
-      for (let i = startPage; i <= endPage; i++) {
-        pageNumbers.push(
-          <span
-            key={i}
-            className={`${styles.pageNumber} ${page === i ? styles.activePage : ""
-              }`}
-            onClick={() => goToPage(i)}
-          >
-            {i}
-          </span>
-        );
-      }
-
-      if (leftEllipsis) {
-        pageNumbers.unshift(
-          <span key="left-ellipsis" className={styles.ellipsis}>
-            ...
-          </span>
-        );
-      }
-      if (rightEllipsis) {
-        pageNumbers.push(
-          <span key="right-ellipsis" className={styles.ellipsis}>
-            ...
-          </span>
-        );
-      }
-    }
-
-    return pageNumbers;
-  };
-
   return (
     <div className={styles.container}>
       <button
         className={styles.button}
         disabled={!hasPrev}
-        onClick={() => goToPage(page - 1)}
+        onClick={() => handleChangePage("prev")}
       >
         Previous
       </button>
@@ -94,7 +35,7 @@ const Pagination = ({ page, hasPrev, hasNext, pageNum }) => {
       <button
         disabled={!hasNext}
         className={styles.button}
-        onClick={() => goToPage(page + 1)}
+        onClick={() => handleChangePage("next")}
       >
         Next
       </button>

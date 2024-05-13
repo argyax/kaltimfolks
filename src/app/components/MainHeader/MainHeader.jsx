@@ -43,7 +43,7 @@ function MainHeader(props) {
   };
 
   return (
-    <div className="slider-container">
+    <div className={styles.container}>
       <Slider {...settings}>
         {props.headerContent?.map((item) => (
           <div key={item.slug} >

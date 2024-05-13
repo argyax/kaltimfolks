@@ -65,5 +65,6 @@
     justify-content: center;
     gap: 50px;
     font-size: 36px;
+    z-index: 100000000000 !important;
   }
 }

@@ -16,6 +16,7 @@
 
 .imageContainer {
   width: 300px;
+  z-index: -1;
   height: 200px;
   position: relative;
   z-index: -1;
@@ -64,6 +65,7 @@
   }
 
   .imageContainer {
+    z-index: -1;
     width: 100%;
   }
 }
