@@ -8,34 +8,52 @@ const Pagination = ({ count }) => {
   const { replace } = useRouter();
   const pathname = usePathname();
 
-  const page = searchParams.get("page") || 1;
+  const page = parseInt(searchParams.get("page")) || 1;
 
-  const params = new URLSearchParams(searchParams);
   const POST_PER_PAGE = 1;
 
   const hasPrev = POST_PER_PAGE * (page - 1) > 0;
-  const hasNext = POST_PER_PAGE * (page - 1) + POST_PER_PAGE < count;
+  const hasNext = POST_PER_PAGE * page < count;
 
-  const handleChangePage = (type) => {
-    type === "prev"
-      ? params.set("page", parseInt(page) - 1)
-      : params.set("page", parseInt(page) + 1);
-    replace(`${pathname}?${params}`);
+  const handleChangePage = (pageNumber) => {
+    const newParams = new URLSearchParams(searchParams);
+    newParams.set("page", pageNumber);
+    replace(`${pathname}?${newParams}`);
   };
+
+  const renderPageNumbers = () => {
+    const totalPages = Math.ceil(count / POST_PER_PAGE);
+    const pageNumbers = [];
+
+    for (let i = 1; i <= totalPages; i++) {
+      pageNumbers.push(
+        <button
+          key={i}
+          className={`${styles.button} ${page === i ? styles.active : ""}`}
+          onClick={() => handleChangePage(i)}
+        >
+          {i}
+        </button>
+      );
+    }
+
+    return pageNumbers;
+  };
+
   return (
     <div className={styles.container}>
       <button
         className={styles.button}
         disabled={!hasPrev}
-        onClick={() => handleChangePage("prev")}
+        onClick={() => handleChangePage(page - 1)}
       >
         Previous
       </button>
       {renderPageNumbers()}
       <button
-        disabled={!hasNext}
         className={styles.button}
-        onClick={() => handleChangePage("next")}
+        disabled={!hasNext}
+        onClick={() => handleChangePage(page + 1)}
       >
         Next
       </button>

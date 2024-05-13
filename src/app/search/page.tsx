@@ -57,7 +57,7 @@ const SearchPage = () => {
       <div className={styles.content}>
         <Posts posts={data.posts} />
       </div>
-      <Pagination page={1} hasPrev={false} hasNext={false} />{" "}
+      <Pagination count={Posts} />{" "}
       {/* Pagination needs to be updated */}
     </div>
   );
