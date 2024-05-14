@@ -1,7 +1,7 @@
 .container {
   position: relative;
   width: 100%;
-  z-index: -1;
+  z-index: 0;
   height: 400px; /* Atur sesuai kebutuhan Anda */
 }
 
@@ -76,5 +76,9 @@
   .content {
     padding: 1rem;
     padding-top: 3rem;
+  }
+
+  .container {
+    height: 200px;
   }
 }

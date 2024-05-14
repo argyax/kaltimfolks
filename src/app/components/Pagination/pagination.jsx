@@ -25,7 +25,14 @@ const Pagination = ({ count }) => {
     const totalPages = Math.ceil(count / POST_PER_PAGE);
     const pageNumbers = [];
 
-    for (let i = 1; i <= totalPages; i++) {
+    let startPage = Math.max(1, page - 1);
+    let endPage = Math.min(totalPages, startPage + 2);
+
+    if (endPage - startPage < 3) {
+      startPage = Math.max(1, endPage - 2);
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
       pageNumbers.push(
         <button
           key={i}
@@ -39,6 +46,7 @@ const Pagination = ({ count }) => {
 
     return pageNumbers;
   };
+
 
   return (
     <div className={styles.container}>

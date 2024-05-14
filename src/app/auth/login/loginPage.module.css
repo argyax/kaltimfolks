@@ -6,7 +6,7 @@
 
 .link {
   text-decoration: underline;
-  color: rgb(30, 30, 205);
+  color: var(--text-color);
 }
 
 .altlog {
@@ -16,6 +16,7 @@
   justify-content: center;
   align-items: center;
   margin-bottom: 24px;
+  font-size: 14px;
 }
 
 .log {

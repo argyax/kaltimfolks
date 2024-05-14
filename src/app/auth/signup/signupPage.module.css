@@ -11,11 +11,12 @@
   justify-content: center;
   align-items: center;
   margin-bottom: 24px;
+  font-size: 14px;
 }
 
 .link {
   text-decoration: underline;
-  color: rgb(30, 30, 205);
+  color: var(--textColor);
 }
 
 .wrapper {

@@ -1,12 +1,12 @@
 .container {
   display: flex;
   justify-content: space-between;
+  margin-top: 32px;
 }
 
 .button {
-  width: 100px;
   border: none;
-  padding: 16px;
+  padding: 16px 16px;
   background-color: var(--softBg);
   color: var(--textColor);
   cursor: pointer;

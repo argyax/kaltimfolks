@@ -9,7 +9,7 @@ export const GET = async (req) => {
   const page = parseInt(searchParams.get("page")) || 1; // Parse page to integer, default to 1
   const cat = searchParams.get("cat");
 
-  const POST_PER_PAGE = 6;
+  const POST_PER_PAGE = 5;
 
 
   // EDITAN SUDAR

@@ -42,17 +42,22 @@
   margin-bottom: 16px;
   justify-content: space-between;
   width: 100%;
+  font-size: 12px !important;
 }
 
 .profileContainer {
   display: flex;
   gap: 8px;
-  text-transform: uppercase;
 }
 
 .metadata {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
+  text-transform: capitalize;
+}
+
+.userTextContainer > p {
+  text-transform: uppercase;
 }
 
 .imageContainer {
@@ -120,5 +125,19 @@
     margin-bottom: 4px;
     font-size: 14px;
     font-weight: bold;
+  }
+
+  .metadata {
+    font-size: 12px;
+    font-weight: 500;
+  }
+}
+@media screen and (max-width: 425px) {
+  .userTextContainer {
+    flex-direction: column-reverse;
+  }
+  .profileContainer {
+    display: flex;
+    justify-content: space-between;
   }
 }

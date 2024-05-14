@@ -39,21 +39,21 @@ const SearchInput = () => {
               position: "absolute",
               width: "20px",
               border: "none",
-              marginTop: "10px",
+              marginTop: "7px",
               transform: "translate(50%) !important",
+              right: "16px",
               cursor: "pointer",
-              color: "grey !important",
+              color: "rgba(99, 99, 99, 0.8)",
               backgroundColor: "transparent",
-              zIndex: "200"
             }}
           />
         }
         style={{
-          border: "none",
+          border: "1px solid rgba(99, 99, 99, 0.2)",
           width: "100%",
           padding: "0.5rem 1rem",
-          borderRadius: "7px",
-          boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;",
+          borderRadius: "6px",
+          boxShadow: "rgba(99, 99, 99, 0.6) 0px 2px 8px 0px;",
           outline: "none",
         }}
       />

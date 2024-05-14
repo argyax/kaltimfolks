@@ -21,6 +21,7 @@ function MainHeader(props) {
     cssEase: "ease-in-out",
     customPaging: (i) => (
       <div
+        key={i}
         style={{
           width: "40px",
           height: "3px",
@@ -28,14 +29,14 @@ function MainHeader(props) {
           outline: currentSlide === i ? "1px rgb(255 255 255 / 0.3) solid" : "rgb(0 0 0 / 0.3)",
           position: "absolute",
           bottom: "50px",
-          borderRadius: "5px", // Menambahkan borderRadius
-          left: `${i * 15}px`,
-          right: "0",
-          margin: "auto",
+          display: "flex",
+          justifyContent: "center",
+          left: "50%",
+          transform: `translateX(-105%)`,
+          marginLeft: `${i * 15}px`, // Adjust margin-left instead of left
+          borderRadius: "5px", // Add borderRadius
         }}
-      >
-        {/* Hapus angka */}
-      </div>
+      />
     ),
     beforeChange: (oldIndex, newIndex) => {
       setCurrentSlide(newIndex);
@@ -47,7 +48,7 @@ function MainHeader(props) {
       <Slider {...settings}>
         {props.headerContent?.map((item) => (
           <div key={item.slug} >
-            <Link href={`/posts/${item.slug}`}>
+            <Link href={`/posts/${item.slug}`} draggable="false">
               <div className={styles.container}>
                 <div className={styles.overlay}></div>
                 <Image

@@ -18,8 +18,8 @@ const Card = ({ item }) => {
             </span>
             <span className={styles.category}>{item.catSlug}</span>
           </div>
-          <h3 className={styles.title}> {item.title}</h3>
-          <div>
+          <div className={styles.titleDesc}>
+            <h3 className={styles.title}> {item.title}</h3>
             <div
               className={styles.desc}
               dangerouslySetInnerHTML={{ __html: item?.desc.substring(0, 70) }}

@@ -43,6 +43,11 @@ const AuthLinks = () => {
       </div>
       {open && (
         <div className={styles.responsiveMenu}>
+          <div className={styles.openBurger} onClick={() => setOpen(!open)}>
+            <div className={styles.line}></div>
+            <div className={styles.line}></div>
+            <div className={styles.line}></div>
+          </div>
 
           {/* <DropDown /> */}
           <Link href="/about-us">About Us</Link>

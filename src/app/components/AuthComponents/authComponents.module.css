@@ -1,92 +1,92 @@
-  .form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    max-width: 100%; /* Set a maximum width for the form */
-  }
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 100%; /* Set a maximum width for the form */
+}
 
+.wrapper {
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  width: max-content;
+  gap: 10px;
+  border-radius: 10px;
+}
+
+.socialButton1 {
+  background-color: var(--bg);
+  padding: 20px;
+  border-radius: 5px;
+  color: var(--text-color);
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.altlog {
+  color: var(--bg);
+  box-shadow: 0px 0px 20px var(--text-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.socialButton2 {
+  background-color: #ff5555;
+  padding: 20px;
+  border-radius: 5px;
+  color: #ffff;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.socialButton3 {
+  background-color: #087bea;
+  padding: 20px;
+  border-radius: 5px;
+  color: #ffff;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  margin: 0 auto;
+  gap: 10px;
+}
+
+@media screen and (max-width: 768px) {
   .wrapper {
-    background-color: transparent;
-    display: flex;
-    flex-direction: column;
-    width: max-content;
-    gap: 10px;
-    border-radius: 10px;
+    padding: 50px 100px;
   }
-
-  .socialButton1 {
-    background-color: black;
-    padding: 20px;
-    border-radius: 5px;
-    color: #ffff;
-    border: none;
-    font-weight: bold;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .altlog{
-    color: var(--bg);
-    box-shadow: 0px 0px 20px var(--text-color);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .socialButton2 {
-    background-color: #ff5555;
-    padding: 20px;
-    border-radius: 5px;
-    color: #ffff;
-    border: none;
-    font-weight: bold;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
-  }
-  
-  .socialButton3 {
-    background-color: #087bea;
-    padding: 20px;
-    border-radius: 5px;
-    color: #ffff;
-    border: none;
-    font-weight: bold;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
   .inputContainer {
-    display: flex;
-    flex-direction: column;
-    width: 500px;
-    margin: 0 auto;
-    gap: 10px;
-  }
-  
-  @media screen and (max-width: 768px) {
-    .wrapper {
-      padding: 50px 100px;
-    }
-    .inputContainer {
-        width: 100%;
-    }
-    
-      .inputContainer .eye {
-        margin-right: 20px;
-      }
+    width: 100%;
   }
 
-  @media screen and (max-width: 640px) {
-    .socialButton1, .socialButton2, .socialButton3{
-      font-weight: 400;
-      font-size: 14px;
-    }
+  .inputContainer .eye {
+    margin-right: 20px;
   }
+}
 
+@media screen and (max-width: 640px) {
+  .socialButton1,
+  .socialButton2,
+  .socialButton3 {
+    font-weight: 400;
+    font-size: 14px;
+  }
+}
