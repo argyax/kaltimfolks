@@ -22,8 +22,10 @@ const fetcher = async (url) => {
 const Comments = ({ postSlug }) => {
   const { status } = useSession();
 
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+
   const { data, mutate, isLoading } = useSWR(
-    `http://localhost:3000/api/comments?postSlug=${postSlug}`,
+    `${baseUrl}/api/comments?postSlug=${postSlug}`,
     fetcher
   );
 
@@ -58,25 +60,25 @@ const Comments = ({ postSlug }) => {
         {isLoading
           ? "loading"
           : data?.map((item) => (
-              <div className={styles.comment} key={item._id}>
-                <div className={styles.user}>
-                  {item?.user?.image && (
-                    <Image
-                      src={item.user.image}
-                      alt=""
-                      width={50}
-                      height={50}
-                      className={styles.image}
-                    />
-                  )}
-                  <div className={styles.userInfo}>
-                    <span className={styles.username}>{item.user.name}</span>
-                    <span className={styles.date}>{item.createdAt.substring(0, 10)}</span>
-                  </div>
+            <div className={styles.comment} key={item._id}>
+              <div className={styles.user}>
+                {item?.user?.image && (
+                  <Image
+                    src={item.user.image}
+                    alt=""
+                    width={50}
+                    height={50}
+                    className={styles.image}
+                  />
+                )}
+                <div className={styles.userInfo}>
+                  <span className={styles.username}>{item.user.name}</span>
+                  <span className={styles.date}>{item.createdAt.substring(0, 10)}</span>
                 </div>
-                <p className={styles.desc}>{item.desc}</p>
               </div>
-            ))}
+              <p className={styles.desc}>{item.desc}</p>
+            </div>
+          ))}
       </div>
     </div>
   );

@@ -4,8 +4,11 @@ import MenuPosts from "../menuPosts/MenuPosts";
 import MenuCategories from "../menuCategories/MenuCategories";
 
 const getData = async (page, cat) => {
+
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+
   const res = await fetch(
-    `http://localhost:3000/api/posts?page=${page}&cat=${cat || ""}`,
+    `${baseUrl}/api/posts?page=${page}&cat=${cat || ""}`,
     {
       cache: "no-store",
     }
