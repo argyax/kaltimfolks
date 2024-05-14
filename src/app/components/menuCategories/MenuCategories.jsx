@@ -8,10 +8,12 @@ const MenuCategories = () => {
 
   const [data, setData] = useState([]);
 
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("http://localhost:3000/api/categories", {
+        const res = await fetch(`${baseUrl}/api/categories`, {
           cache: "reload",
         });
 
@@ -30,15 +32,15 @@ const MenuCategories = () => {
   }, [])
   return (
     <div className={styles.categoryList}>
-          {data.map((item) => (
-            <Link
-              href={`/blog?cat=${item.slug}`}
-              className={`${styles.categoryItem} ${styles[item.slug]}`}
-              key={item._id}
-            >
-              {item.title}
-            </Link>
-          ))}
+      {data.map((item) => (
+        <Link
+          href={`/blog?cat=${item.slug}`}
+          className={`${styles.categoryItem} ${styles[item.slug]}`}
+          key={item._id}
+        >
+          {item.title}
+        </Link>
+      ))}
     </div>
   );
 };
