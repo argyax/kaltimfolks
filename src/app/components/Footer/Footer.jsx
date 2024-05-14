@@ -5,16 +5,18 @@ import styles from "./footer.module.css";
 import Image from "next/image";
 import Link from "next/link";
 import { FaInstagram, FaTiktok } from "react-icons/fa";
-import {FaXTwitter} from 'react-icons/fa6'
+import { FaXTwitter } from 'react-icons/fa6'
 
 const Footer = () => {
 
   const [data, setData] = useState([]);
 
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("http://localhost:3000/api/categories", {
+        const res = await fetch(`${baseUrl}/api/categories`, {
           cache: "reload",
         });
 
@@ -63,11 +65,11 @@ const Footer = () => {
         </div>
         <div className={styles.list2}>
           <span className={styles.listTitle}>Follow Us</span>
-            <div className={styles.icons}>
-              <Link href="https://www.instagram.com/kaltimfolks/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><FaInstagram  size={24} /></Link>
-              <Link href="https://x.com/kaltimfolks" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><FaXTwitter size={24} /></Link>
-              <Link href="https://www.tiktok.com/@kaltimfolks" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><FaTiktok size={24} /></Link>
-            </div>
+          <div className={styles.icons}>
+            <Link href="https://www.instagram.com/kaltimfolks/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><FaInstagram size={24} /></Link>
+            <Link href="https://x.com/kaltimfolks" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><FaXTwitter size={24} /></Link>
+            <Link href="https://www.tiktok.com/@kaltimfolks" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><FaTiktok size={24} /></Link>
+          </div>
         </div>
       </div>
     </div>

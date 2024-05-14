@@ -11,10 +11,12 @@ import Link from "next/link";
 const CustomDropdown = () => {
   const [data, setData] = useState([]);
 
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("http://localhost:3000/api/categories", {
+        const res = await fetch(`${baseUrl}/api/categories`, {
           cache: "reload",
         });
 
