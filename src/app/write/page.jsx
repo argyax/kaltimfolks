@@ -41,32 +41,47 @@ const WritePage = () => {
     const uploadedFile = e.target.files[0];
 
     try {
-      const name = new Date().getTime() + '-' + uploadedFile.name;
-      const storageRef = ref(getStorage(), name); // Use getStorage() directly
-      const uploadTask = uploadBytesResumable(storageRef, uploadedFile);
+      const reader = new FileReader();
 
-      uploadTask.on(
-        'state_changed',
-        (snapshot) => {
-          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          setFileUploadProgress(progress.toFixed(0));
-        },
-        (error) => {
-          setFileUploadError('File upload failed');
-          setFileUploadProgress(null);
-        },
-        async () => {
-          const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-          setFileUploadProgress(null);
-          setFileUploadError(null);
-          setMedia(downloadURL);
-        }
-      );
+      reader.onloadend = () => {
+        setMedia(reader.result); // Set the data URL as media
+      };
+
+      reader.readAsDataURL(uploadedFile);
     } catch (error) {
       setFileUploadError('File upload failed');
       setFileUploadProgress(null);
       console.log(error);
     }
+
+
+    // try {
+    //   const name = new Date().getTime() + '-' + uploadedFile.name;
+    //   const storageRef = ref(getStorage(), name); // Use getStorage() directly
+    //   const uploadTask = uploadBytesResumable(storageRef, uploadedFile);
+
+    //   uploadTask.on(
+    //     'state_changed',
+    //     (snapshot) => {
+    //       const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+    //       setFileUploadProgress(progress.toFixed(0));
+    //     },
+    //     (error) => {
+    //       setFileUploadError('File upload failed');
+    //       setFileUploadProgress(null);
+    //     },
+    //     async () => {
+    //       const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+    //       setFileUploadProgress(null);
+    //       setFileUploadError(null);
+    //       setMedia(downloadURL);
+    //     }
+    //   );
+    // } catch (error) {
+    //   setFileUploadError('File upload failed');
+    //   setFileUploadProgress(null);
+    //   console.log(error);
+    // }
   };
 
   const handleSubmit = async () => {
@@ -172,7 +187,7 @@ const WritePage = () => {
             }}
           />
         )}
-        {media && <Image src={media} width={500} height={500} alt="Uploaded File" />}
+        {media && <Image src={(media)} width={500} height={500} alt="Uploaded File" />}
       </div>
       <button className={styles.publish} onClick={handleSubmit}>
         Publish

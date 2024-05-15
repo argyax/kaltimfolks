@@ -16,13 +16,20 @@ export default async function Home({ searchParams }) {
     },
   });
 
+  const menuContent = await prisma.post.findMany({
+    take: 3,
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
   return (
     <>
       <div className={styles.container}>
         <MainHeader headerContent={headerContent} />
         <div className={styles.content}>
           <CardList page={page} />
-          <Menu page={page} />
+          <Menu page={menuContent} />
         </div>
       </div>
     </>
