@@ -44,6 +44,8 @@ a {
   --iconColor: rgb(99, 99, 99);
   --linear-gradient: #ffffff00, #ffffff77, #ffffff;
   --linear-gradient: linear-gradient(180deg, #ffffff00, #ffffff77, #ffffff);
+  position: relative;
+  z-index: 0;
 }
 
 .container {
@@ -73,8 +75,8 @@ a {
 @media screen and (max-width: 1024px) {
   .wrapper {
     max-width: 768px;
-    padding-left: 40px;
-    padding-right: 40px;
+    padding-left: 32px;
+    padding-right: 32px;
   }
 }
 

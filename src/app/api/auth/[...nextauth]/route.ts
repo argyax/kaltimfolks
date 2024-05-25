@@ -37,9 +37,9 @@ export const authOptions: AuthOptions = {
           name: `${profile.name}`,
           email: profile.email,
           image: profile.picture,
-          role: profile.role ? profile.role : "user",
-        }
-      }
+          role: profile.role,
+        };
+      },
     }),
     CredentialsProvider({
       name: "Credentials",
@@ -64,12 +64,18 @@ export const authOptions: AuthOptions = {
 
         if (!user) throw new Error("User name or password is not correct");
 
-        if (!credentials?.password) throw new Error("Please Provide Your Password");
-        const isPasswordCorrect = await bcrypt.compare(credentials.password, user.password);
+        if (!credentials?.password)
+          throw new Error("Please Provide Your Password");
+        const isPasswordCorrect = await bcrypt.compare(
+          credentials.password,
+          user.password
+        );
 
-        if (!isPasswordCorrect) throw new Error("Username or password is not correct");
+        if (!isPasswordCorrect)
+          throw new Error("Username or password is not correct");
 
-        if (!user.emailVerified) throw new Error("Please verify your email first!");
+        if (!user.emailVerified)
+          throw new Error("Please verify your email first!");
 
         const { password, ...userWithoutPass } = user;
         return userWithoutPass;
@@ -80,11 +86,16 @@ export const authOptions: AuthOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) token.user = user as User;
-      return {...token, ...user};
+      return { ...token, ...user };
     },
 
     async session({ token, session }) {
-      session.user.role = token.user.role;
+      if (token) {
+        session.user.id = token.user.id;
+        session.user.name = token.user.name;
+        session.user.role = token.user.role;
+      }
+      // session.user.role = token.user.role;
       return session;
     },
   },

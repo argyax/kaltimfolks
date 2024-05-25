@@ -39,7 +39,7 @@ const SearchInput = () => {
               position: "absolute",
               width: "20px",
               border: "none",
-              marginTop: "7px",
+              marginTop: "8.5px",
               transform: "translate(50%) !important",
               right: "16px",
               cursor: "pointer",

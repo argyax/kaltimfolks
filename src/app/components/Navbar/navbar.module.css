@@ -5,7 +5,7 @@
 
 .container {
   width: 100%;
-  z-index: 10;
+  z-index: 1000;
   position: fixed;
   left: 0;
   top: 0;
@@ -90,8 +90,8 @@
     padding-right: 1rem;
   }
   .wrapper {
-    padding-left: 40px;
-    padding-right: 40px;
+    padding-left: 32px;
+    padding-right: 32px;
   }
   .links {
     padding-left: 0;

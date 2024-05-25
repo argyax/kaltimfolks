@@ -9,6 +9,8 @@
   display: flex;
   gap: 24px;
   flex-direction: row;
+  margin-top: 24px;
+  margin-bottom: 24px;
 }
 
 .select {
@@ -56,7 +58,6 @@
   gap: 20px;
   background-color: var(--bg);
   width: 100%;
-  z-index: 100;
 }
 
 .input {
@@ -90,4 +91,14 @@
   color: white;
   cursor: pointer;
   border-radius: 20px;
+}
+
+.preview {
+  aspect-ratio: 16/9;
+  width: 200px;
+  height: auto;
+  object-fit: cover;
+  border: solid 2px var(--textColor);
+  border-radius: 4px;
+  display: inline-flex;
 }

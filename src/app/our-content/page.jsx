@@ -1,7 +1,7 @@
 import styles from "./ourContentPage.module.css";
 import Image from "next/image";
 import ContentItem from "../components/ContentItem/ContentItem";
-import NewsletterForm from "../components/NewsletterForm/NewsletterForm";
+import ContactForm from "../components/ContactForm/contactForm";
 
 const OurContentPage = () => {
   return (
@@ -72,7 +72,7 @@ const OurContentPage = () => {
           visitors at the event. 27 November - 03 December 2023.
         </p>
       </div>
-      <NewsletterForm />
+      <ContactForm />
     </div>
   );
 };
