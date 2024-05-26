@@ -48,7 +48,7 @@ export const fetchUser = async (id) => {
 export const fetchPosts = async (q, page) => {
   const regex = new RegExp(q, "i");
 
-  const ITEM_PER_PAGE = 2;
+  const ITEM_PER_PAGE = 5;
 
   try {
     const count = await prisma.post.count({

@@ -1,20 +1,44 @@
-"use client";
+'use client'
+import React, { useRef, useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
-import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { Alert, Button, FileInput, Select } from 'flowbite-react';
-import { RiAddLine, RiImageAddLine, RiUpload2Fill } from 'react-icons/ri';
-import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { Alert, FileInput, Select } from 'flowbite-react';
+import { getStorage, ref, uploadBytesResumable, uploadString, getDownloadURL } from "firebase/storage";
 import { app } from "@/utils/firebase";
-import "react-quill/dist/quill.bubble.css";
-import 'react-quill/dist/quill.snow.css';
 import styles from "./writePage.module.css";
-import { CircularProgressbar } from 'react-circular-progressbar';
-import 'react-circular-progressbar/dist/styles.css';
 import Image from "next/image";
+import 'react-quill/dist/quill.snow.css';
 
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
+
+function imageHandler() {
+  const input = document.createElement('input');
+  input.setAttribute('type', 'file');
+  input.setAttribute('accept', 'image/*');
+  input.click();
+
+  input.onchange = async () => {
+    if (!input.files) return;
+    const file = input.files[0];
+
+    if (file.size > 800 * 1024) {
+      alert('File size exceeds 800 KB, please compress the image');
+      return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      const base64Image = reader.result;
+      const cursorPosition = this.quill.getSelection().index;
+      this.quill.insertEmbed(cursorPosition, 'image', base64Image);
+      this.quill.setSelection(cursorPosition + 1);
+    };
+
+    reader.readAsDataURL(file);
+  };
+}
 
 const WritePage = () => {
   const router = useRouter();
@@ -22,11 +46,11 @@ const WritePage = () => {
   const [fileUploadProgress, setFileUploadProgress] = useState(null);
   const [fileUploadError, setFileUploadError] = useState(null);
   const [file, setFile] = useState(null);
-  const [media, setMedia] = useState("");
   const [preview, setPreview] = useState(null);
   const [value, setValue] = useState("");
   const [title, setTitle] = useState("");
   const [catSlug, setCatSlug] = useState("");
+  const textareaRef = useRef(null);
 
   useEffect(() => {
     if (status === "loading") return;
@@ -36,16 +60,22 @@ const WritePage = () => {
     }
   }, [session, status, router]);
 
+  useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = 'auto';
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    }
+  }, [title]);
+
   const handleFileChange = (e) => {
     const uploadedFile = e.target.files[0];
 
     if (uploadedFile.size > 800 * 1024) {
-      setFileUploadError('File size exceeds 800 KB');
+      alert('File size exceeds 800 KB, please compress the image');
       setFile(null);
       setPreview(null);
       return;
     } else {
-      setFileUploadError(null);
       setFile(uploadedFile);
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -55,13 +85,10 @@ const WritePage = () => {
     }
   };
 
-  const handleSubmit = async () => {
-    if (!file) {
-      console.log("Please upload the image first.");
-      return;
-    }
+  const handleHeaderImageUpload = async () => {
+    if (!file) return null;
 
-    try {
+    return new Promise((resolve, reject) => {
       const name = new Date().getTime() + '-' + file.name;
       const storageRef = ref(getStorage(), name);
       const uploadTask = uploadBytesResumable(storageRef, file);
@@ -75,33 +102,58 @@ const WritePage = () => {
         (error) => {
           setFileUploadError('File upload failed');
           setFileUploadProgress(null);
+          reject(error);
         },
         async () => {
           const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
           setFileUploadProgress(null);
           setFileUploadError(null);
-          setMedia(downloadURL);
-
-          const res = await fetch("/api/posts", {
-            method: "POST",
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              title,
-              desc: value,
-              img: downloadURL,
-              slug: slugify(title),
-              catSlug: catSlug || "culture",
-            }),
-          });
-
-          if (res.status === 200) {
-            const data = await res.json();
-            router.push(`/posts/${data.slug}`);
-          }
+          resolve(downloadURL);
         }
       );
+    });
+  };
+
+  const handleSubmit = async () => {
+    try {
+      const headerImageUrl = await handleHeaderImageUpload();
+
+      const quillImages = document.querySelectorAll('.ql-editor img');
+      for (const img of quillImages) {
+        if (img.src.startsWith('data:')) {
+          const name = new Date().getTime() + '-' + Math.random().toString(36).substr(2, 9);
+          const storageRef = ref(getStorage(), name);
+          await uploadString(storageRef, img.src, 'data_url');
+          const downloadURL = await getDownloadURL(storageRef);
+          img.src = downloadURL;
+        }
+      }
+
+      const updatedContent = document.querySelector('.ql-editor').innerHTML;
+
+      const res = await fetch("/api/posts", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          title,
+          desc: updatedContent,
+          img: headerImageUrl,
+          slug: slugify(title),
+          catSlug: catSlug || "culture",
+        }),
+      });
+
+      if (headerImageUrl === null) {
+        alert('Please add the header image');
+        return;
+      }
+
+      if (res.status === 200) {
+        const data = await res.json();
+        router.push(`/posts/${data.slug}`);
+      }
     } catch (error) {
       setFileUploadError('File upload failed');
       setFileUploadProgress(null);
@@ -128,38 +180,42 @@ const WritePage = () => {
         [{ 'list': 'ordered' }, { 'list': 'bullet' }],
         ['clean']
       ],
+      handlers: {
+        image: imageHandler
+      }
     }
   };
 
   return (
     <div className={styles.container}>
-      <textarea
-        placeholder="Title"
-        maxLength="90"
-        rows="1"
-        wrap="soft"
-        className={styles.input}
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-      />
+      {fileUploadProgress && (
+        <progress value={fileUploadProgress} className={styles.progress} max="100" />
+      )}
+      <div className={styles.headerContainer}>
+        <textarea
+          ref={textareaRef}
+          placeholder="Title"
+          maxLength="120"
+          rows="1"
+          wrap="soft"
+          className={styles.input}
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          style={{ overflow: 'hidden', resize: 'none' }}
+        />
+        <button className={styles.publish} onClick={handleSubmit}>
+          Publish
+        </button>
+      </div>
       <div className={styles.add}>
-        {preview && <Image src={preview} className={styles.preview} width={200} height={1000} alt="Preview" />}
+        {preview && <Image src={preview} className={styles.preview} width={200} height={100} alt="Preview" />}
         <p>Header image: </p>
         <FileInput
           type='file'
           accept='image/*, video/*'
           onChange={handleFileChange}
         />
-        {fileUploadProgress && (
-          <div>
-            <CircularProgressbar
-              value={fileUploadProgress}
-              text={`${fileUploadProgress || 0}%`}
-            />
-          </div>
-        )}
       </div>
-      {fileUploadError && <Alert color='failure'>{fileUploadError}</Alert>}
       <div className={styles["category-wrapper"]}>
         <p>Category: </p>
         <Select className={styles.select} value={catSlug} onChange={(e) => setCatSlug(e.target.value)}>
@@ -185,9 +241,6 @@ const WritePage = () => {
           />
         )}
       </div>
-      <button className={styles.publish} onClick={handleSubmit}>
-        Publish
-      </button>
     </div>
   );
 };

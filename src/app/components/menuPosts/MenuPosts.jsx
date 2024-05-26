@@ -4,6 +4,12 @@ import React from "react";
 import styles from "./menuPosts.module.css"
 
 const MenuPosts = ({ withImage, postId, item }) => {
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const options = { day: '2-digit', month: 'long', year: 'numeric' };
+    return date.toLocaleDateString('en-GB', options);
+  };
+
   return (
     <div className={styles.items} key={postId}>
       <Link href={`/posts/${item.slug}`} className={styles.item}>
@@ -18,7 +24,7 @@ const MenuPosts = ({ withImage, postId, item }) => {
           </div>
           <div className={styles.detail}>
             <span className={styles.date}>
-              {item.createdAt.substring(0, 10)} | {" "}
+              {formatDate(item.createdAt)} | {"  "}
             </span>
             <span className={styles.username}>{item.catSlug}</span>
           </div>

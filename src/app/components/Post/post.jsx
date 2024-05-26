@@ -3,6 +3,12 @@ import Link from "next/link";
 import styles from "./postPage.module.css";
 
 const Posts = ({ posts }) => {
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const options = { day: '2-digit', month: 'long', year: 'numeric' };
+    return date.toLocaleDateString('en-GB', options);
+  };
+
   return (
     <div key={posts.id}>
       {posts.map((post) => (
@@ -17,14 +23,14 @@ const Posts = ({ posts }) => {
               <div className={styles.textContainer}>
                 <div className={styles.detail}>
                   <span className={styles.date}>
-                    {post.createdAt.slice(0, 10)} {" "}
+                    {formatDate(post.createdAt)} {"  "}
                   </span>
                   <span className={styles.category}>{post.catSlug}</span>
                 </div>
                 <h3>{post.title}</h3>
                 <div
                   className={styles.desc}
-                  dangerouslySetInnerHTML={{ __html: post.desc.substring(0, 60) }}
+                  dangerouslySetInnerHTML={{ __html: post?.desc.substring(0, 90) + "..." }}
                 />
               </div>
             </div>

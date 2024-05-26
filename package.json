@@ -43,6 +43,7 @@
     "next-contentlayer": "^0.3.4",
     "nodemailer": "^6.9.11",
     "quill-image-resize-module-react": "^3.0.0",
+    "quill-react-commercial": "^1.5.9",
     "react": "18.2.0",
     "react-bootstrap": "^2.10.1",
     "react-circular-progressbar": "^2.1.0",
