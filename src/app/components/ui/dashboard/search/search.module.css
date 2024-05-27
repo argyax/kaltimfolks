@@ -2,15 +2,21 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  background-color: #2e374a;
+  background-color: #fff;
   padding: 10px;
+  border: 1px solid rgba(99, 99, 99, 0.2);
   border-radius: 10px;
+  margin-bottom: 20px;
   width: max-content;
 }
 
 .input {
   background-color: transparent;
   border: none;
-  color: var(--text);
+  color: #0b0b0b;
   outline: none;
+}
+
+.icon {
+  color: #0b0b0b;
 }

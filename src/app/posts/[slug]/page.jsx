@@ -20,6 +20,12 @@ const SinglePage = async ({ params }) => {
 
   const data = await getData(slug);
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const options = { day: '2-digit', month: 'long', year: 'numeric' };
+    return date.toLocaleDateString('en-GB', options);
+  };
+
   return (
     <div className={styles.container}>
 
@@ -37,7 +43,7 @@ const SinglePage = async ({ params }) => {
               <div className={styles.userTextContainer}>
                 <div className={styles.profileContainer}>
                   <p className={styles.metadata}>{data?.user.name}</p>
-                  <p className={styles.metadata}>{data?.createdAt.substring(0, 10)}</p>
+                  <p className={styles.metadata}>{formatDate(data.createdAt)} {"  "}</p>
                 </div>
                 <p className={styles.metadata}>{data?.catSlug}</p>
               </div>

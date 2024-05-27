@@ -91,9 +91,9 @@ export const authOptions: AuthOptions = {
 
     async session({ token, session }) {
       if (token) {
-        session.user.id = token.user.id;
+        session.user.id = token.id;
         session.user.name = token.user.name;
-        session.user.role = token.user.role;
+        session.user.role = token.role;
       }
       // session.user.role = token.user.role;
       return session;

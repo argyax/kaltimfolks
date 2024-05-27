@@ -50,10 +50,13 @@
   border-radius: 10px;
   background: none;
   border: none;
-  color: white;
+  color: var(--textSoft);
+  font-size: 16px;
   width: 100%;
 }
 
-.logout:hover{
-  background-color: #2e374a;
+.logout:hover,
+.active {
+  background-color: var(--textColor);;
+  color: var(--bg);
 }

@@ -7,20 +7,28 @@ import DeleteUserButton from "../../components/ui/dashboard/delete/deleteUser";
 import Pagination from "../../components/ui/dashboard/pagination/pagination";
 
 function UserUi(props) {
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const options = { day: '2-digit', month: 'long', year: 'numeric' };
+    return date.toLocaleDateString('en-GB', options);
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.top}>
         <Search placeholder="Search for user" />
-        <Link href="/dashboard/users/add">
+        {/*<Link href="/dashboard/users/add">
           <button className={styles.addButton}>Add New</button>
-        </Link>
+        </Link>*/}
       </div>
       <table className={styles.table}>
-        <thead>
+        <thead className={styles.titles}>
           <tr>
             <td></td>
             <td>Name</td>
             <td>Email</td>
+            <td>Phone</td>
             <td>Created At</td>
             <td>Posts</td>
           </tr>
@@ -43,10 +51,13 @@ function UserUi(props) {
               </td>
               <td>{item.name}</td>
               <td>{item.email}</td>
-              <td>{item.createdAt?.toString().slice(4, 16)}</td>
+              <td>{item.phone}</td>
+              <td>
+                {formatDate(item.createdAt)} {"  "}
+              </td>
               <td>{item.postCount}</td>
               <td>
-                <div className={styles.buttons}>
+                {/* <div className={styles.buttons}>
                   <Link href={`/dashboard/posts/${item.slug}`}>
                     <button className={`${styles.button} ${styles.view}`}>
                       View
@@ -56,7 +67,7 @@ function UserUi(props) {
                   <Link href={`http://localhost:3000/api/users/${item.id}`}>
                     <DeleteUserButton value={item.id} />
                   </Link>
-                </div>
+              </div> */}
               </td>
             </tr>
           ))}

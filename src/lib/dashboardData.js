@@ -60,6 +60,9 @@ export const fetchPosts = async (q, page) => {
       where: { title: { contains: q, mode: "insensitive" } },
       take: ITEM_PER_PAGE,
       skip: ITEM_PER_PAGE * (page - 1),
+      orderBy: {
+        createdAt: "desc", // Sort by createdAt field in descending order
+      },
     });
     return { count, posts };
   } catch (err) {

@@ -68,11 +68,12 @@ const Sidebar = () => {
             ))}
           </li>
         ))}
+        <button className={styles.logout} onClick={signOut}>
+          <MdLogout />
+          Logout
+        </button>
       </ul>
-      <button className={styles.logout} onClick={signOut}>
-        <MdLogout />
-        Logout
-      </button>
+      
     </div>
   );
 };

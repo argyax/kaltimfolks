@@ -11,13 +11,13 @@ import { authOptions } from "../api/auth/[...nextauth]/route";
 
 const Dashboard = async () => {
   const session = await getServerSession(authOptions);
-  // if (session?.user?.name !== "admin") {
-  //   <div>
-  //     <h1>Access Denied</h1>
-  //     <p>You do not have the necessary permissions to access this page.</p>
-  //     <Link href="/">Back to Homepage</Link>
-  //   </div>;
-  // }
+    if (session?.user?.name !== "admin") {
+      <div>
+       <h1>Access Denied</h1>
+       <p>You do not have the necessary permissions to access this page.</p>
+       <Link href="/">Back to Homepage</Link>
+     </div>;
+    }
 
   const dashboardContent = await prisma.post.findMany({
     take: 4,
@@ -30,6 +30,7 @@ const Dashboard = async () => {
     <div className={styles.wrapper}>
       <div className={styles.main}>
         <Navbar />
+        {JSON.stringify(session)}
         <h1>Welcome {session?.user?.role} to Kaltimfolks Dashboard</h1>
       </div>
     </div>

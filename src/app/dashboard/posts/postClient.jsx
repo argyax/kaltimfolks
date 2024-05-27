@@ -9,22 +9,30 @@ import { PrismaClient } from "@prisma/client";
 // import { mydelete } from "./func.js";
 
 function ClientUi(props) {
+  
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const options = { day: '2-digit', month: 'long', year: 'numeric' };
+    return date.toLocaleDateString('en-GB', options);
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.top}>
         <Search placeholder="Search for a post..." />
-        <Link href="/dashboard/posts/add">
+        <Link href="/write">
           <button className={styles.addButton}>Add New</button>
         </Link>
       </div>
       {/* <Postclient /> */}
       <table className={styles.table}>
-        <thead>
+        <thead className={styles.titles}>
           <tr>
             <td>Title</td>
-            <td>Description</td>
+            {/*<td>Description</td>*/}
             <td>Created At</td>
             <td>Category</td>
+            <td>Views</td>
           </tr>
         </thead>
         <tbody>
@@ -44,23 +52,24 @@ function ClientUi(props) {
                   </div>
                 )}
               </td>
-              <td>
+              {/*<td>
                 <div
                   dangerouslySetInnerHTML={{
                     __html: item?.desc.substring(0, 70),
                   }}
                 />
                 <Link href={`/posts/${item.slug}`}></Link>
-              </td>
+                </td>*/}
               <td>
                 <Link href={`/posts/${item.slug}`}>
-                  {item.createdAt?.toString().slice(4, 16)}
+                  {formatDate(item.createdAt)} {"  "}
                 </Link>
               </td>
-              <td>{item.catSlug}</td>
+              <td className={styles.category}>{item.catSlug}</td>
+              <td>{item.views}</td>
               <td>
                 <div className={styles.buttons}>
-                  <Link href={`/dashboard/posts/${item.slug}`}>
+                  <Link href={`/posts/${item.slug}`}>
                     <button className={`${styles.button} ${styles.view}`}>
                       View
                     </button>

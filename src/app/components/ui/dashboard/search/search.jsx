@@ -24,7 +24,7 @@ const Search = ({ placeholder }) => {
 
   return (
     <div className={styles.container}>
-      <MdSearch />
+      <MdSearch className={styles.icon}/>
       <input
         type="text"
         placeholder={placeholder}

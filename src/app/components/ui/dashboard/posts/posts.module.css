@@ -14,7 +14,7 @@
 .addButton{
   padding: 10px;
   background-color: #5d57c9;
-  color: var(--text);
+  color: #fff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -26,6 +26,11 @@
 
 .table td{
   padding: 10px;
+}
+
+.titles {
+  font-size: 15px;
+  font-weight: bold;
 }
 
 .product{
@@ -47,9 +52,13 @@
 .button{
   padding: 5px 10px;
   border-radius: 5px;
-  color: var(--text);
+  color: #fff;
   border: none;
   cursor: pointer;
+}
+
+.category {
+  text-transform: uppercase;
 }
 
 .view{
