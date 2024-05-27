@@ -18,7 +18,7 @@ const DeleteButton = ({ value }) => {
     // params.set("page", 1);
     if (e.target.value) {
       params.set("id", e.target.value);
-      fetch(`http://localhost:3000/api/posts/${e.target.value}`, {
+      fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/posts/${e.target.value}`, {
         method: "DELETE",
       });
       alert(`Data berhasil dihapus`);
