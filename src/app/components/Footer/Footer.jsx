@@ -41,7 +41,7 @@ const Footer = () => {
           <span className={styles.listTitle}>Contacts</span>
           <div className={styles.list}>
             <Link href="tel:+6283152659353">+62831-5265-9353</Link>
-            <Link href="mailto:maxinegrey438@gmail.com">sales.kaltimfolks@gmail.com</Link>
+            <Link href="mailto:information.kaltimfolks@gmail.com">information.kaltimfolks@gmail.com</Link>
           </div>
         </div>
         <div className={styles.logo}>

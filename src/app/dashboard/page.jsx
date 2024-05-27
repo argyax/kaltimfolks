@@ -30,7 +30,7 @@ const Dashboard = async () => {
     <div className={styles.wrapper}>
       <div className={styles.main}>
         <Navbar />
-        {JSON.stringify(session)}
+        {/*{JSON.stringify(session)}*/}
         <h1>Welcome {session?.user?.role} to Kaltimfolks Dashboard</h1>
       </div>
     </div>
