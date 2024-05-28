@@ -28,8 +28,9 @@ const Card = ({ item }) => {
             <h3 className={styles.title}> {item.title}</h3>
             <div
               className={styles.desc}
-              dangerouslySetInnerHTML={{ __html: item?.desc.substring(0, 90) + "..." }}
+              dangerouslySetInnerHTML={{ __html: item?.desc.substring(0, 90) }}
             />
+            <span> ... </span>
           </div>
         </div>
       </div>
