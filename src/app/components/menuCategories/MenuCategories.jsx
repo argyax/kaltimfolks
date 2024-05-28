@@ -22,7 +22,8 @@ const MenuCategories = () => {
         }
 
         const jsonData = await res.json();
-        setData(jsonData);
+        const filteredData = jsonData.filter(item => item.slug !== "follower's insight");
+        setData(filteredData);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -30,6 +31,8 @@ const MenuCategories = () => {
 
     fetchData();
   }, [])
+
+
   return (
     <div className={styles.categoryList}>
       {data.map((item) => (

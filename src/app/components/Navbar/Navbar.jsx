@@ -22,6 +22,7 @@ const Navbar = () => {
             <Link href="/" className={styles.logo}>KALTIMFOLKS.</Link>
             <div className={styles.toggle}><ThemeToggle /></div>
             <div className={styles.cat}><DropDown /></div>
+            <Link href="/blog?cat=follower's insight" className={styles.link}>Follower's Insight</Link>
             <Link href="/about-us" className={styles.link}>About Us</Link>
             <Link href="/our-content" className={styles.link}>Our Content</Link>
           </div>
