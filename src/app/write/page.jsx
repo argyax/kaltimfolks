@@ -141,7 +141,7 @@ const WritePage = () => {
           desc: updatedContent,
           img: headerImageUrl,
           slug: slugify(title),
-          catSlug: catSlug || "culture",
+          catSlug: catSlug || "follower's insight",
         }),
       });
 
@@ -219,6 +219,7 @@ const WritePage = () => {
       <div className={styles["category-wrapper"]}>
         <p>Category: </p>
         <Select className={styles.select} value={catSlug} onChange={(e) => setCatSlug(e.target.value)}>
+          <option value="follower's insight">Follower&apos;s Insight</option>
           <option value="culture">Culture</option>
           <option value="lifestyle">Lifestyle</option>
           <option value="movies">Movies</option>
