@@ -44,7 +44,7 @@ const SigninPage = ({ searchParams }: Props) => {
             Reset here
           </Link>
         </p>
-        <NextAuthProviders />
+        {/* <NextAuthProviders /> */}
         <div className={styles.log}>
           <p className={styles.altlog}>
             Don&apos;t have an account? &nbsp;
