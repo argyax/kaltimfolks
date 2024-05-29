@@ -84,6 +84,32 @@ export const authOptions: AuthOptions = {
   ],
 
   callbacks: {
+    async signIn({ user, account }: { user: any; account: any }) {
+      if (account.provider === "google") {
+        try {
+          const { email } = user;
+          const existingUser = await prisma.user.findUnique({
+            where: { email },
+          });
+          if (existingUser) {
+            return user;
+          }
+          const newUser = await prisma.user.create({
+            data: {
+              ...user,
+              // You might want to add other fields here if necessary
+            },
+          });
+          if (newUser) {
+            console.log(newUser);
+            return user;
+          }
+        } catch (err) {
+          console.log(err);
+        }
+      }
+      return user;
+    },
     async jwt({ token, user }) {
       if (user) token.user = user as User;
       return { ...token, ...user };
