@@ -30,7 +30,7 @@ const Posts = ({ posts }) => {
                 <h3>{post.title}</h3>
                 <div
                   className={styles.desc}
-                  dangerouslySetInnerHTML={{ __html: post?.desc.substring(0, 90) + "..." }}
+                  dangerouslySetInnerHTML={{ __html: post?.desc.substring(0, 90) }}
                 />
               </div>
             </div>

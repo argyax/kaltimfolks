@@ -30,7 +30,6 @@ const Card = ({ item }) => {
               className={styles.desc}
               dangerouslySetInnerHTML={{ __html: item?.desc.substring(0, 90) }}
             />
-            <span> ... </span>
           </div>
         </div>
       </div>

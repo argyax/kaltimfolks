@@ -14,7 +14,7 @@ export async function registerUser(
     User,
     | "updatedAt"
     | "createdAt"
-    | "isAdmin"
+    // | "isAdmin"
     | "comments"
     | "posts"
     | "id"
@@ -115,9 +115,7 @@ export const resetPassword: ResetPasswordFucn = async (jwtUserId, password) => {
   else throw new Error("Something went wrong!");
 };
 
-type deleteUser = (
-  userId: number
-) => Promise<"userNotExist" | "success">;
+type deleteUser = (userId: number) => Promise<"userNotExist" | "success">;
 
 export async function deleteUser(userId: string) {
   try {
@@ -132,5 +130,3 @@ export async function deleteUser(userId: string) {
     throw new Error("Failed to delete user");
   }
 }
-
-
