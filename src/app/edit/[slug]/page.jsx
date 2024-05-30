@@ -1,9 +1,8 @@
-// pages/edit/[slug].js
-'use client'
+'use client';
 import React, { useRef, useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
-import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
+import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 import { Alert, FileInput, Select } from 'flowbite-react';
 import { getStorage, ref, uploadBytesResumable, uploadString, getDownloadURL, deleteObject } from "firebase/storage";
 import { app } from "@/utils/firebase";
@@ -41,11 +40,10 @@ function imageHandler() {
     };
 }
 
-
-const EditPage = (params) => {
+const EditPage = () => {
     const router = useRouter();
-    const { slug } = params;
-    const { data: session, status } = useSession();
+    const { slug } = router;
+    const { status } = useSession();
     const [fileUploadProgress, setFileUploadProgress] = useState(null);
     const [fileUploadError, setFileUploadError] = useState(null);
     const [file, setFile] = useState(null);
@@ -56,24 +54,23 @@ const EditPage = (params) => {
     const textareaRef = useRef(null);
     const [originalHeaderImageUrl, setOriginalHeaderImageUrl] = useState("");
 
-    useEffect(() => {
-        setTitle("hey")
-        setPreview("https://i.imgur.com/PskjBNp_d.webp?maxwidth=520&shape=thumb&fidelity=high")
-        if (status === 'loading') return;
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
-        if (!session) {
+    useEffect(() => {
+        if (status === "unauthenticated") {
             router.push('/auth/login');
         }
 
+        if (!slug) return; // Ensure slug is defined
+
         const fetchPost = async () => {
             try {
-                const response = await fetch(`/api/posts/${slug}`);
+                const response = await fetch(`${baseUrl}/api/edit/${slug}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch post data');
                 }
                 const postData = await response.json();
                 setTitle(postData.title);
-                setValue(postData.desc);
                 setCatSlug(postData.catSlug);
                 setPreview(postData.img);
                 setOriginalHeaderImageUrl(postData.img);
@@ -83,10 +80,8 @@ const EditPage = (params) => {
             }
         };
 
-        if (slug) {
-            fetchPost();
-        }
-    }, [session, status, slug]);
+        fetchPost();
+    }, []);
 
     useEffect(() => {
         if (textareaRef.current) {
@@ -168,7 +163,7 @@ const EditPage = (params) => {
 
             const updatedContent = document.querySelector('.ql-editor').innerHTML;
 
-            const res = await fetch(`/api/posts/${slug}`, {
+            const res = await fetch(`/api/edit/${slug}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -223,7 +218,7 @@ const EditPage = (params) => {
             {fileUploadProgress && (
                 <progress value={fileUploadProgress} className={styles.progress} max="100" />
             )}
-            <h1>It is {title}</h1>
+            <h1>Edit Post</h1>
             <div className={styles.headerContainer}>
                 <textarea
                     ref={textareaRef}

@@ -4,7 +4,8 @@ import Image from "next/image";
 import Comments from "@/app/components/comments/Comments";
 
 const getData = async (slug) => {
-  const res = await fetch(`http://localhost:3000/api/posts/${slug}`, {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+  const res = await fetch(`${baseUrl}/api/posts/${slug}`, {
     cache: "no-store",
   });
 
@@ -30,6 +31,7 @@ const SinglePage = async ({ params }) => {
     <div className={styles.container}>
 
       {/*Header*/}
+      {/* <h1>{data}</h1> */}
       <div className={styles.content}>
         <div className={styles.post}>
           <div className={styles.textContainer}>
