@@ -9,7 +9,7 @@ import { PrismaClient } from "@prisma/client";
 // import { mydelete } from "./func.js";
 
 function ClientUi(props) {
-  
+
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const options = { day: '2-digit', month: 'long', year: 'numeric' };
@@ -69,9 +69,9 @@ function ClientUi(props) {
               <td>{item.views}</td>
               <td>
                 <div className={styles.buttons}>
-                  <Link href={`/posts/${item.slug}`}>
+                  <Link href={`/edit/${item.slug}`}>
                     <button className={`${styles.button} ${styles.view}`}>
-                      View
+                      Edit
                     </button>
                   </Link>
                   <input type="hidden" name="id" value={item.slug} />

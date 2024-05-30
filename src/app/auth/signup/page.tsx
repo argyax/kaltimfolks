@@ -37,7 +37,7 @@ const SignupPage = () => {
             </Link>
           </p>
         </div>
-        <NextAuthProviders />
+        {/* <NextAuthProviders /> */}
       </div>
     </div>
   );

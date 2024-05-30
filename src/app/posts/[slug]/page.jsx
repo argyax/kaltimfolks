@@ -9,7 +9,7 @@ const getData = async (slug) => {
   });
 
   if (!res.ok) {
-    throw new Error("Ubah judul artikel, artikel dengan judul yang sama sudah ada");
+    throw new Error();
   }
 
   return res.json();
