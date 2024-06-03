@@ -7,6 +7,7 @@ import { FileInput, Select } from 'flowbite-react';
 import { getStorage, ref, uploadBytesResumable, uploadString, getDownloadURL } from "firebase/storage";
 import styles from "./editPage.module.css";
 import Image from "next/image";
+import 'react-quill/dist/quill.snow.css';
 
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
@@ -178,7 +179,7 @@ const EditForm = ({ post }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className={styles.container}>
+    <div className={styles.container}>
       {fileUploadProgress && (
         <progress value={fileUploadProgress} className={styles.progress} max="100" />
       )}
@@ -194,14 +195,17 @@ const EditForm = ({ post }) => {
           onChange={(e) => setTitle(e.target.value)}
           style={{ overflow: 'hidden', resize: 'none' }}
         />
-        <button type="submit" className={styles.publish}>
+        <button onClick={handleSubmit} className={styles.publish}>
           Publish
         </button>
       </div>
       <div className={styles.add}>
         {preview && <Image src={preview} className={styles.preview} width={200} height={100} alt="Preview" />}
         <p>Header image:</p>
-        <FileInput type="file" accept="image/*, video/*" onChange={handleFileChange} />
+        <FileInput 
+          type="file" 
+          accept="image/*, video/*" 
+          onChange={handleFileChange} />
       </div>
       <div className={styles["category-wrapper"]}>
         <p>Category:</p>
@@ -229,7 +233,7 @@ const EditForm = ({ post }) => {
           />
         )}
       </div>
-    </form>
+    </div>
   );
 };
 
