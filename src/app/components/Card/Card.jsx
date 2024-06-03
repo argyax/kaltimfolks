@@ -19,7 +19,7 @@ const Card = ({ item }) => {
           <>
             {item.img && (
               <div className={styles.imageContainer}>
-                <Image src={item.imgw} alt="" fill className={styles.image} />
+                <Image src={item.img} alt="" fill className={styles.image} />
               </div>
             )}
             <div className={styles.textContainer}>

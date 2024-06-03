@@ -14,7 +14,7 @@ const CardBlog = ({ item }) => {
       <div className={styles.container} key={item.id}>
         {item.img && (
           <div className={styles.imageContainer}>
-            <Image src={item.imgw} alt="" fill className={styles.image} />
+            <Image src={item.img} alt="" fill className={styles.image} />
           </div>
         )}
         <div className={styles.textContainer}>
