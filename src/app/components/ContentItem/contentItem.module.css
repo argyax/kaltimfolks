@@ -12,8 +12,12 @@
 
 .img {
   border-radius: 11px;
-  width: 160px;
-  height: 238px;
+  width: 288px;
+  height: 433px;
+}
+
+.contenttitle {
+  font-size: 40px;
 }
 
 .text-content {

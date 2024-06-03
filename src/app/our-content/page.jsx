@@ -10,7 +10,7 @@ const OurContentPage = () => {
         <div className={styles["hero-container"]}>
           <div className={styles["bg-cover"]}></div>
           <div className={styles["text-heading"]}>
-            <h1>Our Contents</h1>
+            <h1 className={styles.header}>Our Contents</h1>
             <p>Yes, We made contents! Scroll down to see them!</p>
           </div>
         </div>
@@ -34,35 +34,35 @@ const OurContentPage = () => {
         />
       </div>
       <div className={styles["cps-container"]}>
-        <h2 className={styles.h2}>KALTIMFOLKS. AT CPS 2023</h2>
+        <h2 className={styles.subtitle}>KALTIMFOLKS. <span className={styles.cps}>AT CPS 2023</span></h2>
         <div className={styles["image-container"]}>
           <Image
             className={styles.img}
             src={"/cullinary event 1.jpg"}
             alt=""
-            width={270}
-            height={298}
+            width={300}
+            height={318}
           />
           <Image
             className={styles.img}
             src={"/cullinary event 2.jpg"}
             alt=""
-            width={270}
-            height={298}
+            width={300}
+            height={318}
           />
           <Image
             className={styles.img}
             src={"/cullinary event 3.jpg"}
             alt=""
-            width={270}
-            height={298}
+            width={300}
+            height={318}
           />
           <Image
             className={styles.img}
             src={"/cullinary event 4.jpg"}
             alt=""
-            width={270}
-            height={298}
+            width={300}
+            height={318}
           />
         </div>
         <p className={styles.p}>

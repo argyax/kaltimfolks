@@ -12,7 +12,7 @@ const ContentItem = ({ srcImg, title, description, direction = "row" }) => {
         height={478}
       />
       <div className={styles["text-content"]}>
-        <h3>{title}</h3>
+        <h3 className={styles.contenttitle}>{title}</h3>
         <p>{description}</p>
       </div>
     </div>

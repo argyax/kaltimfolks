@@ -1,10 +1,10 @@
 "use server";
 import Image from "next/image";
 import Link from "next/link";
-import styles from "../../components/ui/dashboard/posts/posts.module.css";
-import Search from "../../components/ui/dashboard/search/search";
-import DeleteUserButton from "../../components/ui/dashboard/delete/deleteUser";
-import Pagination from "../../components/ui/dashboard/pagination/pagination";
+import styles from "../../../components/ui/dashboard/posts/posts.module.css";
+import Search from "../../../components/ui/dashboard/search/search";
+import DeleteUserButton from "../../../components/ui/dashboard/delete/deleteUser";
+import Pagination from "../../../components/ui/dashboard/pagination/pagination";
 
 function UserUi(props) {
 

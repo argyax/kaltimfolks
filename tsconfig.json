@@ -32,7 +32,7 @@
     "src/app/api/categories/route.js",
     "src/app/api/posts/route.js",
     "src/app/components/Post/post.jsx",
-    "src/app/dashboard/fshy/func.jsx"
-  ],
+    "src/app/admin/dashboard/fshy/func.jsx"
+, "src/app/components/CardBlog/CardBlog.jsx"  ],
   "exclude": ["node_modules"]
 }

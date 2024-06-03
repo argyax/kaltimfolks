@@ -1,5 +1,4 @@
 "use client"
-
 import Link from 'next/link'
 import styles from './menuLink.module.css'
 import { usePathname } from 'next/navigation'

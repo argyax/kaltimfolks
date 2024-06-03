@@ -1,6 +1,6 @@
 "use server";
 import React from "react";
-import { fetchPosts, fetchDatas } from "../../../lib/dashboardData";
+import { fetchPosts, fetchDatas } from "../../../../lib/dashboardData";
 import ClientUi from "./postClient";
 // import { fetchDatas } from "next-auth/client/_utils";
 // import { useState } from "react";

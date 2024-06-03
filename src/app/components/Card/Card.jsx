@@ -9,29 +9,36 @@ const Card = ({ item }) => {
     return date.toLocaleDateString('en-GB', options);
   };
 
+  // Check if the category is "follower's insight" and skip fetching the post content
+  const shouldFetchPostContent = item.catSlug !== "follower's insight";
+
   return (
     <Link href={`/posts/${item.slug}`}>
       <div className={styles.container} key={item.id}>
-        {item.img && (
-          <div className={styles.imageContainer}>
-            <Image src={item.img} alt="" fill className={styles.image} />
-          </div>
+        {shouldFetchPostContent && (
+          <>
+            {item.img && (
+              <div className={styles.imageContainer}>
+                <Image src={item.imgw} alt="" fill className={styles.image} />
+              </div>
+            )}
+            <div className={styles.textContainer}>
+              <div className={styles.detail}>
+                <span className={styles.date}>
+                  {formatDate(item.createdAt)} {"  "}
+                </span>
+                <span className={styles.category}>{item.catSlug}</span>
+              </div>
+              <div className={styles.titleDesc}>
+                <h3 className={styles.title}> {item.title}</h3>
+                <div
+                  className={styles.desc}
+                  dangerouslySetInnerHTML={{ __html: item?.desc.substring(0, 90) }}
+                />
+              </div>
+            </div>
+          </>
         )}
-        <div className={styles.textContainer}>
-          <div className={styles.detail}>
-            <span className={styles.date}>
-              {formatDate(item.createdAt)} {"  "}
-            </span>
-            <span className={styles.category}>{item.catSlug}</span>
-          </div>
-          <div className={styles.titleDesc}>
-            <h3 className={styles.title}> {item.title}</h3>
-            <div
-              className={styles.desc}
-              dangerouslySetInnerHTML={{ __html: item?.desc.substring(0, 90) }}
-            />
-          </div>
-        </div>
       </div>
     </Link>
   );

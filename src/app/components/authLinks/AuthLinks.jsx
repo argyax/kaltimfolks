@@ -50,6 +50,7 @@ const AuthLinks = () => {
           </div>
 
           {/* <DropDown /> */}
+          <Link href="/blog?cat=follower's insight">Follower's Insight</Link>
           <Link href="/about-us">About Us</Link>
           <Link href="/our-content">Our Content</Link>
           {status === "unauthenticated" ? (

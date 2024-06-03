@@ -15,6 +15,10 @@
   margin-bottom: 50px;
 }
 
+.header {
+  font-size: 3rem;
+}
+
 .bg-cover {
   position: absolute;
   top: -1px;
@@ -63,9 +67,14 @@
   height: auto;
 }
 
-.h2 {
+.subtitle {
   text-align: center;
   margin-bottom: 24px;
+  font-size: 2rem;
+}
+
+.cps {
+  font-weight: 300;
 }
 
 .p {

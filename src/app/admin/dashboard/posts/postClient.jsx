@@ -1,10 +1,10 @@
 "use server";
 import Image from "next/image";
 import Link from "next/link";
-import styles from "../../components/ui/dashboard/posts/posts.module.css";
-import Search from "../../components/ui/dashboard/search/search";
-import DeleteButton from "../../components/ui/dashboard/delete/page";
-import Pagination from "../../components/ui/dashboard/pagination/pagination";
+import styles from "../../../components/ui/dashboard/posts/posts.module.css";
+import Search from "../../../components/ui/dashboard/search/search";
+import DeleteButton from "../../../components/ui/dashboard/delete/page";
+import Pagination from "../../../components/ui/dashboard/pagination/pagination";
 import { PrismaClient } from "@prisma/client";
 // import { mydelete } from "./func.js";
 
@@ -41,14 +41,18 @@ function ClientUi(props) {
               <td>
                 {item.img && (
                   <div className={styles.product}>
-                    <Image
-                      src={item.img || "/noproduct.jpg"}
-                      alt=""
-                      width={40}
-                      height={40}
-                      className={styles.productImage}
-                    />
-                    {item.title}
+                    <Link href={`/posts/${item.slug}`}>
+                      <Image
+                        src={item.img || "/noproduct.jpg"}
+                        alt=""
+                        width={40}
+                        height={40}
+                        className={styles.productImage}
+                      />
+                    </Link>
+                    <Link href={`/posts/${item.slug}`}>
+                      {item.title}
+                    </Link>
                   </div>
                 )}
               </td>
@@ -65,8 +69,16 @@ function ClientUi(props) {
                   {formatDate(item.createdAt)} {"  "}
                 </Link>
               </td>
-              <td className={styles.category}>{item.catSlug}</td>
-              <td>{item.views}</td>
+              <td className={styles.category}>
+                <Link href={`/posts/${item.slug}`}>
+                  {item.catSlug}
+                </Link>
+              </td>
+              <td>
+                <Link href={`/posts/${item.slug}`}>
+                  {item.views}
+                </Link>
+              </td>
               <td>
                 <div className={styles.buttons}>
                   <Link href={`/edit/${item.slug}`}>

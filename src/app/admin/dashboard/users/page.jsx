@@ -1,5 +1,5 @@
 "use server";
-import { fetchUsers } from "../../../lib/dashboardData";
+import { fetchUsers } from "../../../../lib/dashboardData";
 import UserUi from "./userClient";
 const userDashboard = async ({ searchParams }) => {
   const q = searchParams?.q || "";
