@@ -4,12 +4,16 @@ import styles from "./authLinks.module.css";
 import { useState } from "react";
 import { signOut, useSession } from "next-auth/react";
 import DropDown from "../DropDown/DropDown";
-import SearchInput from "../searchInput/searchInput"
+import SearchInput from "../searchInput/searchInput";
 
 const AuthLinks = () => {
   const [open, setOpen] = useState(false);
 
   const { status } = useSession();
+
+  const handleMenuClick = () => {
+    setOpen(false);
+  };
 
   return (
     <>
@@ -50,18 +54,30 @@ const AuthLinks = () => {
           </div>
 
           {/* <DropDown /> */}
-          <Link href="/blog?cat=follower's insight">Follower's Insight</Link>
-          <Link href="/about-us">About Us</Link>
-          <Link href="/our-content">Our Content</Link>
+          <Link href="/blog?cat=follower's insight" onClick={handleMenuClick}>
+            Follower's Insight
+          </Link>
+          <Link href="/about-us" onClick={handleMenuClick}>
+            About Us
+          </Link>
+          <Link href="/our-content" onClick={handleMenuClick}>
+            Our Content
+          </Link>
           {status === "unauthenticated" ? (
             <>
-              <Link href="/auth/login">Log In</Link>
-              <Link href="/auth/signup">Sign Up</Link>
+              <Link href="/auth/login" onClick={handleMenuClick}>
+                Log In
+              </Link>
+              <Link href="/auth/signup" onClick={handleMenuClick}>
+                Sign Up
+              </Link>
             </>
           ) : (
             <>
-              <Link href="/write">Write</Link>
-              <span onClick={signOut}>Logout</span>
+              <Link href="/write" onClick={handleMenuClick}>
+                Write
+              </Link>
+              <span onClick={() => { signOut(); handleMenuClick(); }}>Logout</span>
             </>
           )}
           <SearchInput />

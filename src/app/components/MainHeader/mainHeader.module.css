@@ -68,6 +68,12 @@
   }
 }
 
+@media (max-width: 1024px) {
+  .header {
+    font-size: 2rem;
+  }
+}
+
 /* Responsif pada layar dengan lebar 576px atau lebih kecil */
 @media (max-width: 576px) {
   .header {
