@@ -16,12 +16,23 @@ export default async function Home({ searchParams }) {
     orderBy: {
       views: "desc",
     },
+    where: {
+      catSlug: {
+        not: "follower's insight",
+      },
+    },
   });
+  
 
   const menuContent = await prisma.post.findMany({
     take: 3,
     orderBy: {
       createdAt: "desc",
+    },
+    where: {
+      catSlug: {
+        not: "follower's insight",
+      },
     },
   });
 
