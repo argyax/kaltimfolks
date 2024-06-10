@@ -6,6 +6,9 @@ const nextConfig = {
     compiler: {
         removeConsole: true,
     },
+    experimental: {
+        serverActions: true,
+    },
     webpack: (config, { isServer }) => {
         if (!isServer) {
             // Exclude handlebars from client-side bundling

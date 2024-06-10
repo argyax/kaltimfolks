@@ -40,7 +40,7 @@ export default async function Home({ searchParams }) {
         <MainHeader headerContent={headerContent} />
         <div className={styles.content}>
           <CardList page={page} />
-          <Menu page={page} />
+          <Menu page={cardList} />
         </div>
       </div>
     </>
