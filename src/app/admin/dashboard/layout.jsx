@@ -1,21 +1,22 @@
-"use client";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
 import Sidebar from "../../components/ui/dashboard/sidebar/sidebar";
 import styles from "../../components/ui/dashboard/dashboard.module.css";
+import Link from "next/link";
+import { getServerSession } from "next-auth";
+//import { redirect } from "next/navigation";
+import { authOptions } from "../../api/auth/[...nextauth]/route";
 
-const Layout = ({ children }) => {
-  const router = useRouter();
-  const { data: session, status } = useSession();
+const Layout = async ({ children }) => {
 
-  useEffect(() => {
-    if (status === "loading") return;
-
-    if (!session) {
-      router.push("/auth/login");
-    }
-  }, [session, status, router]);
+  const session = await getServerSession(authOptions);
+  if (session?.user.role !== 'ADMIN') {
+    return (
+      <div className={styles.containerunauthorized}>
+        <h1 className={styles.logo}>Access Denied!</h1> 
+        <p className={styles.desc}>You do not have the necessary permissions to access this page.</p>
+        <Link className={styles.link} href="/">Back to Homepage</Link>
+      </div>
+    );
+  }
   return (
     <div className={styles.container}>
       <div className={styles.menu}>

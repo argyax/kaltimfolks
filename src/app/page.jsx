@@ -5,10 +5,8 @@ import CardList from "./components/CardList/CardList";
 import Menu from "./components/Menu/Menu";
 import MainHeader from "./components/MainHeader/MainHeader";
 import prisma from "@/lib/prisma";
-import { sendMail } from "@/lib/mail";
 
 export default async function Home({ searchParams }) {
-  await sendMail({ to: "information.kaltimfolks@gmail.com", subject: "test", body: "hello world" })
   const page = parseInt(searchParams.page) || 1;
 
   const headerContent = await prisma.post.findMany({
@@ -22,12 +20,11 @@ export default async function Home({ searchParams }) {
       },
     },
   });
-  
 
-  const menuContent = await prisma.post.findMany({
-    take: 3,
+  const cardList = await prisma.post.findMany({
+    take: 4,
     orderBy: {
-      createdAt: "desc",
+      views: "desc",
     },
     where: {
       catSlug: {
@@ -35,6 +32,7 @@ export default async function Home({ searchParams }) {
       },
     },
   });
+  
 
   return (
     <>
@@ -42,7 +40,7 @@ export default async function Home({ searchParams }) {
         <MainHeader headerContent={headerContent} />
         <div className={styles.content}>
           <CardList page={page} />
-          <Menu page={menuContent} />
+          <Menu page={page} />
         </div>
       </div>
     </>

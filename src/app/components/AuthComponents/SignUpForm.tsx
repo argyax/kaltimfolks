@@ -70,7 +70,7 @@ const SignUpForm = () => {
     try {
       // Call the registerUser function with the user data
       const result = await registerUser(user);
-      toast.success("The User Registered Successfully.");
+      toast.success("The User Registered Successfully. Verification email has been sent, if you're not seeing it in your inbox, check the spam folder");
     } catch (error) {
       toast.error("Something Went Wrong!");
       console.error(error);

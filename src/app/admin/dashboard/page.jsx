@@ -11,13 +11,6 @@ import { authOptions } from "../../api/auth/[...nextauth]/route";
 
 const Dashboard = async () => {
   const session = await getServerSession(authOptions);
-    if (session?.user?.name !== "admin") {
-      <div>
-       <h1>Access Denied</h1>
-       <p>You do not have the necessary permissions to access this page.</p>
-       <Link href="/">Back to Homepage</Link>
-     </div>;
-    }
 
   const dashboardContent = await prisma.post.findMany({
     take: 4,

@@ -119,7 +119,7 @@ export const authOptions: AuthOptions = {
       if (token) {
         session.user.id = token.id;
         session.user.name = token.user.name;
-        session.user.role = token.role;
+        session.user.role = token.user.role;
       }
       // session.user.role = token.user.role;
       return session;

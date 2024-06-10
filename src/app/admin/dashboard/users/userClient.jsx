@@ -29,6 +29,7 @@ function UserUi(props) {
             <td>Name</td>
             <td>Email</td>
             <td>Phone</td>
+            <td>Role</td>
             <td>Created At</td>
             <td>Posts</td>
           </tr>
@@ -52,6 +53,7 @@ function UserUi(props) {
               <td>{item.name}</td>
               <td>{item.email}</td>
               <td>{item.phone}</td>
+              <td>{item.role}</td>
               <td>
                 {formatDate(item.createdAt)} {"  "}
               </td>

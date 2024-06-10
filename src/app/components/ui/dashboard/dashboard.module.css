@@ -2,11 +2,43 @@
   display: flex;
 }
 
+.containerunauthorized {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 200px;
+}
+
+.logo {
+  color: var(--text-color);
+  flex: 1;
+  text-align: center;
+  font-size: 36px;
+  font-weight: bold;
+  justify-content: flex-start;
+}
+
+.link {
+  font-weight: 500;
+  margin-top: 5px;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
 .menu {
   flex: 1;
   background-color: var(--bgSoft);
   padding: 20px;
   min-height: 100vh;
+}
+
+.desc {
+  color: var(--text-color);
+  margin-top: 10px;
+  text-align: center;
 }
 
 .content {

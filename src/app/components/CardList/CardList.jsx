@@ -1,7 +1,6 @@
 import React from "react";
 import styles from "./cardList.module.css";
 import Pagination from "../Pagination/pagination";
-import Image from "next/image";
 import Card from "../Card/Card";
 
 const getData = async (page, cat) => {
@@ -22,16 +21,14 @@ const getData = async (page, cat) => {
 const CardList = async ({ page, cat }) => {
   const { posts, count } = await getData(page, cat);
 
-  // const POST_PER_PAGE = 1;
-
-  // const hasPrev = POST_PER_PAGE * (page - 1) > 0;
-  // const hasNext = POST_PER_PAGE * (page - 1) + POST_PER_PAGE < count;
+  // Filter out posts with the category "follower's insight"
+  const filteredPosts = posts.filter(post => post.catSlug !== "follower's insight");
 
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>Articles</h2>
       <div className={styles.posts}>
-        {posts?.map((item) => (
+        {filteredPosts?.map((item) => (
           <Card item={item} key={item._id} />
         ))}
       </div>
