@@ -2,7 +2,8 @@ import React from "react";
 import styles from "./menu.module.css";
 import MenuPosts from "../menuPosts/MenuPosts";
 import MenuCategories from "../menuCategories/MenuCategories";
-import MenuAds from "../menuAds/menuAds"
+import MenuAdsUp from "../menuAdsUp/menuAdsUp"
+import MenuAdsDown from "../menuAdsDown/menuAdsDown"
 
 const getData = async (page, cat) => {
 
@@ -30,15 +31,16 @@ const Menu = async ({ page, cat }) => {
 
   return (
     <div className={styles.container}>
+      <MenuAdsUp />
       <span className={styles.subtitle}>Discover by topic</span>
       <h2 className={styles.title}>Categories</h2>
       <MenuCategories />
-      <MenuAds />
       <span className={styles.subtitle}>{"What's hot"}</span>
       <h2 className={styles.title}>Recent Articles</h2>
       {slicedPosts?.map((item, index) => (
         <MenuPosts withImage={true} postId={item._id} item={item} key={index} />
       ))}
+      <MenuAdsDown />
     </div>
   );
 };

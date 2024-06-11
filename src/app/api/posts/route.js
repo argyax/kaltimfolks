@@ -9,59 +9,43 @@ export const GET = async (req) => {
   const page = parseInt(searchParams.get("page")) || 1; // Parse page to integer, default to 1
   const cat = searchParams.get("cat");
 
-  const POST_PER_PAGE = 5;
-
-
-  // EDITAN SUDAR
-
-  //   const query = {
-  //     take: POST_PER_PAGE,
-  //     skip: POST_PER_PAGE * (page - 1),
-  //     where: {
-  //       ...(cat && { catSlug: cat }),
-  //     },
-  //     orderBy: {
-  //       createdAt: "desc", // Sort by createdAt field in descending order
-  //     },
-  //   };
-
-  //   try {
-  //     const [posts, count] = await prisma.$transaction([
-  //       // prisma.post.findMany(query),
-  //       prisma.post.findMany({
-  //         take: 5,
-  //         orderBy: {
-  //           views: "desc",
-  //         },
-  //       }),
-  //       prisma.post.count({ where: query.where }),
-  //     ]);
-  //     return new NextResponse(JSON.stringify({ posts, count }, { status: 200 }));
-  //   } catch (err) {
-  //     console.log(err);
-  //     return new NextResponse(
-  //       JSON.stringify({ message: "Something went wrong!" }, { status: 500 })
-  //     );
-  //   }
-  // };
-
-  const query = {
-    take: POST_PER_PAGE,
-    skip: POST_PER_PAGE * (page - 1),
-    where: {
-      ...(cat && { catSlug: cat }),
-    },
-    orderBy: {
-      createdAt: "desc" // Sort by createdAt field in descending order
-    }
-  };
+  const POST_PER_PAGE = 7;
+  const FETCH_EXTRA = 10; // Fetch extra posts to account for filtering
 
   try {
-    const [posts, count] = await prisma.$transaction([
-      prisma.post.findMany(query),
-      prisma.post.count({ where: query.where }),
-    ]);
-    return new NextResponse(JSON.stringify({ posts, count }, { status: 200 }));
+    let posts = [];
+    let totalPosts = 0;
+    let hasMorePosts = true;
+    let currentPage = page;
+
+    while (posts.length < POST_PER_PAGE && hasMorePosts) {
+      const query = {
+        take: POST_PER_PAGE + FETCH_EXTRA,
+        skip: POST_PER_PAGE * (currentPage - 1),
+        where: {
+          ...(cat && { catSlug: cat }),
+        },
+        orderBy: {
+          createdAt: "desc" // Sort by createdAt field in descending order
+        }
+      };
+
+      const [fetchedPosts, count] = await prisma.$transaction([
+        prisma.post.findMany(query),
+        prisma.post.count({ where: query.where }),
+      ]);
+
+      const filteredPosts = fetchedPosts.filter(post => post.catSlug !== "follower's insight");
+
+      posts = posts.concat(filteredPosts);
+      totalPosts = count;
+      hasMorePosts = fetchedPosts.length === (POST_PER_PAGE + FETCH_EXTRA);
+      currentPage++;
+    }
+
+    posts = posts.slice(0, POST_PER_PAGE);
+
+    return new NextResponse(JSON.stringify({ posts, count: totalPosts }, { status: 200 }));
   } catch (err) {
     console.log(err);
     return new NextResponse(

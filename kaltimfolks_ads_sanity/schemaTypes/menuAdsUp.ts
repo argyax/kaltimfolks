@@ -1,6 +1,6 @@
 export default {
-    name: 'menuads',
-    title: 'menuAds',
+    name: 'menuadsup',
+    title: 'menuAdsUp',
     type: 'document',
     fields: [
       {

@@ -1,3 +1,4 @@
-import menuAds from './menuAds.js'
+import menuAdsUp from './menuAdsUp.js'
+import menuAdsDown from './menuAdsDown.js'
 
-export const schemaTypes = [menuAds]
+export const schemaTypes = [menuAdsUp, menuAdsDown]
