@@ -27,7 +27,6 @@
 
 .image {
   object-fit: cover;
-  filter: grayscale();
 }
 
 .item:hover .image {
