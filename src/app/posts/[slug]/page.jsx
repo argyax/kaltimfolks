@@ -2,6 +2,8 @@ import Menu from "@/app/components/Menu/Menu";
 import styles from "./singlePage.module.css";
 import Image from "next/image";
 import Comments from "@/app/components/comments/Comments";
+import PostDown from "../../components/Ads/postDown/postDown";
+import PostUp from "../../components/Ads/postUp/postUp"
 
 const getData = async (slug) => {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
@@ -35,6 +37,7 @@ const SinglePage = async ({ params }) => {
       <div className={styles.content}>
         <div className={styles.post}>
           <div className={styles.textContainer}>
+            <PostUp />
             <h1 className={styles.title}>{data?.title}</h1>
             <div className={styles.user}>
               {data?.user?.image && (
@@ -63,6 +66,7 @@ const SinglePage = async ({ params }) => {
             dangerouslySetInnerHTML={{ __html: data?.desc }}
           />
           <div className={styles.comment}>
+            <PostDown />
             <Comments postSlug={slug} />
           </div>
         </div>

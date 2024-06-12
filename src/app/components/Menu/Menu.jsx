@@ -2,8 +2,8 @@ import React from "react";
 import styles from "./menu.module.css";
 import MenuPosts from "../menuPosts/MenuPosts";
 import MenuCategories from "../menuCategories/MenuCategories";
-import MenuAdsUp from "../menuAdsUp/menuAdsUp"
-import MenuAdsDown from "../menuAdsDown/menuAdsDown"
+import MenuAdsUp from "../Ads/menuAdsUp/menuAdsUp"
+import MenuAdsDown from "../Ads/menuAdsDown/menuAdsDown"
 
 const getData = async (page, cat) => {
 

@@ -2,15 +2,16 @@ import { getAuthSession } from "@/app/api/auth/[...nextauth]/route";
 import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
-//GET POST WITHOUT FOLL'S INSIGHT
+//GET POST API
 export const GET = async (req) => {
   const { searchParams } = new URL(req.url);
 
-  const page = parseInt(searchParams.get("page")) || 1; // Parse page to integer, default to 1
+  const page = parseInt(searchParams.get("page")) || 1;
   const cat = searchParams.get("cat");
+  const includeFollowerInsight = searchParams.get("includeFollowerInsight") === 'true';
 
-  const POST_PER_PAGE = 7;
-  const FETCH_EXTRA = 10; // Fetch extra posts to account for filtering
+  const POST_PER_PAGE = 9;
+  const FETCH_EXTRA = 7;
 
   try {
     let posts = [];
@@ -18,16 +19,21 @@ export const GET = async (req) => {
     let hasMorePosts = true;
     let currentPage = page;
 
+    const excludedIds = new Set();
+
     while (posts.length < POST_PER_PAGE && hasMorePosts) {
       const query = {
         take: POST_PER_PAGE + FETCH_EXTRA,
         skip: POST_PER_PAGE * (currentPage - 1),
         where: {
           ...(cat && { catSlug: cat }),
+          id: {
+            notIn: Array.from(excludedIds)
+          }
         },
         orderBy: {
-          createdAt: "desc" // Sort by createdAt field in descending order
-        }
+          createdAt: "desc"
+        },
       };
 
       const [fetchedPosts, count] = await prisma.$transaction([
@@ -35,8 +41,9 @@ export const GET = async (req) => {
         prisma.post.count({ where: query.where }),
       ]);
 
-      const filteredPosts = fetchedPosts.filter(post => post.catSlug !== "follower's insight");
+      const filteredPosts = includeFollowerInsight ? fetchedPosts : fetchedPosts.filter(post => post.catSlug !== "follower's insight");
 
+      filteredPosts.forEach(post => excludedIds.add(post.id));
       posts = posts.concat(filteredPosts);
       totalPosts = count;
       hasMorePosts = fetchedPosts.length === (POST_PER_PAGE + FETCH_EXTRA);
@@ -45,7 +52,9 @@ export const GET = async (req) => {
 
     posts = posts.slice(0, POST_PER_PAGE);
 
-    return new NextResponse(JSON.stringify({ posts, count: totalPosts }, { status: 200 }));
+    return new NextResponse(
+      JSON.stringify({ posts, count: totalPosts }, { status: 200 })
+    );
   } catch (err) {
     console.log(err);
     return new NextResponse(
@@ -53,6 +62,8 @@ export const GET = async (req) => {
     );
   }
 };
+
+
 
 // CREATE A POST
 export const POST = async (req) => {

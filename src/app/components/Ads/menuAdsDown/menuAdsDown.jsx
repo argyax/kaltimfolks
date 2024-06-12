@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "./MenuAdsDown.module.css"
 import { useState, useEffect } from "react";
-import { urlFor, client } from '../../../lib/client';
+import { urlFor, client } from '../../../../lib/client';
 
 const MenuAdsDown = () => {
   const [menuAdsDown, setMenuAdsDown] = useState([]);

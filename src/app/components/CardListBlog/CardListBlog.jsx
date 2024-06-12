@@ -7,7 +7,7 @@ import CardBlog from "../CardBlog/CardBlog";
 const getData = async (page, cat) => {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   const res = await fetch(
-    `${baseUrl}/api/posts?page=${page}&cat=${cat || ""}`,
+    `${baseUrl}/api/posts?page=${page}&cat=${cat || ""}&includeFollowerInsight=true`,
     {
       cache: "no-store",
     }
@@ -21,11 +21,6 @@ const getData = async (page, cat) => {
 
 const CardList = async ({ page, cat }) => {
   const { posts, count } = await getData(page, cat);
-
-  // const POST_PER_PAGE = 1;
-
-  // const hasPrev = POST_PER_PAGE * (page - 1) > 0;
-  // const hasNext = POST_PER_PAGE * (page - 1) + POST_PER_PAGE < count;
 
   return (
     <div className={styles.container}>

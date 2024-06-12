@@ -5,6 +5,7 @@ import CardList from "./components/CardList/CardList";
 import Menu from "./components/Menu/Menu";
 import MainHeader from "./components/MainHeader/MainHeader";
 import prisma from "@/lib/prisma";
+import HeaderAds from "./components/Ads/headers/headers"
 
 export default async function Home({ searchParams }) {
   const page = parseInt(searchParams.page) || 1;
@@ -38,6 +39,7 @@ export default async function Home({ searchParams }) {
     <>
       <div className={styles.container}>
         <MainHeader headerContent={headerContent} />
+        <HeaderAds/>
         <div className={styles.content}>
           <CardList page={page} />
           <Menu page={cardList} />
