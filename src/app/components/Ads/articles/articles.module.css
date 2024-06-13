@@ -63,3 +63,9 @@
 .date {
   color: gray;
 }
+
+@media screen and (max-width: 640px) {
+  .imageContainer {
+    aspect-ratio: 36/8;
+  }
+}

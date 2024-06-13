@@ -1,5 +1,6 @@
 .title {
   font-size: 1.25rem;
+  line-height: 1.08;
 }
 
 .title::first-letter {
@@ -85,5 +86,18 @@
   .imageContainer {
     z-index: -1;
     width: 100%;
+  }
+
+  .title {
+    font-size: 1.125rem;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .container {
+    min-width: 100px;
+  }
+  .imageContainer {
+    min-width: 100px;
   }
 }

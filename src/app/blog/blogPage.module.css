@@ -1,12 +1,13 @@
-.title{
-    background-color: var(--textColor);
-    color: var(--bg);
-    padding: 5px 10px;
-    text-align: center;
-    text-transform: uppercase;
-  }
-  
-  .content{
-    display: flex;
-    gap: 50px;
-  }
+.title {
+  background-color: var(--textColor);
+  color: var(--bg);
+  padding: 5px 10px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.content {
+  display: flex;
+  gap: 50px;
+  margin-top: 32px;
+}

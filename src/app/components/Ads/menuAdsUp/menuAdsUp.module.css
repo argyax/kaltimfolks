@@ -1,5 +1,4 @@
 .items {
-  margin-top: 24px;
   margin-bottom: 32px;
   display: flex;
   flex-direction: column;
@@ -63,4 +62,10 @@
 
 .date {
   color: gray;
+}
+
+@media screen and (max-width: 640px) {
+  .imageContainer {
+    aspect-ratio: 16/4;
+  }
 }

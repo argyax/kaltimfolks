@@ -12,6 +12,12 @@
   cursor: pointer;
 }
 
+.active {
+  background-color: var(--softBg);
+  color: var(--textColor);
+  border: solid 1px var(--textColor);
+}
+
 .button:disabled {
   background-color: var(--softBg);
   cursor: not-allowed;

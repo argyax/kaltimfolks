@@ -13,11 +13,11 @@ const Navbar = () => {
     <div className={styles.parent}>
       <div className={styles.container}>
         <div className={styles.wrapper}>
-          <div className={styles.social}>
+          {/* <div className={styles.social}>
             <Link href="https://www.instagram.com/kaltimfolks/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><FaInstagram size={24} /></Link>
             <Link href="https://x.com/kaltimfolks" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><FaXTwitter size={24} /></Link>
             <Link href="https://www.tiktok.com/@kaltimfolks" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><FaTiktok size={24} /></Link>
-          </div>
+          </div> */}
           <div className={styles.links}>
             <Link href="/" className={styles.logo}>KALTIMFOLKS.</Link>
             <div className={styles.toggle}><ThemeToggle /></div>

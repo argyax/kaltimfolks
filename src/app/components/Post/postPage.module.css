@@ -57,7 +57,13 @@
 
 .desc {
   font-size: 1rem;
-  font-weight: 400;
+  font-weight: 500;
+  color: var(--softTextColor);
+}
+
+.desc h2 {
+  font-size: 1rem;
+  font-weight: 500;
   color: var(--softTextColor);
 }
 

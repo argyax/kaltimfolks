@@ -41,11 +41,11 @@ const Comments = ({ postSlug }) => {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Comments</h1>
+      <p className={styles.title}>Comments</p>
       {status === "authenticated" ? (
         <div className={styles.write}>
           <textarea
-            placeholder="write a comment..."
+            placeholder="Write a comment ..."
             className={styles.input}
             onChange={(e) => setDesc(e.target.value)}
           />

@@ -54,7 +54,7 @@ function MainHeader(props) {
       <Slider {...settings}>
         {props.headerContent?.map((item) => (
           <div key={item.slug} >
-            <Link href={`/posts/${item.slug}`} draggable="false">
+            <Link href={`/posts/${item.slug}`} className={styles.link} draggable="false">
               <div className={styles.container}>
                 <div className={styles.overlay}></div>
                 <Image
@@ -65,10 +65,7 @@ function MainHeader(props) {
                   alt={item.slug}
                 />
                 <div className={styles.content}>
-                  <p> {formatDate(item.createdAt)}</p>
-                  {/* <h2>{item.createdAt?.toDateString()}</h2> */}
-                  {/* <p>{item.createdAt?.toString().substring(0, 10)} </p> */}
-                  {/* <span className={styles.date}>{item.createdAt}</span> */}
+                  <p className={styles.date}> {formatDate(item.createdAt)}</p>
                   <h1 className={styles.header}>{item.title}</h1>
                 </div>
               </div>

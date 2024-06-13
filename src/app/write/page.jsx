@@ -195,7 +195,7 @@ const WritePage = () => {
         <textarea
           ref={textareaRef}
           placeholder="Title"
-          maxLength="120"
+          maxLength="105"
           rows="1"
           wrap="soft"
           className={styles.input}
@@ -218,17 +218,24 @@ const WritePage = () => {
       </div>
       <div className={styles["category-wrapper"]}>
         <p>Category: </p>
-        <Select className={styles.select} value={catSlug} onChange={(e) => setCatSlug(e.target.value)}>
-          <option value="follower's insight">Follower&apos;s Insight</option>
-          <option value="culture">Culture</option>
-          <option value="lifestyle">Lifestyle</option>
-          <option value="movies">Movies</option>
-          <option value="sports">Sports</option>
-          <option value="technology">Technology</option>
-          <option value="music">Music</option>
-          <option value="ikn">IKN</option>
-          <option value="politics">Politics</option>
-        </Select>
+        {session?.user.role !== 'ADMIN' &&
+          <Select className={styles.select} value={catSlug} onChange={(e) => setCatSlug(e.target.value)}>
+            <option value="follower's insight">Follower&apos;s Insight</option>
+          </Select>
+        }
+        {session?.user.role === 'ADMIN' &&
+          <Select className={styles.select} value={catSlug} onChange={(e) => setCatSlug(e.target.value)}>
+            <option value="follower's insight">Follower&apos;s Insight</option>
+            <option value="culture">Culture</option>
+            <option value="lifestyle">Lifestyle</option>
+            <option value="movies">Movies</option>
+            <option value="sports">Sports</option>
+            <option value="technology">Technology</option>
+            <option value="music">Music</option>
+            <option value="ikn">IKN</option>
+            <option value="politics">Politics</option>
+          </Select>
+        }
       </div>
       <div className={styles.editor}>
         {typeof window !== 'undefined' && (

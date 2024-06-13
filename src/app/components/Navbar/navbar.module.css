@@ -1,6 +1,5 @@
 .parent {
   height: 100px;
-  width: 100%;
 }
 
 .container {
@@ -18,12 +17,9 @@
   height: 100px;
   width: 100%;
   backdrop-filter: blur(25px);
-  position: absolute;
-  top: 0;
-  left: 0;
 
-  padding-left: 80px;
-  padding-right: 80px;
+  margin: auto;
+  padding: 0 64px;
 }
 
 .social {
@@ -46,8 +42,7 @@
 
 .links {
   display: flex;
-  padding-left: 2rem;
-  gap: 40px;
+  gap: 32px;
   align-items: center;
   flex: 1;
   font-size: 16px;
@@ -89,10 +84,10 @@
   .toggle {
     padding-right: 1rem;
   }
-  .wrapper {
+  /* .wrapper {
     padding-left: 32px;
     padding-right: 32px;
-  }
+  } */
   .links {
     padding-left: 0;
   }
@@ -114,5 +109,38 @@
 @media screen and (max-width: 1540px) {
   .social {
     display: none;
+  }
+}
+
+@media screen and (max-width: 1440px) {
+  .wrapper {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  .wrapper {
+    /* max-width: 1024px; */
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .wrapper {
+    /* max-width: 768px;
+    padding-left: 32px;
+    padding-right: 32px; */
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .wrapper {
+    /* max-width: 640px; */
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .wrapper {
+    /* max-width: 475px; */
   }
 }

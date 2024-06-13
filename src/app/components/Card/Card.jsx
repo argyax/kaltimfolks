@@ -1,12 +1,28 @@
 import Image from "next/image";
 import styles from "./card.module.css";
 import Link from "next/link";
+import sanitizeHtml from 'sanitize-html';
 
 const Card = ({ item }) => {
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const options = { day: '2-digit', month: 'long', year: 'numeric' };
     return date.toLocaleDateString('en-GB', options);
+  };
+
+  const sanitizeAndTrim = (htmlString) => {
+    htmlString = htmlString.replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&');
+    let sanitizedText = htmlString.replace(/<[^>]*>?/gm, ' ').replace(/&nbsp;/g, ' ');
+
+    sanitizedText = sanitizedText.slice(0, 150); // Limit to 90 characters
+
+    sanitizedText = sanitizedText.trim().split(' ').slice(0, -1).join(' '); // Remove the last word
+
+    if (sanitizedText.length < htmlString.length) {
+      sanitizedText += ' ...';
+    }
+
+    return sanitizedText
   };
 
   return (
@@ -28,8 +44,8 @@ const Card = ({ item }) => {
             <h3 className={styles.title}> {item.title}</h3>
             <div
               className={styles.desc}
-              dangerouslySetInnerHTML={{ __html: item?.desc.substring(0, 90) }}
             />
+            <p>{sanitizeAndTrim(item.desc)}</p>
           </div>
         </div>
       </div>

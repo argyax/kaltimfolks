@@ -76,11 +76,11 @@
 .content {
   display: flex;
   gap: 50px;
+  margin-top: 32px;
 }
 
 .post {
   flex: 5;
-  margin-top: 40px;
 }
 
 .description p {

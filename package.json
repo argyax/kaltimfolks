@@ -71,6 +71,7 @@
     "rehype-pretty-code": "^0.10.0",
     "rehype-slug": "^5.1.0",
     "remark-gfm": "^3.0.1",
+    "sanitize-html": "^2.13.0",
     "sanity": "^3.45.0",
     "shiki": "^0.14.3",
     "slick-carousel": "^1.8.1",

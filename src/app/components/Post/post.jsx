@@ -9,6 +9,21 @@ const Posts = ({ posts }) => {
     return date.toLocaleDateString('en-GB', options);
   };
 
+  const sanitizeAndTrim = (htmlString) => {
+    htmlString = htmlString.replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&');
+    let sanitizedText = htmlString.replace(/<[^>]*>?/gm, ' ').replace(/&nbsp;/g, ' ');
+
+    sanitizedText = sanitizedText.slice(0, 150); // Limit to 90 characters
+
+    sanitizedText = sanitizedText.trim().split(' ').slice(0, -1).join(' '); // Remove the last word
+
+    if (sanitizedText.length < htmlString.length) {
+      sanitizedText += ' ...';
+    }
+
+    return sanitizedText
+  };
+
   return (
     <div key={posts.id}>
       {posts.map((post) => (
@@ -30,8 +45,8 @@ const Posts = ({ posts }) => {
                 <h3>{post.title}</h3>
                 <div
                   className={styles.desc}
-                  dangerouslySetInnerHTML={{ __html: post?.desc.substring(0, 90) }}
                 />
+                <p>{sanitizeAndTrim(post.desc)}</p>
               </div>
             </div>
           </div>
