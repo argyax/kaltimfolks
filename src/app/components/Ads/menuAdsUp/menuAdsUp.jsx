@@ -1,7 +1,7 @@
 "use client"
 import Image from "next/image";
 import Link from "next/link";
-import styles from "./menuAdsUp.module.css"
+import styles from "./menuAdsUp.module.css";
 import { useState, useEffect } from "react";
 import { urlFor, client } from '../../../../lib/client';
 
