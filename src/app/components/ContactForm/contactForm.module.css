@@ -16,6 +16,10 @@
     border-radius: 10px;
   }
 
+  .error {
+    font-weight: bold;
+    color: var(--bg);
+  }
 
   .form {
     display: flex;

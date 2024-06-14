@@ -16,7 +16,7 @@
 
 .link {
   text-decoration: underline;
-  color: var(--textColor);
+  color: var(--bg);
 }
 
 .wrapper {

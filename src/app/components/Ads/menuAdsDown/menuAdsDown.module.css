@@ -16,7 +16,7 @@
 
 .imageContainer {
   flex: 1;
-  aspect-ratio: auto 16/12;
+  aspect-ratio: auto 9/16;
   position: relative;
   z-index: -1;
 }
