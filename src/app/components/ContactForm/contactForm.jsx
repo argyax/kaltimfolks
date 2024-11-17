@@ -24,7 +24,7 @@ const ContactForm = () => {
       return;
     }
 
-    const whatsappNumber = "+6282150941180";
+    const whatsappNumber = "+6283152659353";
     const formattedPhoneNumber = whatsappNumber.replace(/\D/g, ""); // Remove non-digit characters
     const contact = `${formattedPhoneNumber}@c.us`;
 
