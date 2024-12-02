@@ -109,7 +109,7 @@
   }
 
   .popover-content {
-    position: absolute;
+    position: relative;
     top: 100%;                /* Display below the trigger */
     left: 0;                  /* Align with trigger */
     width: 240px;             /* Set width for content */
