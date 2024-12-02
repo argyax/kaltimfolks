@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import styles from "./footer.module.css";
 import Image from "next/image";
 import Link from "next/link";
-import { FaInstagram, FaTiktok } from "react-icons/fa";
+import { FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
 import { FaXTwitter } from 'react-icons/fa6'
 
 const Footer = () => {
@@ -70,6 +70,7 @@ const Footer = () => {
             <Link href="https://www.instagram.com/kaltimfolks/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><FaInstagram size={24} /></Link>
             <Link href="https://x.com/kaltimfolks" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><FaXTwitter size={24} /></Link>
             <Link href="https://www.tiktok.com/@kaltimfolks" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><FaTiktok size={24} /></Link>
+            <Link href="https://www.youtube.com/@KALTIMFOLKS" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><FaYoutube size={24} /></Link>
           </div>
         </div>
       </div>
