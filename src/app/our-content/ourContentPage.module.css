@@ -45,6 +45,14 @@
   align-items: center;
 }
 
+.video-container {
+  margin-top: 48px;
+  margin-bottom: 96px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .cps-container {
   margin-top: 48px;
   display: flex;
@@ -79,6 +87,13 @@
 
 .p {
   color: var(--secondaryText);
+  text-align: center;
+  max-width: 1000px;
+}
+
+.pyt {
+  color: var(--secondaryText);
+  margin-top: 20px;
   text-align: center;
   max-width: 1000px;
 }

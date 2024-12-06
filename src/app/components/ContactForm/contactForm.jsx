@@ -138,10 +138,10 @@ const ContactForm = () => {
                 <PopoverContent className={styles["popover-content"]}>
                   <div className={styles.popoverbutton}>
                     <Button type="button" className={styles.button} onClick={handleSendWhatsapp1}>
-                      <FaUserAstronaut className={styles.icon} /> George (CEO)
+                      <FaUserAstronaut className={styles.icon} /> George
                     </Button>
                     <Button type="button" className={styles.button} onClick={handleSendWhatsapp2}>
-                      <FaUserNinja className={styles.icon} /> Dede (AE)
+                      <FaUserNinja className={styles.icon} /> Dede
                     </Button>
                   </div>
                 </PopoverContent>
