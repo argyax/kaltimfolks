@@ -17,9 +17,8 @@ const OurContentPage = () => {
         <div className={styles["video-container"]}>
         <h2 className={styles.subtitle}><span className={styles.cps}>Stream in a </span> HEARTBEAT. <br/>
         KALTIMFOLKS. <span className={styles.cps}>Now on YOUTUBE</span></h2>
-        <div className={styles["image-container"]}>
-          <iframe width="560" 
-            height="315" 
+        <div class={styles["responsive-iframe"]}>
+          <iframe 
             src="https://www.youtube.com/embed/zpvDsn-xTNQ?si=KYPpqF_zI6xNGwMP" 
             title="YouTube video player" 
             frameborder="0" 
@@ -28,6 +27,7 @@ const OurContentPage = () => {
             allowfullscreen>
           </iframe>
         </div>
+
         <p className={styles.p}>
           In this exclusive sit-down, <b>Zara Adhisty</b> and <b>Abun Sungkar</b> let us in on all 
           the juicy details behind their new heart-tugging romantic drama, <em>Cinta Dalam Ikhlas.</em> From awkward first takes to off-screen laughs that brought their on-screen chemistry to life, this convo dives deep into the behind-the-scenes moments that made the magic happen.

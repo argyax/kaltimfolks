@@ -91,6 +91,28 @@
   max-width: 1000px;
 }
 
+.responsive-iframe {
+  position: relative;
+  width: 100%; /* Full width of the parent */
+  padding-bottom: 56.25%; /* Aspect ratio: 16:9 */
+  height: 0;
+  overflow: hidden;
+  border-radius: 18px;
+  object-fit: cover;
+  margin-bottom: 2rem;
+  height: auto;
+}
+
+.responsive-iframe iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  
+}
+
 .pyt {
   color: var(--secondaryText);
   margin-top: 20px;
