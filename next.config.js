@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-        domains: ["lh3.googleusercontent.com", "firebasestorage.googleapis.com", "i.imgur.com"]
+        domains: ["lh3.googleusercontent.com", "firebasestorage.googleapis.com", "i.imgur.com", "ry9ypcmvntdm0fsm.public.blob.vercel-storage.com" ]
     },
     compiler: {
         removeConsole: true,

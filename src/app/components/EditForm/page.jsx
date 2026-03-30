@@ -50,6 +50,31 @@ const EditForm = ({ post }) => {
   const router = useRouter();
   const { data: session, status } = useSession();
   const textareaRef = useRef(null);
+  const [data, setData] = useState([]);
+
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch(`${baseUrl}/api/categories`, {
+          cache: "reload",
+        });
+
+        if (!res.ok) {
+          throw new Error("Failed to fetch data");
+        }
+
+        const jsonData = await res.json();
+        const filteredData = jsonData.filter(item => item.slug !== "follower's insight");
+        setData(filteredData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, [])
 
   useEffect(() => {
     if (status === "loading") return;
@@ -211,14 +236,11 @@ const EditForm = ({ post }) => {
         <p>Category:</p>
         <Select className={styles.select} value={catSlug} onChange={(e) => setCatSlug(e.target.value)}>
           <option value="follower's insight">Follower&apos;s Insight</option>
-          <option value="culture">Culture</option>
-          <option value="lifestyle">Lifestyle</option>
-          <option value="movies">Movies</option>
-          <option value="sports">Sports</option>
-          <option value="technology">Technology</option>
-          <option value="music">Music</option>
-          <option value="ikn">IKN</option>
-          <option value="politics">Politics</option>
+          {data?.map((item) => (
+            <option value={item.slug.toLowerCase()} key={item.id}>
+              {item.title}
+            </option>
+          ))}
         </Select>
       </div>
       <div className={styles.editor}>
