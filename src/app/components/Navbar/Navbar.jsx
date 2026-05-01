@@ -25,6 +25,7 @@ const Navbar = () => {
             <Link href="/blog?cat=follower's insight" className={styles.link}>Follower's Insight</Link>
             <Link href="/about-us" className={styles.link}>About Us</Link>
             <Link href="/our-content" className={styles.link}>Our Content</Link>
+            <Link href="/pedoman-media-siber" className={styles.link}>Pedoman</Link>
           </div>
           <div className={styles.auth}>
             <div className={styles.search}> <SearchInput /> </div>

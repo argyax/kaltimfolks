@@ -1,19 +1,22 @@
-import styles from "@/app/posts/[slug]/singlePage.module.css";
 import EditForm from "@/app/components/EditForm/page";
 import { notFound } from "next/navigation";
-import { getPostBySlug } from "@/app/api/edit/[slug]/route";
+
+const getPost = async (slug: string) => {
+  const res = await fetch(`http://localhost:3000/api/posts/${slug}`, {
+    cache: "no-store",
+  });
+
+  if (!res.ok) return null;
+
+  return res.json();
+};
 
 const EditPage = async ({ params }: { params: { slug: string } }) => {
-  const slug = params.slug;
-  const post = await getPostBySlug(slug);
+  const post = await getPost(params.slug);
 
-  if (!post) {
-    notFound();
-  }
+  if (!post) return notFound();
 
-  return (
-    <EditForm post={post} />
-  );
+  return <EditForm post={post} />;
 };
 
 export default EditPage;

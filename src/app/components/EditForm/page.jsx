@@ -61,43 +61,61 @@ const EditForm = ({ post }) => {
   const router = useRouter();
   const { data: session, status } = useSession();
 
-  /* 🔥 PREFILL DATA */
-  const [title, setTitle] = useState(post?.title || "");
-  const [value, setValue] = useState(post?.desc || "");
-  const [catSlug, setCatSlug] = useState(post?.catSlug || "");
-  const [file, setFile] = useState(null);
-  const [preview, setPreview] = useState(post?.img || null);
-  const [categories, setCategories] = useState([]);
-
-  const [editorial, setEditorial] = useState({
-    director: post?.editorial?.director || "",
-    chief: post?.editorial?.chief || "",
-    reporters: post?.editorial?.reporters || "",
-    editors: post?.editorial?.editors || "",
-    phone: post?.editorial?.phone || "",
-    email: post?.editorial?.email || "",
-  });
-
   const textareaRef = useRef(null);
 
-  /* FETCH CATEGORY */
+  /* ===== STATE ===== */
+  const [title, setTitle] = useState("");
+  const [value, setValue] = useState("");
+  const [catSlug, setCatSlug] = useState("");
+  const [file, setFile] = useState(null);
+  const [preview, setPreview] = useState(null);
+  const [categories, setCategories] = useState([]);
+
+  const emptyEditorial = {
+    director: "",
+    chief: "",
+    reporters: "",
+    editors: "",
+    phone: "",
+    email: "",
+  };
+
+  const [editorial, setEditorial] = useState(emptyEditorial);
+
+  /* ================= PREFILL DATA (🔥 FIX UTAMA) ================= */
+  useEffect(() => {
+    if (post) {
+      setTitle(post.title || "");
+      setValue(post.desc || "");
+      setCatSlug(post.catSlug || "");
+      setPreview(post.img || null);
+
+      setEditorial(post.editorial || emptyEditorial);
+    }
+  }, [post]);
+
+  /* ================= FETCH CATEGORY ================= */
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch('/api/categories', { cache: 'no-store' });
-      const json = await res.json();
-      const filtered = json.filter(i => i.slug !== "follower's insight");
-      setCategories(filtered);
+      try {
+        const res = await fetch('/api/categories', { cache: 'no-store' });
+        const json = await res.json();
+        const filtered = json.filter(i => i.slug !== "follower's insight");
+        setCategories(filtered);
+      } catch (err) {
+        console.error(err);
+      }
     };
     fetchData();
   }, []);
 
-  /* AUTH */
+  /* ================= AUTH ================= */
   useEffect(() => {
     if (status === 'loading') return;
     if (!session) router.push('/auth/login');
   }, [session, status, router]);
 
-  /* AUTO RESIZE */
+  /* ================= AUTO RESIZE ================= */
   useEffect(() => {
     if (textareaRef.current) {
       textareaRef.current.style.height = 'auto';
@@ -106,7 +124,7 @@ const EditForm = ({ post }) => {
     }
   }, [title]);
 
-  /* FILE CHANGE */
+  /* ================= FILE ================= */
   const handleFileChange = (e) => {
     const uploaded = e.target.files?.[0];
     if (!uploaded) return;
@@ -123,13 +141,12 @@ const EditForm = ({ post }) => {
     reader.readAsDataURL(uploaded);
   };
 
-  /* HEADER IMAGE */
   const handleHeaderUpload = async () => {
-    if (!file) return preview; // 🔥 pakai existing kalau tidak upload baru
+    if (!file) return preview;
     return await uploadToBlob(file);
   };
 
-  /* SUBMIT */
+  /* ================= SUBMIT ================= */
   const handleSubmit = async () => {
     try {
       const headerUrl = await handleHeaderUpload();
@@ -141,7 +158,11 @@ const EditForm = ({ post }) => {
       for (const img of images) {
         if (img.src.startsWith('blob:') || img.src.startsWith('data:')) {
           const blob = await fetch(img.src).then(r => r.blob());
-          const file = new File([blob], `image-${Date.now()}.png`, { type: blob.type });
+          const file = new File(
+            [blob],
+            `image-${Date.now()}.png`,
+            { type: blob.type }
+          );
 
           const url = await uploadToBlob(file);
           img.src = url;
@@ -159,8 +180,6 @@ const EditForm = ({ post }) => {
           img: headerUrl,
           slug: slugify(title),
           catSlug,
-
-          // 🔥 editorial ikut update
           ...editorial,
         }),
       });
@@ -176,6 +195,7 @@ const EditForm = ({ post }) => {
     }
   };
 
+  /* ================= QUILL ================= */
   const modules = {
     toolbar: {
       container: [
@@ -191,6 +211,8 @@ const EditForm = ({ post }) => {
     },
   };
 
+  /* ================= UI ================= */
+
   return (
     <div className={styles.container}>
 
@@ -202,7 +224,6 @@ const EditForm = ({ post }) => {
           onChange={(e) => setTitle(e.target.value)}
           className={styles.input}
         />
-
         <button onClick={handleSubmit} className={styles.publish}>
           Update
         </button>
@@ -234,38 +255,50 @@ const EditForm = ({ post }) => {
           <input
             placeholder="Direktur"
             value={editorial.director}
-            onChange={(e) => setEditorial({ ...editorial, director: e.target.value })}
+            onChange={(e) =>
+              setEditorial({ ...editorial, director: e.target.value })
+            }
           />
 
           <input
             placeholder="Pimpinan Redaksi"
             value={editorial.chief}
-            onChange={(e) => setEditorial({ ...editorial, chief: e.target.value })}
+            onChange={(e) =>
+              setEditorial({ ...editorial, chief: e.target.value })
+            }
           />
 
           <input
             placeholder="Telepon"
             value={editorial.phone}
-            onChange={(e) => setEditorial({ ...editorial, phone: e.target.value })}
+            onChange={(e) =>
+              setEditorial({ ...editorial, phone: e.target.value })
+            }
           />
 
           <input
             placeholder="Email"
             value={editorial.email}
-            onChange={(e) => setEditorial({ ...editorial, email: e.target.value })}
+            onChange={(e) =>
+              setEditorial({ ...editorial, email: e.target.value })
+            }
           />
         </div>
 
         <textarea
           placeholder="Wartawan"
           value={editorial.reporters}
-          onChange={(e) => setEditorial({ ...editorial, reporters: e.target.value })}
+          onChange={(e) =>
+            setEditorial({ ...editorial, reporters: e.target.value })
+          }
         />
 
         <textarea
           placeholder="Editor"
           value={editorial.editors}
-          onChange={(e) => setEditorial({ ...editorial, editors: e.target.value })}
+          onChange={(e) =>
+            setEditorial({ ...editorial, editors: e.target.value })
+          }
         />
       </div>
 

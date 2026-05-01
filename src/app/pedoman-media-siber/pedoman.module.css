@@ -1,0 +1,31 @@
+.policyContainer {
+    max-width: 900px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    color: var(--textColor);
+    line-height: 1.7;
+  }
+  
+  .policyContainer h2 {
+    font-size: 1.8rem;
+    margin-top: 24px;
+  }
+  
+  .policyContainer h3 {
+    font-size: 1.4rem;
+    margin-top: 20px;
+  }
+  
+  .policyContainer p {
+    color: var(--secondaryText);
+  }
+  
+  .policyContainer ul {
+    padding-left: 20px;
+    color: var(--secondaryText);
+  }
+  
+  .policyContainer li {
+    margin-bottom: 6px;
+  }
