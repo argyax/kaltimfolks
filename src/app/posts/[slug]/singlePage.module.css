@@ -150,3 +150,23 @@
     justify-content: space-between;
   }
 }
+
+/* ===== EDITORIAL ===== */
+
+.editorial {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid #e5e5e5;
+}
+
+.editorialTitle {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.editorial p {
+  font-size: 14px;
+  margin-bottom: 6px;
+  color: var(--softTextColor);
+}

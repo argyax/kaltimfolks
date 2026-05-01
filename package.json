@@ -27,6 +27,7 @@
     "@tailwindcss/typography": "^0.5.9",
     "@types/jsonwebtoken": "^9.0.6",
     "@types/nodemailer": "^6.4.14",
+    "@vercel/blob": "^2.3.3",
     "bcrypt": "^5.1.1",
     "brace-expansion": "^4.0.0",
     "check-password-strength": "^2.0.7",

@@ -6,16 +6,32 @@ export const GET = async (req, { params }) => {
   const { slug } = params;
 
   try {
-    const post = await prisma.post.update({
+    const post = await prisma.post.findUnique({
+      where: { slug },
+      include: {
+        user: true,
+        editorial: true,
+      },
+    });
+
+    if (!post) {
+      return new NextResponse(
+        JSON.stringify({ message: "Post not found" }),
+        { status: 404 }
+      );
+    }
+
+    // increment views (safe)
+    await prisma.post.update({
       where: { slug },
       data: { views: { increment: 1 } },
-      include: { user: true },
     });
+
     return new NextResponse(JSON.stringify(post), { status: 200 });
   } catch (err) {
-    console.log(err);
+    console.error("GET POST ERROR:", err);
     return new NextResponse(
-      JSON.stringify({ message: "Something went wrong!" }),
+      JSON.stringify({ message: err.message }),
       { status: 500 }
     );
   }
@@ -26,7 +42,21 @@ export const PUT = async (req, { params }) => {
   const { slug } = params;
 
   try {
-    const { title, desc, img, slug: newSlug, catSlug } = await req.json();
+    const body = await req.json();
+
+    const {
+      title,
+      desc,
+      img,
+      slug: newSlug,
+      catSlug,
+      director,
+      chief,
+      reporters,
+      editors,
+      phone,
+      email,
+    } = body;
 
     const updatedPost = await prisma.post.update({
       where: { slug },
@@ -36,14 +66,37 @@ export const PUT = async (req, { params }) => {
         img,
         slug: newSlug,
         catSlug,
+        editorial: {
+          upsert: {
+            create: {
+              director,
+              chief,
+              reporters,
+              editors,
+              phone,
+              email,
+            },
+            update: {
+              director,
+              chief,
+              reporters,
+              editors,
+              phone,
+              email,
+            },
+          },
+        },
+      },
+      include: {
+        editorial: true,
       },
     });
 
     return new NextResponse(JSON.stringify(updatedPost), { status: 200 });
   } catch (err) {
-    console.error("Error updating post:", err);
+    console.error("UPDATE ERROR:", err);
     return new NextResponse(
-      JSON.stringify({ message: "Failed to update post" }),
+      JSON.stringify({ message: err.message }),
       { status: 500 }
     );
   }
@@ -54,14 +107,36 @@ export const DELETE = async (req, { params }) => {
   const { slug } = params;
 
   try {
-    const deletedPost = await prisma.post.delete({
+    const post = await prisma.post.findUnique({
+      where: { slug },
+      include: { editorial: true },
+    });
+
+    if (!post) {
+      return new NextResponse(
+        JSON.stringify({ message: "Post not found" }),
+        { status: 404 }
+      );
+    }
+
+    if (post.editorial) {
+      await prisma.editorial.delete({
+        where: { postId: post.id },
+      });
+    }
+
+    await prisma.post.delete({
       where: { slug },
     });
-    return new NextResponse(JSON.stringify(deletedPost), { status: 200 });
-  } catch (err) {
-    console.error("Error deleting post:", err);
+
     return new NextResponse(
-      JSON.stringify({ message: "Failed to delete post" }),
+      JSON.stringify({ message: "Deleted" }),
+      { status: 200 }
+    );
+  } catch (err) {
+    console.error("DELETE ERROR:", err);
+    return new NextResponse(
+      JSON.stringify({ message: err.message }),
       { status: 500 }
     );
   }

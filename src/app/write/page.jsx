@@ -3,9 +3,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { Alert, FileInput, Select } from 'flowbite-react';
-import { getStorage, ref, uploadBytesResumable, uploadString, getDownloadURL } from "firebase/storage";
-import { app } from "@/utils/firebase";
+import { FileInput, Select } from 'flowbite-react';
 import styles from "./writePage.module.css";
 import Image from "next/image";
 import 'react-quill/dist/quill.snow.css';
@@ -23,13 +21,13 @@ function imageHandler() {
     const file = input.files[0];
 
     if (file.size > 800 * 1024) {
-      alert('File size exceeds 800 KB, please compress the image');
+      alert('File size exceeds 800 KB');
       return;
     }
 
     const reader = new FileReader();
 
-    reader.onloadend = () => {
+    reader.onloadend = function () {
       const base64Image = reader.result;
       const cursorPosition = this.quill.getSelection().index;
       this.quill.insertEmbed(cursorPosition, 'image', base64Image);
@@ -43,48 +41,44 @@ function imageHandler() {
 const WritePage = () => {
   const router = useRouter();
   const { data: session, status } = useSession();
-  const [fileUploadProgress, setFileUploadProgress] = useState(null);
-  const [fileUploadError, setFileUploadError] = useState(null);
+
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(null);
   const [value, setValue] = useState("");
   const [title, setTitle] = useState("");
   const [catSlug, setCatSlug] = useState("");
+  const [data, setData] = useState([]);
+
+  // 🔥 EDITORIAL STATE
+  const [editorial, setEditorial] = useState({
+    director: "",
+    chief: "",
+    reporters: "",
+    editors: "",
+    phone: "",
+    email: "",
+  });
+
   const textareaRef = useRef(null);
-    const [data, setData] = useState([]);
 
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-
+  // Fetch categories
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const res = await fetch(`${baseUrl}/api/categories`, {
-          cache: "reload",
-        });
-
-        if (!res.ok) {
-          throw new Error("Failed to fetch data");
-        }
-
-        const jsonData = await res.json();
-        const filteredData = jsonData.filter(item => item.slug !== "follower's insight");
-        setData(filteredData);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
+      const res = await fetch("/api/categories", { cache: "no-store" });
+      const json = await res.json();
+      const filtered = json.filter(i => i.slug !== "follower's insight");
+      setData(filtered);
     };
-
     fetchData();
-  }, [])
+  }, []);
 
+  // Auth check
   useEffect(() => {
     if (status === "loading") return;
+    if (!session) router.push("/auth/login");
+  }, [session, status]);
 
-    if (!session) {
-      router.push("/auth/login");
-    }
-  }, [session, status, router]);
-
+  // Auto resize title
   useEffect(() => {
     if (textareaRef.current) {
       textareaRef.current.style.height = 'auto';
@@ -92,65 +86,59 @@ const WritePage = () => {
     }
   }, [title]);
 
+  // Handle file
   const handleFileChange = (e) => {
-    const uploadedFile = e.target.files[0];
+    const f = e.target.files[0];
+    if (!f) return;
 
-    if (uploadedFile.size > 800 * 1024) {
-      alert('File size exceeds 800 KB, please compress the image');
-      setFile(null);
-      setPreview(null);
+    if (f.size > 5000 * 1024) {
+      alert('Max 5MB');
       return;
-    } else {
-      setFile(uploadedFile);
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreview(reader.result);
-      };
-      reader.readAsDataURL(uploadedFile);
     }
+
+    setFile(f);
+    const reader = new FileReader();
+    reader.onloadend = () => setPreview(reader.result);
+    reader.readAsDataURL(f);
   };
 
-  const handleHeaderImageUpload = async () => {
-    if (!file) return null;
+  // Upload file
+  const uploadFile = async (file) => {
+    const formData = new FormData();
+    formData.append("file", file);
 
-    return new Promise((resolve, reject) => {
-      const name = new Date().getTime() + '-' + file.name;
-      const storageRef = ref(getStorage(), name);
-      const uploadTask = uploadBytesResumable(storageRef, file);
-
-      uploadTask.on(
-        'state_changed',
-        (snapshot) => {
-          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          setFileUploadProgress(progress.toFixed(0));
-        },
-        (error) => {
-          setFileUploadError('File upload failed');
-          setFileUploadProgress(null);
-          reject(error);
-        },
-        async () => {
-          const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-          setFileUploadProgress(null);
-          setFileUploadError(null);
-          resolve(downloadURL);
-        }
-      );
+    const res = await fetch("/api/upload", {
+      method: "POST",
+      body: formData,
     });
+
+    const data = await res.json();
+    return data.url;
   };
 
+  // Upload base64 image
+  const uploadBase64Image = async (base64) => {
+    const res = await fetch(base64);
+    const blob = await res.blob();
+    return await uploadFile(blob);
+  };
+
+  // Submit
   const handleSubmit = async () => {
     try {
-      const headerImageUrl = await handleHeaderImageUpload();
+      if (!file) {
+        alert("Header image required");
+        return;
+      }
+
+      const headerImageUrl = await uploadFile(file);
 
       const quillImages = document.querySelectorAll('.ql-editor img');
+
       for (const img of quillImages) {
         if (img.src.startsWith('data:')) {
-          const name = new Date().getTime() + '-' + Math.random().toString(36).substr(2, 9);
-          const storageRef = ref(getStorage(), name);
-          await uploadString(storageRef, img.src, 'data_url');
-          const downloadURL = await getDownloadURL(storageRef);
-          img.src = downloadURL;
+          const url = await uploadBase64Image(img.src);
+          img.src = url;
         }
       }
 
@@ -158,38 +146,31 @@ const WritePage = () => {
 
       const res = await fetch("/api/posts", {
         method: "POST",
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           title,
           desc: updatedContent,
           img: headerImageUrl,
           slug: slugify(title),
           catSlug: catSlug || "follower's insight",
+
+          // 🔥 EDITORIAL SEND
+          ...editorial,
         }),
       });
 
-      if (headerImageUrl === null) {
-        alert('Please add the header image');
-        return;
-      }
-
-      if (res.status === 200) {
+      if (res.ok) {
         const data = await res.json();
         router.push(`/posts/${data.slug}`);
       }
-    } catch (error) {
-      setFileUploadError('File upload failed');
-      setFileUploadProgress(null);
-      console.log(error);
+    } catch (err) {
+      console.error(err);
+      alert("Upload failed");
     }
   };
 
   const slugify = (str) =>
-    str
-      .toLowerCase()
-      .trim()
+    str.toLowerCase().trim()
       .replace(/[^\w\s-]/g, "")
       .replace(/[\s_-]+/g, "-")
       .replace(/^-+|-+$/g, "");
@@ -201,75 +182,91 @@ const WritePage = () => {
         ['bold', 'italic', 'underline'],
         ['link'],
         ['image'],
-        ['video'],
         [{ 'list': 'ordered' }, { 'list': 'bullet' }],
         ['clean']
       ],
-      handlers: {
-        image: imageHandler
-      }
+      handlers: { image: imageHandler }
     }
   };
 
   return (
     <div className={styles.container}>
-      {fileUploadProgress && (
-        <progress value={fileUploadProgress} className={styles.progress} max="100" />
-      )}
+      {/* HEADER */}
       <div className={styles.headerContainer}>
         <textarea
           ref={textareaRef}
           placeholder="Title"
-          maxLength="105"
-          rows="1"
-          wrap="soft"
           className={styles.input}
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          style={{ overflow: 'hidden', resize: 'none' }}
         />
         <button className={styles.publish} onClick={handleSubmit}>
           Publish
         </button>
       </div>
+
+      {/* IMAGE */}
       <div className={styles.add}>
-        {preview && <Image src={preview} className={styles.preview} width={200} height={100} alt="Preview" />}
-        <p>Header image: </p>
-        <FileInput
-          type='file'
-          accept='image/*, video/*'
-          onChange={handleFileChange}
-        />
+        {preview && <Image src={preview} width={200} height={100} alt="preview" />}
+        <p>Header image:</p>
+        <FileInput onChange={handleFileChange} />
       </div>
+
+      {/* CATEGORY */}
       <div className={styles["category-wrapper"]}>
-        <p>Category: </p>
-        {session?.user.role !== 'ADMIN' &&
-          <Select className={styles.select} value={catSlug} onChange={(e) => setCatSlug(e.target.value)}>
-            <option value="follower's insight">Follower&apos;s Insight</option>
-          </Select>
-        }
-        {session?.user.role === 'ADMIN' &&
-          <Select className={styles.select} value={catSlug} onChange={(e) => setCatSlug(e.target.value)}>
-            <option value="follower's insight">Follower&apos;s Insight</option>
-            {data?.map((item) => (
-              <option value={item.slug.toLowerCase()} key={item.id}>
-                {item.title}
-              </option>
-            ))}
-          </Select>
-        }
+        <p>Category:</p>
+        <Select value={catSlug} onChange={(e) => setCatSlug(e.target.value)}>
+          <option value="follower's insight">Follower's Insight</option>
+          {data.map(item => (
+            <option key={item.id} value={item.slug.toLowerCase()}>
+              {item.title}
+            </option>
+          ))}
+        </Select>
       </div>
-      <div className={styles.editor}>
-        {typeof window !== 'undefined' && (
-          <ReactQuill
-            className={styles.textArea}
-            theme="snow"
-            value={value}
-            onChange={setValue}
-            placeholder="Tell your story..."
-            modules={modules}
+
+      {/* 🔥 EDITORIAL FORM */}
+    
+      <div className={styles.editorialBox}>
+       <h3>Susunan Redaksi</h3>
+
+       <div className={styles.editorialGrid}>
+          <input placeholder="Direktur"
+                  onChange={(e) => setEditorial({ ...editorial, director: e.target.value })}
+                />
+
+                <input placeholder="Pimpinan Redaksi"
+                  onChange={(e) => setEditorial({ ...editorial, chief: e.target.value })}
+                />
+
+
+
+                <input placeholder="Telepon"
+                  onChange={(e) => setEditorial({ ...editorial, phone: e.target.value })}
+                />
+
+                <input placeholder="Email"
+                  onChange={(e) => setEditorial({ ...editorial, email: e.target.value })}
+                />
+        </div>
+          <textarea placeholder="Wartawan"
+                  onChange={(e) => setEditorial({ ...editorial, reporters: e.target.value })}
+                />
+
+          <textarea placeholder="Editor"
+            onChange={(e) => setEditorial({ ...editorial, editors: e.target.value })}
           />
-        )}
+      </div>
+
+      {/* CONTENT EDITOR */}
+      <div className={styles.editor}>
+        <ReactQuill
+          className={styles.textArea}
+          theme="snow"
+          value={value}
+          onChange={setValue}
+          modules={modules}
+        />
       </div>
     </div>
   );

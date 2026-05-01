@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -50,15 +47,15 @@ model User {
   emailVerified DateTime?
   phone         String
   image         String?
-  role          UserRole @default(USER)
+  role          UserRole  @default(USER)
   accounts      Account[]
   sessions      Session[]
-  posts         Post[] // Change 'Post' to 'posts' to follow conventions
-  comments      Comment[] // Change 'Comment' to 'comments' to follow conventions
-  createdAt     DateTime  @default(now()) // Add createdAt field
-  updatedAt     DateTime  @updatedAt // Add updatedAt field
+  posts         Post[]
+  comments      Comment[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 
-  @@map("users") // Map to 'users' collection in MongoDB to follow conventions
+  @@map("users")
 }
 
 model VerificationToken {
@@ -73,23 +70,36 @@ model Category {
   id    String @id @default(cuid()) @map("_id")
   slug  String @unique
   title String
-  posts Post[] // Change 'Post' to 'posts' to follow conventions
+  posts Post[]
 }
 
 model Post {
-  id        String    @id @default(cuid()) @map("_id")
-  createdAt DateTime  @default(now())
-  slug      String    @unique
-  title     String
-  desc      String
-  img       String?
-  views     Int       @default(0)
-  catSlug   String
-  cat       Category  @relation(fields: [catSlug], references: [slug])
-  userEmail String
-  user      User      @relation(fields: [userEmail], references: [email])
-  comments  Comment[] // Change 'Comment' to 'comments' to follow conventions
-  
+  id         String      @id @default(cuid()) @map("_id")
+  createdAt  DateTime    @default(now())
+  slug       String      @unique
+  title      String
+  desc       String
+  img        String?
+  views      Int         @default(0)
+  catSlug    String
+  cat        Category    @relation(fields: [catSlug], references: [slug])
+  userEmail  String
+  user       User        @relation(fields: [userEmail], references: [email])
+  comments   Comment[]
+  editorial  Editorial?  // 🔥 NEW RELATION
+}
+
+model Editorial {
+  id        String  @id @default(cuid()) @map("_id")
+  director  String?
+  chief     String?
+  reporters String?
+  editors   String?
+  phone     String?
+  email     String?
+
+  postId String  @unique
+  post   Post    @relation(fields: [postId], references: [id])
 }
 
 model Comment {

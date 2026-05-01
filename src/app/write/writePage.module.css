@@ -142,3 +142,64 @@
     align-items: left;
   }
 }
+
+/* 🔥 EDITORIAL BOX */
+.editorialBox {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 24px;
+  margin-bottom: 24px;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: var(--softBg);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Title */
+.editorialBox h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--textColor);
+}
+
+/* Input + textarea */
+.editorialBox input,
+.editorialBox textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background-color: transparent;
+  color: var(--textColor);
+  font-size: 14px;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+/* Focus state */
+.editorialBox input:focus,
+.editorialBox textarea:focus {
+  border-color: #1a8917;
+  box-shadow: 0 0 0 1px #1a8917;
+}
+
+/* Textarea height */
+.editorialBox textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+/* Placeholder */
+.editorialBox input::placeholder,
+.editorialBox textarea::placeholder {
+  color: #888;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+  .editorialBox {
+    padding: 16px;
+  }
+}

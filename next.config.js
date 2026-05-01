@@ -13,6 +13,10 @@ const nextConfig = {
         if (!isServer) {
             // Exclude handlebars from client-side bundling
             config.resolve.alias['handlebars'] = false;
+            config.resolve.fallback = {
+                ...config.resolve.fallback,
+                undici: false,
+              };
         }
         return config;
     },
