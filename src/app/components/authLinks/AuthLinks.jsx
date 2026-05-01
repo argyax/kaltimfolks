@@ -66,6 +66,9 @@ const AuthLinks = () => {
           <Link href="/pedoman-media-siber" onClick={handleMenuClick}>
             Pedoman
           </Link>
+          <Link href="/redaksi" onClick={handleMenuClick}>
+            Redaksi
+          </Link>
           {status === "unauthenticated" ? (
             <>
               <Link href="/auth/login" onClick={handleMenuClick}>
