@@ -1,38 +1,34 @@
 "use client";
-import { deletePost } from "@/lib/dashboard";
-// import styles from "../../components/ui/dashboard/posts/posts.module.css";
+
 import styles from "../../../ui/dashboard/posts/posts.module.css";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useDebouncedCallback } from "use-debounce";
-// import { RemovePost } from "../../../../../app/dashboard/fshy/func.jsx";
+import { useRouter } from "next/navigation";
 
 const DeleteButton = ({ value }) => {
-  const searchParams = useSearchParams();
-  const { replace } = useRouter();
-  const pathname = usePathname();
   const router = useRouter();
 
-  const handleDelete = useDebouncedCallback((e) => {
-    const params = new URLSearchParams(searchParams);
+  const handleDelete = async () => {
+    try {
+      const confirmDelete = confirm("Yakin mau hapus post ini?");
+      if (!confirmDelete) return;
 
-    // params.set("page", 1);
-    if (e.target.value) {
-      params.set("id", e.target.value);
-      fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/posts/${e.target.value}`, {
+      const res = await fetch(`/api/posts/${value.slug}`, {
         method: "DELETE",
       });
-      alert(`Data berhasil dihapus`);
-    } else {
-      params.delete("id");
+
+      if (!res.ok) {
+        throw new Error("Gagal delete");
+      }
+
+      alert("Data berhasil dihapus");
+      router.refresh();
+    } catch (err) {
+      console.error(err);
+      alert("Gagal menghapus data");
     }
-    // replace("/");
-    router.refresh();
-  }, 300);
+  };
 
   return (
     <button
-      key={value.id}
-      value={value}
       onClick={handleDelete}
       className={`${styles.button} ${styles.delete}`}
     >
