@@ -38,7 +38,6 @@
     "eslint": "8.48.0",
     "eslint-config-next": "13.4.19",
     "extend": "^3.0.2",
-    "firebase": "^10.6.0",
     "flowbite-react": "^0.7.2",
     "framer-motion": "^11.0.12",
     "github-slugger": "^2.0.0",
