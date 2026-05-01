@@ -225,8 +225,7 @@ const WritePage = () => {
         </Select>
       </div>
 
-      {/* 🔥 EDITORIAL FORM */}
-    
+      {/* EDITORIAL FORM */}
       <div className={styles.editorialBox}>
        <h3>Susunan Redaksi</h3>
 

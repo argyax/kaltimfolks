@@ -50,9 +50,7 @@ function imageHandler() {
 }
 
 const slugify = (str) =>
-  str
-    .toLowerCase()
-    .trim()
+  str.toLowerCase().trim()
     .replace(/[^\w\s-]/g, '')
     .replace(/[\s_-]+/g, '-')
     .replace(/^-+|-+$/g, '');
@@ -63,30 +61,33 @@ const EditForm = ({ post }) => {
   const router = useRouter();
   const { data: session, status } = useSession();
 
-  const [title, setTitle] = useState(post.title);
-  const [value, setValue] = useState(post.desc);
-  const [catSlug, setCatSlug] = useState(post.catSlug);
+  /* 🔥 PREFILL DATA */
+  const [title, setTitle] = useState(post?.title || "");
+  const [value, setValue] = useState(post?.desc || "");
+  const [catSlug, setCatSlug] = useState(post?.catSlug || "");
   const [file, setFile] = useState(null);
-  const [preview, setPreview] = useState(post.img || null);
+  const [preview, setPreview] = useState(post?.img || null);
   const [categories, setCategories] = useState([]);
+
+  const [editorial, setEditorial] = useState({
+    director: post?.editorial?.director || "",
+    chief: post?.editorial?.chief || "",
+    reporters: post?.editorial?.reporters || "",
+    editors: post?.editorial?.editors || "",
+    phone: post?.editorial?.phone || "",
+    email: post?.editorial?.email || "",
+  });
 
   const textareaRef = useRef(null);
 
   /* FETCH CATEGORY */
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const res = await fetch('/api/categories', { cache: 'no-store' });
-        const json = await res.json();
-        const filtered = json.filter(
-          (i) => i.slug !== "follower's insight"
-        );
-        setCategories(filtered);
-      } catch (err) {
-        console.error(err);
-      }
+      const res = await fetch('/api/categories', { cache: 'no-store' });
+      const json = await res.json();
+      const filtered = json.filter(i => i.slug !== "follower's insight");
+      setCategories(filtered);
     };
-
     fetchData();
   }, []);
 
@@ -124,7 +125,7 @@ const EditForm = ({ post }) => {
 
   /* HEADER IMAGE */
   const handleHeaderUpload = async () => {
-    if (!file) return preview;
+    if (!file) return preview; // 🔥 pakai existing kalau tidak upload baru
     return await uploadToBlob(file);
   };
 
@@ -139,12 +140,8 @@ const EditForm = ({ post }) => {
 
       for (const img of images) {
         if (img.src.startsWith('blob:') || img.src.startsWith('data:')) {
-          const blob = await fetch(img.src).then((r) => r.blob());
-          const file = new File(
-            [blob],
-            `image-${Date.now()}.png`,
-            { type: blob.type }
-          );
+          const blob = await fetch(img.src).then(r => r.blob());
+          const file = new File([blob], `image-${Date.now()}.png`, { type: blob.type });
 
           const url = await uploadToBlob(file);
           img.src = url;
@@ -162,15 +159,20 @@ const EditForm = ({ post }) => {
           img: headerUrl,
           slug: slugify(title),
           catSlug,
+
+          // 🔥 editorial ikut update
+          ...editorial,
         }),
       });
 
       if (res.ok) {
         router.push(`/posts/${slugify(title)}`);
+      } else {
+        alert("Update gagal");
       }
     } catch (err) {
       console.error(err);
-      alert('Update gagal');
+      alert('Error saat update');
     }
   };
 
@@ -191,6 +193,8 @@ const EditForm = ({ post }) => {
 
   return (
     <div className={styles.container}>
+
+      {/* HEADER */}
       <div className={styles.headerContainer}>
         <textarea
           ref={textareaRef}
@@ -204,6 +208,7 @@ const EditForm = ({ post }) => {
         </button>
       </div>
 
+      {/* IMAGE */}
       <div className={styles.add}>
         {preview && (
           <Image src={preview} width={200} height={100} alt="preview" />
@@ -211,19 +216,60 @@ const EditForm = ({ post }) => {
         <FileInput type="file" onChange={handleFileChange} />
       </div>
 
-      <Select
-        value={catSlug}
-        onChange={(e) => setCatSlug(e.target.value)}
-      >
+      {/* CATEGORY */}
+      <Select value={catSlug} onChange={(e) => setCatSlug(e.target.value)}>
         <option value="follower's insight">Follower's Insight</option>
-
-        {categories.map((item) => (
+        {categories.map(item => (
           <option key={item.id} value={item.slug}>
             {item.title}
           </option>
         ))}
       </Select>
 
+      {/* 🔥 EDITORIAL */}
+      <div className={styles.editorialBox}>
+        <h3>Susunan Redaksi</h3>
+
+        <div className={styles.editorialGrid}>
+          <input
+            placeholder="Direktur"
+            value={editorial.director}
+            onChange={(e) => setEditorial({ ...editorial, director: e.target.value })}
+          />
+
+          <input
+            placeholder="Pimpinan Redaksi"
+            value={editorial.chief}
+            onChange={(e) => setEditorial({ ...editorial, chief: e.target.value })}
+          />
+
+          <input
+            placeholder="Telepon"
+            value={editorial.phone}
+            onChange={(e) => setEditorial({ ...editorial, phone: e.target.value })}
+          />
+
+          <input
+            placeholder="Email"
+            value={editorial.email}
+            onChange={(e) => setEditorial({ ...editorial, email: e.target.value })}
+          />
+        </div>
+
+        <textarea
+          placeholder="Wartawan"
+          value={editorial.reporters}
+          onChange={(e) => setEditorial({ ...editorial, reporters: e.target.value })}
+        />
+
+        <textarea
+          placeholder="Editor"
+          value={editorial.editors}
+          onChange={(e) => setEditorial({ ...editorial, editors: e.target.value })}
+        />
+      </div>
+
+      {/* CONTENT */}
       <div className={styles.editor}>
         <ReactQuill
           theme="snow"
@@ -232,6 +278,7 @@ const EditForm = ({ post }) => {
           modules={modules}
         />
       </div>
+
     </div>
   );
 };
