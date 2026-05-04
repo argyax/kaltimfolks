@@ -226,7 +226,7 @@ const WritePage = () => {
       </div>
 
       {/* EDITORIAL FORM */}
-      <div className={styles.editorialBox}>
+      {/* <div className={styles.editorialBox}>
        <h3>Susunan Redaksi</h3>
 
        <div className={styles.editorialGrid}>
@@ -255,7 +255,7 @@ const WritePage = () => {
           <textarea placeholder="Editor"
             onChange={(e) => setEditorial({ ...editorial, editors: e.target.value })}
           />
-      </div>
+      </div> */}
 
       {/* CONTENT EDITOR */}
       <div className={styles.editor}>

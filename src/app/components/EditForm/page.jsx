@@ -247,8 +247,8 @@ const EditForm = ({ post }) => {
         ))}
       </Select>
 
-      {/* 🔥 EDITORIAL */}
-      <div className={styles.editorialBox}>
+      {/* EDITORIAL */}
+      {/* <div className={styles.editorialBox}>
         <h3>Susunan Redaksi</h3>
 
         <div className={styles.editorialGrid}>
@@ -300,7 +300,7 @@ const EditForm = ({ post }) => {
             setEditorial({ ...editorial, editors: e.target.value })
           }
         />
-      </div>
+      </div> */}
 
       {/* CONTENT */}
       <div className={styles.editor}>

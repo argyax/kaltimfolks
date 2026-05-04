@@ -13,7 +13,7 @@ const RedaksiPage = () => {
       {/* CARD */}
       <div className={styles.card}>
 
-        <div className={styles.section}>
+        {/* <div className={styles.section}>
           <h3>Direktur</h3>
           <p className={styles.text}>G. Dasilvo</p>
         </div>
@@ -26,7 +26,7 @@ const RedaksiPage = () => {
               7157 PWI/WU/DP/XI/2023/06/11/83
             </span>
           </p>
-        </div>
+        </div> */}
 
         <div className={styles.section}>
           <h3>Wartawan</h3>
